@@ -127,6 +127,24 @@ ul.qs{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
 .mono{font-family:var(--f-mono);font-size:.94em}
 footer{color:var(--muted);font-size:13px}
 @media (prefers-reduced-motion: reduce){.tb .bar i{transition:none}}
+.guide{padding:14px 16px 16px;display:flex;flex-direction:column;gap:9px;font-size:13.5px}
+.rail.guiding>:not(.guide){display:none!important}
+.guide .gh{display:flex;align-items:center;gap:8px}
+.gstep{font:600 12px var(--f-mono);color:var(--accent-ink);letter-spacing:.04em;white-space:nowrap}
+.gdots{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.gdots button{width:24px;height:24px;border-radius:50%;border:1px solid var(--line);background:var(--soft);color:var(--ink);font:600 11px var(--f-mono);cursor:pointer;padding:0}
+.gdots button[aria-current="step"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.gx{border:0;background:transparent;color:var(--muted);font-size:17px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:6px}
+.gx:hover{background:var(--soft)}
+.rail .guide h3{font-size:17px;padding:0}
+.guide .gen{color:var(--muted);font-size:12.5px;margin-top:-6px}
+.gdl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:0;font-size:13px;padding:8px 10px;background:var(--soft);border-radius:8px}
+.gdl dt{color:var(--muted);white-space:nowrap}.gdl dd{margin:0}
+.gbtns{display:flex;flex-wrap:wrap;gap:6px}
+.gbtns .btn:disabled{opacity:.45;cursor:default}
+.gkey{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.gkey i{width:18px;height:4px;border-radius:2px;background:#E0249A;display:inline-block}
+.flabel.g{background:#E0249A;color:#fff;border:0;font-weight:500}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -158,7 +176,8 @@ footer{color:var(--muted);font-size:13px}
         <button id="mField" aria-pressed="false">ในสนาม · Field demo</button>
       </div>
       <div class="acts" id="actsRobot">
-        <button class="btn primary" id="bPick">▶ ไถเก็บ 3 ชิ้น</button>
+        <button class="btn primary" id="bGuide" aria-pressed="false">▶ ดูหลักการทีละขั้น</button>
+        <button class="btn" id="bPick">▶ ไถเก็บ 3 ชิ้น</button>
         <button class="btn" id="bDump">▶ เทลงถัง</button>
         <button class="btn" id="bStrafe">▶ ล้อ Mecanum</button>
         <button class="btn" id="bStart" aria-pressed="false">ท่าเริ่ม + กล่อง 25×25</button>
@@ -183,7 +202,7 @@ footer{color:var(--muted);font-size:13px}
         <div class="tubes" id="hTubes"></div>
         <div class="phase" id="hPhase">กด “เล่นเดโม 1 รอบ”</div>
       </div>
-      <div class="hint" id="hint">ลากเพื่อหมุน · เลื่อนล้อ/บีบนิ้วเพื่อซูม · คลิกหมุดตัวเลขเพื่อดูรายละเอียด</div>
+      <div class="hint" id="hint">กด “ดูหลักการทีละขั้น” เพื่อดูว่าแต่ละกลไกทำงานอย่างไร · ลากเพื่อหมุน · เลื่อนล้อ/บีบนิ้วเพื่อซูม</div>
       <div class="toast" id="toast" hidden></div>
     </div>
   </div>
@@ -198,7 +217,24 @@ footer{color:var(--muted);font-size:13px}
       <span><i class="sw" style="background:var(--t-box)"></i>กล่องนม</span>
     </div>
     <div class="pdesc" id="pdesc"></div>
+      <div class="guide" id="guide" hidden aria-live="polite">
+        <div class="gh"><span class="gstep" id="gStep">ภาพรวม</span><div class="gdots" id="gDots" role="group" aria-label="เลือกขั้น"></div><button class="gx" id="gX" type="button" aria-label="ปิดโหมดอธิบาย">✕</button></div>
+        <h3 id="gTitle"></h3><p class="gen" id="gEnT"></p>
+        <dl class="gdl"><dt>ชิ้นที่ขยับ</dt><dd id="gPart"></dd><dt>ขับด้วย</dt><dd id="gAct"></dd><dt>ขยับแบบไหน</dt><dd id="gMove"></dd><dt>สั่งงานเมื่อ</dt><dd id="gTrig"></dd></dl>
+        <p id="gHow"></p><p class="en" id="gEn"></p>
+        <div class="gkey"><i></i>ลูกศรสีชมพู = ทิศที่ชิ้นส่วนกำลังขยับ · ส่วนที่ไม่เกี่ยวจะจางลง</div>
+        <div class="gbtns"><button class="btn" id="gPrev" type="button">◀ ก่อนหน้า</button><button class="btn" id="gAgain" type="button">↻ เล่นซ้ำ</button><button class="btn primary" id="gNext" type="button">ถัดไป ▶</button><button class="btn" id="gAuto" type="button" aria-pressed="false">เล่นต่ออัตโนมัติ</button><button class="btn" id="gSlow" type="button" aria-pressed="true">ช้า ½×</button></div>
+      </div>
   </aside>
+</section>
+
+<section class="block" id="howSec">
+  <h2>หลักการทำงาน: ชิ้นไหนขยับ ขยับอย่างไร</h2>
+  <p class="en">ขยะ 1 ชิ้นผ่าน 6 สถานีจากพื้นจนลงถัง สายพานวิ่งตลอด ส่วนอื่นขยับเฉพาะตอนมีของ กด “ดูในโมเดล” เพื่อดูสถานีนั้นแบบเคลื่อนไหวช้า ๆ ในโมเดลด้านบน · One item passes six stations from the floor to the bin; press “ดูในโมเดล” to watch that station animated in the model above.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>ขั้น</th><th>สถานี · ชิ้นที่ขยับ</th><th>ขับด้วย</th><th>ขยับแบบไหน</th><th>สั่งงานเมื่อ</th><th>เวลา</th><th></th></tr></thead>
+    <tbody id="howRows"></tbody>
+  </table></div>
 </section>
 
 <section class="block">
@@ -1958,7 +1994,7 @@ let toastT=0; function flash(t){ const el=$('#toast'); el.textContent=t; el.hidd
 
 /* ---------- robot-mode actions ---------- */
 let nextType=0;
-function busy(){ if(main){ flash('รอให้ท่าปัจจุบันจบก่อน'); return true; } return false; }
+function busy(){ if(guideOn) guideExit(); if(main){ flash('รอให้ท่าปัจจุบันจบก่อน'); return true; } return false; }
 function resetStartBox(){ sizeBox.visible=false; sizePin.on=false; setPressed('#bStart',false); }
 $('#bPick').addEventListener('click',()=>{
   if(mode!=='robot'||busy()) return;
@@ -1992,7 +2028,7 @@ $('#bStart').addEventListener('click',()=>{
   if(on){ rBin.visible=false; rBinPin.on=false; play([waitBg(),S({wing:0,push:0,slide:0,shut:0},.8),call(()=>{ sizeBox.visible=true; sizePin.on=true; })]); }
   else { sizeBox.visible=false; sizePin.on=false; }
 });
-$('#bPins').addEventListener('click',()=>{ showPins=!showPins; setPressed('#bPins',showPins); });
+$('#bPins').addEventListener('click',()=>{ if(guideOn) return; showPins=!showPins; setPressed('#bPins',showPins); });
 function setPressed(sel,v){ $(sel).setAttribute('aria-pressed',String(v)); }
 
 /* ---------- field actions ---------- */
@@ -2008,8 +2044,174 @@ $('#bShuffle').addEventListener('click',()=>{ stopAll(); missionOn=false; seed=(
 document.querySelectorAll('[data-sp]').forEach(b=>b.addEventListener('click',()=>{ speed=+b.dataset.sp; document.querySelectorAll('[data-sp]').forEach(x=>x.setAttribute('aria-pressed',String(x===b))); }));
 $('#bFollow').addEventListener('click',()=>{ follow=!follow; setPressed('#bFollow',follow); lastRobotPos.copy(robot.position); });
 
+/* ---------- how-it-works guide: one station at a time ---------- */
+let guideOn=false, gIdx=0, gAuto=false, gSlow=true, gSaved=null, gPending=null, gClock=0;
+const GC=0xE0249A;
+const gMat=new T.MeshBasicMaterial({color:GC,transparent:true,opacity:.95,depthTest:false,side:T.DoubleSide});
+const UPV=new T.Vector3(0,1,0);
+function gArrow(parent,len,x,y,z,dir){
+  const g=new T.Group(); const sh=new T.Mesh(cyl(.32,.32,len,10),gMat); sh.position.y=len/2; g.add(sh);
+  const hd=new T.Mesh(new T.ConeGeometry(.95,1.9,16),gMat); hd.position.y=len+.95; g.add(hd);
+  g.children.forEach(m=>m.renderOrder=20);
+  const dv=new T.Vector3(...dir).normalize(); g.position.set(x,y,z); g.quaternion.setFromUnitVectors(UPV,dv);
+  g.userData={base:g.position.clone(),dir:dv,pulse:true}; g.visible=false; parent.add(g); return g;
+}
+const GA={
+  wing:[gArrow(base,3.2,11.5,5,18,[-1,0,-.45]),gArrow(base,3.2,-11.5,5,18,[1,0,-.45])],
+  drive:[gArrow(base,7,15.5,1.2,-6,[0,0,1]),gArrow(base,7,-15.5,1.2,-6,[0,0,1])],
+  beltUp:[], beltDown:[],
+  push:[gArrow(robot,5,0,TOP_Y+14,11,[0,0,-1])],
+  drop:[gArrow(robot,4,5.2,TOP_Y-1,1.1,[0,-1,0])],
+  slide:[gArrow(base,8,4,UPPER_Y+3,-14.5,[1,0,0])],
+  fall:[gArrow(upper,4,HOLE.x,UPPER_Y-2.5,HOLE.z,[0,-1,0])],
+  rev:[]
+};
+[1,-1].forEach(sx=>{ for(let k=0;k<3;k++){ const a=gArrow(base,3,sx*2.3,0,BZ1+1.3,[0,1,0]); a.userData.pulse=false; a.userData.k=k; GA.beltUp.push(a);
+  const b=gArrow(base,3,sx*5.3,0,BZ1+1.3,[0,-1,0]); b.userData.pulse=false; b.userData.k=k; GA.beltDown.push(b); } });
+// curved arrow riding on the revolver, so it turns the same way the tubes turn
+const revArc=new T.Group(); revArc.position.y=TUBE_H+1.6; revolver.add(revArc); revArc.visible=false;
+{ const R=RING+1.3, A1=1.9, pts=[]; for(let i=0;i<=24;i++){ const t=i/24*A1; pts.push(new T.Vector3(R*Math.cos(t),0,R*Math.sin(t))); }
+  const tube=new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),40,.32,8,false),gMat); tube.renderOrder=20; revArc.add(tube);
+  const hd=new T.Mesh(new T.ConeGeometry(.95,1.9,16),gMat); hd.renderOrder=20; hd.position.copy(pts[24]);
+  hd.quaternion.setFromUnitVectors(UPV,new T.Vector3(-Math.sin(A1),0,Math.cos(A1))); revArc.add(hd); }
+GA.rev.push(revArc);
+// dotted path of one item, robot frame
+const PATH=[[0,1,27],[0,1,CH_Z],[0,TOP_Y+1,CH_Z],[0,TOP_Y+1,C.z+RR],[0,UPPER_Y+4,C.z+RR]].map(p=>new T.Vector3(...p));
+const pathG=new T.Group(); robot.add(pathG); pathG.visible=false;
+const pLine=new T.Line(new T.BufferGeometry().setFromPoints(PATH),new T.LineDashedMaterial({color:GC,dashSize:1.6,gapSize:1.2,depthTest:false,transparent:true}));
+pLine.computeLineDistances(); pLine.renderOrder=19; pathG.add(pLine);
+const segL=[]; let pathLen=0; for(let i=1;i<PATH.length;i++){ const l=PATH[i].distanceTo(PATH[i-1]); segL.push(l); pathLen+=l; }
+const pDots=[]; for(let k=0;k<16;k++){ const m=new T.Mesh(new T.SphereGeometry(.75,12,8),gMat); m.renderOrder=20; pathG.add(m); pDots.push(m); }
+function pathAt(s){ s=((s%pathLen)+pathLen)%pathLen; for(let i=0;i<segL.length;i++){ if(s<=segL[i]) return PATH[i].clone().lerp(PATH[i+1],s/segL[i]); s-=segL[i]; } return PATH[PATH.length-1].clone(); }
+const V=(x,y,z)=>new T.Vector3(x,y,z);
+function gLabel(html,obj,at){ const p=addPin(html,'flabel g',obj,at,'robot'); p.always=true; p.on=false; return p; }
+
+const GSTEPS=[
+ {t:'ภาพรวม: เส้นทางของขยะ 1 ชิ้น',en:'Overview: the path of one item',
+  part:'ทั้งระบบ',act:'ล้อ 4 + สายพาน 1 + สเต็ปเปอร์ 2 + เซอร์โว 3',move:'สายพานวิ่งขึ้นตลอดเวลา กลไกอื่นขยับเฉพาะตอนมีของ',trig:'ปุ่ม Start บนตัวหุ่น',time:'—',
+  how:'ขยะเดินทางตามจุดสีชมพู ① ปีกต้อนเข้ากลาง ② สายพาน 2 เส้นหนีบด้านข้าง ③ ยกขึ้น 84 ซม. ④ ค้างบนลิ้นกันตก ลูกโม่หมุนท่อมารอ ⑤ ตัวดันส่งลงท่อ ⑥ ที่ถัง เลื่อนออกแล้วเปิดประตูเท',
+  enHow:'Pink dots trace one item: wings funnel it, two belts grip and lift it, it rests on the pawls, the pusher drops it into the matching tube, and at the bin the tube empties through the gate.',
+  cam:[78,70,104],tg:[0,44,0],focus:null,arrows:[],path:true,
+  labels:[['① ปีกต้อนเข้ากลาง',base,V(0,9,25)],['② สายพานหนีบ',base,V(-10,12,BZ)],['③ ยกขึ้น 84 ซม.',base,V(-10,50,BZ)],['④ ลิ้นกันตก + ลูกโม่หมุนรอ',base,V(-9,TOP_Y+12,CH_Z)],['⑤ ตัวดันส่งลงท่อ',robot,V(9,TOP_Y+13,2)],['⑥ เทลงถัง',upper,V(HOLE.x+8,UPPER_Y-3,HOLE.z)]],
+  setup(){ fillTube(0,1,0); fillTube(1,2,1); fillTube(2,1,2); st.psi=wrapA(BETA_L-tubeA[1]); },
+  run(){ return [wait(7)]; }},
+ {t:'ปีกไถต้อนขยะเข้ากลาง',en:'Wings funnel the item to the centre',
+  part:'ปีกพับ 2 ข้าง + แผ่นสอบในคงที่',act:'เซอร์โว MG90S 1 ตัว (กางครั้งเดียว) + ล้อ Mecanum 4 ล้อ',move:'ปีกหมุนออก 50° รอบบานพับแนวตั้ง แล้วอยู่นิ่ง หุ่นวิ่งตรง 30 ซม./วิ',trig:'ปุ่ม Start (กางปีก) · กล้องบนบอกตำแหน่งขยะ',time:'ไม่ต้องหยุด',
+  how:'ปีกที่กางทำให้ปากรับกว้าง 20 ซม. ขยะที่เยื้องจากแนวกลางได้ถึง ±8 ซม. จะชนแผ่นเอียงแล้วไถลเข้าหาช่องกลางกว้าง 4.4 ซม. เอง หุ่นจึงแค่ขับตรงผ่านขยะ ไม่ต้องหยุดเล็ง',
+  enHow:'Opened wings give a 20 cm mouth. An item up to ±8 cm off-centre hits the angled plates and slides into the 4.4 cm centre slot while the robot keeps driving.',
+  cam:[50,40,66],tg:[0,6,-6],focus:['plow','drive'],arrows:['wing','drive'],
+  labels:[['ปีกกาง 50°',base,V(13,9,17)],['หุ่นวิ่งตรง ไม่หยุด',base,V(17,4,-6)],['ช่องกลาง 4.4 ซม.',base,V(0,9,11)]],
+  setup(){ st.wing=0; setPose({x:0,z:-46,h:0}); const it=makeItem(1); it.position.set(5.5,0,8); it.rotation.y=.6; loose.add(it); this.it=it; },
+  run(){ const it=this.it; return [S({wing:1},1.0), wait(.3), tMove(0,-9,25,true), funnel(it,15), rise(it,14), wait(.5)]; }},
+ {t:'สายพาน 2 เส้นหนีบขยะ',en:'Two belts grip the item',
+  part:'สายพานโฟม 2 เส้นที่หันหน้าเข้าหากัน',act:'มอเตอร์ JGA25-370 ตัวเดียว + เฟืองกลับทิศ',move:'สองเส้นหมุนสวนกัน ด้านในที่หันเข้าหากันวิ่งขึ้นทั้งคู่ 50 ซม./วิ',trig:'วิ่งตลอดตั้งแต่เริ่ม · IR ที่ปากนับชิ้นที่เข้า',time:'ทันทีที่เข้าช่อง',
+  how:'ช่องระหว่างผิวโฟมกว้าง 4.4 ซม. แคบกว่าขยะเล็กน้อย (4.0–5.3 ซม.) โฟมจึงยุบและบีบขยะไว้ด้านข้าง แรงเสียดทานที่ผิวโฟมพาขยะขึ้นไปพร้อมสายพาน ลูกปืนกดหลังสายพานใช้ปรับแรงบีบ',
+  enHow:'The 4.4 cm gap is slightly narrower than the items, so the foam compresses and squeezes them from the sides; friction carries them up. Idlers behind the belts set the grip force.',
+  cam:[34,26,62],tg:[0,13,6],focus:['belt','plow'],arrows:['beltUp','beltDown'],
+  labels:[['หมุนตามเข็ม ↻',base,V(-7.5,24,BZ)],['หมุนทวนเข็ม ↺',base,V(7.5,24,BZ)],['ด้านในวิ่งขึ้นทั้งคู่ → หนีบแล้วยก',base,V(0,30,BZ1+1)]],
+  setup(){ const it=makeItem(1); chanAnchor.add(it); it.position.set(0,0,5.5); this.it=it; },
+  run(){ const it=this.it; return [wait(.4), tween(it.position,{z:0},1.0), wait(.5), rise(it,24), wait(.4)]; }},
+ {t:'ยกขึ้น 84 ซม. ได้หลายชิ้นพร้อมกัน',en:'Lift 84 cm, several items at once',
+  part:'สายพานช่วงด้านใน + แผ่นนำทางใสด้านหลัง',act:'มอเตอร์สายพานตัวเดิม',move:'ขยะเลื่อนขึ้นตรง ๆ ตามสายพาน',trig:'—',time:'≈ 1.7 วิ ต่อการขึ้น 1 รอบ',
+  how:'สายพานไม่ต้องหยุดหรือกลับลงมารับ ชิ้นที่สองเข้าช่องได้ทันทีขณะชิ้นแรกยังอยู่กลางทาง (ต่างจากถ้วยลิฟต์ของ M4 ที่ต้องรอถ้วยกลับลงมา) แผ่นใสด้านหลังกันขยะหลุดออกจากช่อง',
+  enHow:'The belts never stop or return, so a second item can enter while the first is still rising. The clear back plate keeps items in the channel.',
+  cam:[50,32,72],tg:[0,24,6],focus:['belt'],arrows:['beltUp','beltDown'],
+  labels:[['84 ซม. ใน ≈ 1.7 วิ',base,V(-9,62,BZ)],['ชิ้นที่ 2 ตามขึ้นมาได้ทันที',chanAnchor,V(-9,20,0)]],
+  setup(){ const a=makeItem(1), b=makeItem(0); chanAnchor.add(a); chanAnchor.add(b); a.position.set(0,24,0); b.position.set(0,0,0); this.a=a; this.b=b; },
+  run(){ const d=(TOP_Y-24)/BELT_V; return [wait(.3), par(rise(this.a,TOP_Y,d), rise(this.b,TOP_Y-24,d), tCam([50,86,72],[0,64,6],d)), wait(.6)]; }},
+ {t:'ยอด: ลิ้นกันตกรับไว้ ลูกโม่หมุนท่อมารอ',en:'Top: pawls hold it, revolver turns the tube',
+  part:'ลิ้นกันตก 2 ชิ้น + ลูกโม่ 3 ท่อ',act:'ลิ้นเป็นสปริง ไม่มีมอเตอร์ · ลูกโม่ใช้ NEMA17 + TMC2209',move:'ลิ้นพับขึ้นให้ของผ่านแล้วดีดกลับรองใต้ของ · ลูกโม่หมุนครั้งละ 120°',trig:'IR ที่ยอดเห็นของ · ชนิดรู้จากกล้องบนตั้งแต่ก่อนเก็บ',time:'≈ 0.5 วิ',
+  how:'เมื่อขยะพ้นยอดสายพาน ลิ้นกันตกรองใต้ของไว้ ระหว่างนั้นลูกโม่หมุนท่อของประเภทนั้นมาอยู่ใต้ตัวดัน แถบสีบนท่อบอกประเภท: เทา โลหะ · ฟ้า พลาสติก · เขียว กล่องนม',
+  enHow:'Spring pawls catch the item above the belts while the stepper turns the matching tube (colour band) under the pusher.',
+  cam:[42,118,60],tg:[0,77,0],focus:['belt','revolver','pusher','vision'],arrows:['rev'],revDir:1,
+  labels:[['ลิ้นกันตกรองไว้',base,V(-11,BELT_TOP-2,CH_Z)],['ลูกโม่หมุน 120°',upper,V(C.x+13,UPPER_Y+TUBE_H+1,C.z)],['กล้องบน: รู้ชนิดล่วงหน้า',camTop,V(0,3,0)]],
+  setup(){ const it=makeItem(1); chanAnchor.add(it); it.position.set(0,TOP_Y,0); this.it=it; st.psi=0; },
+  run(){ return [wait(.8), tRev(1,'load',1.4), wait(.6)]; }},
+ {t:'ตัวดันส่งลงท่อ ซ้อนตั้งในท่อ',en:'Pusher drops it into the tube; items stack',
+  part:'ตัวดันบน',act:'เซอร์โว MG90S + เฟืองสะพาน 80 มม.',move:'เลื่อนตรงไปด้านหลัง 7 ซม. แล้วถอยกลับ',trig:'ลูกโม่หมุนถึงตำแหน่ง (Hall sensor)',time:'≈ 0.3 วิ + ถอย 0.25 วิ',
+  how:'ตัวดันผลักขยะพ้นลิ้นกันตกไปตกลงปากท่อ ขยะตกตั้งซ้อนบนชิ้นก่อนหน้า ท่อละ 4 ชิ้น รวม 12 ชิ้น สถานีนี้ใช้ ~0.8 วิต่อชิ้น สั้นกว่าเวลาขับไปชิ้นถัดไป จึงไม่เกิดคิวค้าง',
+  enHow:'The pusher slides the item off the pawls into the tube, where it lands upright on the previous one: 4 per tube, 12 in total.',
+  cam:[58,104,34],tg:[0,72,0],focus:['pusher','revolver'],arrows:['push','drop'],
+  labels:[['ตัวดันเลื่อน 7 ซม.',robot,V(0,TOP_Y+21,7)],['ซ้อนในท่อ ชิ้นที่ 3 จาก 4',upper,V(C.x-9,UPPER_Y+26,C.z+RR)]],
+  setup(){ fillTube(1,2,1); st.psi=wrapA(BETA_L-tubeA[1]); const it=makeItem(1); chanAnchor.add(it); it.position.set(0,TOP_Y,0); it.userData.tube=1; this.it=it; },
+  run(){ const it=this.it; return [wait(.5), pushSlow(it,1.0), par(releaseSlow(it,1.1), S({push:0},.8)), wait(.6)]; }},
+ {t:'ที่ถัง: เลื่อนออก อ่าน QR เปิดประตูเท',en:'At the bin: slide out, read QR, open the gate',
+  part:'ลิ้นชักเลื่อน + ประตูเท + กล้องข้าง',act:'สเต็ปเปอร์ + GT2 บนราง MGN12 · NEMA17 · เซอร์โว MG90S',move:'ชุดลูกโม่เลื่อนออก 16 ซม. → หมุนท่อที่ตรง QR มาที่รูเท → ประตูหมุนเปิด ของทั้งท่อหล่นลงถัง',trig:'ToF ยืนยันว่าชิดถัง + กล้องข้างอ่าน QR',time:'≈ 2 วิ ต่อถัง',
+  how:'เทได้ทั้งท่อในคำสั่งเดียว ประตูปิดไว้ตลอดตอนลูกโม่หมุน ท่ออื่นที่หมุนผ่านรูเทจึงไม่หล่นผิดถัง กล้องข้างต้องอ่าน QR ได้ก่อนจึงจะเปิดประตู',
+  enHow:'One command empties a whole tube. The gate stays shut while the revolver turns, so other tubes passing the hole cannot spill into the wrong bin.',
+  cam:[82,62,98],tg:[12,24,-4],focus:['slide','revolver','shutter','vision'],arrows:['slide','fall','rev'],revDir:-1,
+  labels:[['ลิ้นชักเลื่อนออก 16 ซม.',base,V(9,UPPER_Y+7,-14.5)],['กล้องข้างอ่าน QR',camSide,V(-2,-5,5)],['ประตูเปิด ของหล่นลงถัง',upper,V(HOLE.x+9,UPPER_Y-3,HOLE.z+7)]],
+  setup(){ fillTube(1,3,1); st.psi=wrapA(BETA_L-tubeA[1]); rBin.visible=true; rBinPin.on=false; rBinPin.el.textContent='QR → '+TYPES[1].th; rBinPin.el.style.background=css(TYPES[1].cssv); },
+  run(){ return [wait(.4), S({slide:SLIDE_MAX},1.4), call(()=>showBeam(8.6)), wait(.9), call(()=>{ beam.visible=false; rBinPin.on=true; }),
+    tRev(1,'dump',1.2), S({shut:1},.6), dropTube(1,{group:rBin,floorY:.6,sx:13,sz:21}), wait(1.2), S({shut:0},.5), S({slide:0},1.3)]; }}
+];
+GSTEPS.forEach(s=>{ s.pins=s.labels.map(l=>gLabel(...l)); });
+
+function tCam(p,t,d=1.3){ return {init(){ const p0=camera.position.clone(), t0=controls.target.clone(), p1=V(...p), t1=V(...t); return {d,u:k=>{ const e=ease(k); camera.position.lerpVectors(p0,p1,e); controls.target.lerpVectors(t0,t1,e); }}; }}; }
+function rise(it,y1,d){ return {init(){ const y0=it.position.y; return {d:d||Math.abs(y1-y0)/BELT_V,u:k=>{ it.position.y=y0+(y1-y0)*k; }}; }}; }
+// robot drives on while the angled wings slide the item sideways into the slot (item stays put in the world along z)
+function funnel(it,v){ return {init(){ chanAnchor.attach(it); const p=it.position.clone(), fz=pose.z, L=p.z;
+  return {d:L/v,u:k=>{ pose.z=fz+L*k; const e=ease(Math.min(1,k/.8)); it.position.set(p.x*(1-e),0,p.z-L*k); it.rotation.y*=.97; }}; }}; }
+function pushSlow(it,d){ return {init(){ const z0=it.position.z; return {d,u:k=>{ const e=ease(k); st.push=e; it.position.z=z0-PUSH_ITEM*e; }}; }}; }
+function releaseSlow(it,d){ return {init(){ const x=releaseInto(it).init(); return {d,u:x.u}; }}; }
+function fillTube(i,n,type){ const g=tubeG[i]; for(let k=0;k<n;k++){ const it=makeItem(type); let y0=.15; g.userData.items.forEach(o=>y0+=o.userData.H+.15); g.userData.items.push(it); g.add(it); it.position.set(0,y0,0); it.rotation.y=k*1.3; it.userData.state='tube'; } }
+
+const gEl=$('#guide');
+function gResetScene(){
+  stopAll(); clearOnBoard(); while(loose.children.length) loose.remove(loose.children[0]);
+  rBin.children.filter(o=>o.userData&&o.userData.type!==undefined).forEach(o=>rBin.remove(o)); rBin.visible=false; rBinPin.on=false;
+  Object.assign(st,START_STATE); st.wing=1; setPose({x:0,z:0,h:0}); beam.visible=false; hud();
+}
+function gFocus(keys){ for(const k in partMats){ const on=!keys||keys.includes(k); partMats[k].forEach(m=>{ if(!m.userData.o0) m.userData.o0={t:m.transparent,o:m.opacity,dw:m.depthWrite}; const o=m.userData.o0;
+  if(on){ m.transparent=o.t; m.opacity=o.o; m.depthWrite=o.dw; } else { m.transparent=true; m.opacity=Math.min(o.o,.09); m.depthWrite=false; } m.needsUpdate=true; }); } }
+function gHideAll(){ Object.values(GA).flat().forEach(a=>a.visible=false); pathG.visible=false; GSTEPS.forEach(s=>s.pins.forEach(p=>p.on=false)); }
+function clearSel(){ selPart=null; PARTS.forEach(p=>{ p.btn.setAttribute('aria-pressed','false'); p.pin.el.classList.remove('sel'); p.mats.forEach(k=>(partMats[k]||[]).forEach(m=>{ m.emissive.copy(BLACK); m.emissiveIntensity=0; })); }); renderDesc(); }
+function guideGo(n){
+  if(mode!=='robot') setMode('robot');
+  if(!guideOn){ guideOn=true; gSaved={speed,pins:showPins}; showPins=false; setPressed('#bPins',false); clearSel(); resetStartBox(); gEl.hidden=false; $('.rail').classList.add('guiding'); $('#hint').hidden=true; setPressed('#bGuide',true); }
+  gIdx=Math.max(0,Math.min(GSTEPS.length-1,n)); const s=GSTEPS[gIdx];
+  speed=gSlow?.5:1; gResetScene(); gHideAll(); gFocus(s.focus);
+  s.arrows.forEach(k=>GA[k].forEach(a=>a.visible=true)); if(s.revDir) revArc.scale.z=s.revDir; pathG.visible=!!s.path; s.pins.forEach(p=>p.on=true);
+  s.setup(); applyRobot(); applyPose();
+  $('#gStep').textContent=gIdx? `ขั้น ${gIdx} จาก ${GSTEPS.length-1}`:'ภาพรวม';
+  $('#gTitle').textContent=s.t; $('#gEnT').textContent=s.en; $('#gPart').textContent=s.part; $('#gAct').textContent=s.act; $('#gMove').textContent=s.move; $('#gTrig').textContent=s.trig;
+  $('#gHow').textContent=s.how; $('#gEn').textContent=s.enHow;
+  document.querySelectorAll('#gDots button').forEach((b,i)=>{ if(i===gIdx) b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current'); });
+  $('#gPrev').disabled=gIdx===0; $('#gNext').textContent=gIdx===GSTEPS.length-1?'จบ ✓':'ถัดไป ▶';
+  play([tCam(s.cam,s.tg,1.1), ...s.run(), dyn(()=> gAuto && gIdx<GSTEPS.length-1 ? [wait(1.6), call(()=>{ gPending=gIdx+1; })] : [])]);
+}
+function guideExit(){
+  if(!guideOn) return; guideOn=false; gPending=null; gEl.hidden=true; $('.rail').classList.remove('guiding'); $('#hint').hidden=false; setPressed('#bGuide',false);
+  gHideAll(); gFocus(null); speed=gSaved.speed; showPins=gSaved.pins; setPressed('#bPins',showPins); revArc.scale.z=1;
+  gResetScene(); st.wing=0; applyRobot(); camera.position.set(105,92,128); controls.target.set(0,42,0);
+}
+function guideAnim(dt){
+  gClock+=dt*speed;
+  if(pathG.visible) pDots.forEach((m,k)=>m.position.copy(pathAt(gClock*14+k*pathLen/pDots.length)));
+  GA.beltUp.forEach(a=>{ if(a.visible) a.position.y=BY0+6+((st.belt+a.userData.k*24)%66); });
+  GA.beltDown.forEach(a=>{ if(a.visible) a.position.y=BY1-6-((st.belt+a.userData.k*24)%66); });
+  const w=(Math.sin(gClock*5)+1)*.6;
+  Object.values(GA).flat().forEach(a=>{ if(a.visible&&a.userData.pulse&&a.userData.base) a.position.copy(a.userData.base).addScaledVector(a.userData.dir,w); });
+  if(gPending!==null && !main){ const n=gPending; gPending=null; guideGo(n); }
+}
+GSTEPS.forEach((s,i)=>{ const b=document.createElement('button'); b.type='button'; b.textContent=i?String(i):'◎'; b.setAttribute('aria-label',i?`ขั้น ${i}: ${s.t}`:'ภาพรวม'); b.addEventListener('click',()=>guideGo(i)); $('#gDots').appendChild(b); });
+$('#bGuide').addEventListener('click',()=>{ if(guideOn) guideExit(); else guideGo(0); });
+$('#gX').addEventListener('click',guideExit);
+$('#gPrev').addEventListener('click',()=>guideGo(gIdx-1));
+$('#gNext').addEventListener('click',()=>{ if(gIdx===GSTEPS.length-1) guideExit(); else guideGo(gIdx+1); });
+$('#gAgain').addEventListener('click',()=>guideGo(gIdx));
+$('#gAuto').addEventListener('click',()=>{ gAuto=!gAuto; setPressed('#gAuto',gAuto); if(gAuto&&!main&&gIdx<GSTEPS.length-1) guideGo(gIdx+1); });
+$('#gSlow').addEventListener('click',()=>{ gSlow=!gSlow; setPressed('#gSlow',gSlow); speed=gSlow?.5:1; });
+document.addEventListener('keydown',e=>{ if(!guideOn) return; if(e.key==='ArrowRight'){ $('#gNext').click(); } else if(e.key==='ArrowLeft' && gIdx>0){ guideGo(gIdx-1); } else if(e.key==='Escape'){ guideExit(); } });
+// summary table under the viewer, built from the same step data
+$('#howRows').innerHTML=GSTEPS.slice(1).map((s,i)=>`<tr><td class="mono">${i+1}</td><td><b>${s.t}</b><br><span class="en">${s.part}</span></td><td>${s.act}</td><td>${s.move}</td><td>${s.trig}</td><td class="mono">${s.time}</td><td><button class="btn" type="button" data-gstep="${i+1}">ดูในโมเดล ▶</button></td></tr>`).join('');
+document.querySelectorAll('[data-gstep]').forEach(b=>b.addEventListener('click',()=>{ guideGo(+b.dataset.gstep); stage.scrollIntoView({behavior:'smooth',block:'center'}); }));
+
+{ const m=(typeof location!=='undefined'&&location.hash||'').match(/^#how(\d)?$/); if(m) setTimeout(()=>guideGo(+(m[1]||0)),0); }
+
 /* ---------- modes ---------- */
 function setMode(m){
+  if(guideOn) guideExit();
   mode=m; stopAll(); missionOn=false; paused=false; clearOnBoard();
   while(loose.children.length) loose.remove(loose.children[0]);
   rBin.children.filter(o=>o.userData&&o.userData.type!==undefined).forEach(o=>rBin.remove(o));
@@ -2020,7 +2222,7 @@ function setMode(m){
   if(m==='robot'){
     setPose({x:0,z:0,h:0}); rBin.visible=false; rBinPin.on=false;
     setSun(90,new T.Vector3(70,150,90)); camera.position.set(105,92,128); controls.target.set(0,42,0); controls.maxDistance=420; controls.minDistance=30;
-    $('#hint').textContent='ลากเพื่อหมุน · เลื่อนล้อ/บีบนิ้วเพื่อซูม · คลิกหมุดตัวเลขเพื่อดูรายละเอียด';
+    $('#hint').textContent='กด “ดูหลักการทีละขั้น” เพื่อดูว่าแต่ละกลไกทำงานอย่างไร · ลากเพื่อหมุน · เลื่อนล้อ/บีบนิ้วเพื่อซูม';
   } else {
     layoutField();
     setSun(260,new T.Vector3(120,320,160)); camera.position.set(40,360,330); controls.target.set(0,0,0); controls.maxDistance=1200; controls.minDistance=40;
@@ -2051,7 +2253,7 @@ const clock=new T.Clock();
 setMode('robot');
 function frame(){
   const dt=Math.min(clock.getDelta(),.1);
-  tick(dt); if(!paused && (missionOn||bgRs.length||main)) st.belt+=dt*speed*BELT_V; applyRobot(); applyPose();
+  tick(dt); if(guideOn) guideAnim(dt); if(!paused && (guideOn||missionOn||bgRs.length||main)) st.belt+=dt*speed*BELT_V; applyRobot(); applyPose();
   if(mode==='field'){ if(follow){ const d=robot.position.clone().sub(lastRobotPos); camera.position.add(d); controls.target.add(d); } lastRobotPos.copy(robot.position); $('#hTime').textContent=fmt(simTime); hud(); }
   if(toastT>0){ toastT-=dt; if(toastT<=0) $('#toast').hidden=true; }
   controls.update(); renderer.render(scene,camera); placePins();
