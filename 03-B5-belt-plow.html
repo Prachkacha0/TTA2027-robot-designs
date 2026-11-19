@@ -171,6 +171,12 @@ footer{color:var(--muted);font-size:13px}
 .eqn{display:inline-grid;place-items:center;min-width:17px;height:17px;border-radius:50%;background:#fff;color:var(--tc);font:700 11px var(--f-mono);margin-right:5px;vertical-align:-2px}
 .eqc .go{color:var(--tc);font-weight:600;white-space:nowrap}
 .flabel.eq.hot{outline:3px solid #fff;transform:translate(-50%,-100%) scale(1.15);z-index:5}
+.flabel.dim{background:#0B7285;color:#fff;border:0;font:600 12.5px var(--f-mono);padding:2px 8px;border-radius:5px;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.buytbl td.num,.buytbl th.num{text-align:right;white-space:nowrap}
+.buytbl tr.grp th{background:var(--soft);color:var(--ink);font:600 14px var(--f-body)}
+.buytbl tr.got td{opacity:.5}.buytbl tr.got b{text-decoration:line-through}
+.buytbl input{width:18px;height:18px;accent-color:var(--accent)}
+.buyhead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -185,8 +191,8 @@ footer{color:var(--muted);font-size:13px}
   <p class="lead">หุ่นยนต์ล้อ Mecanum ที่วิ่งไถผ่านขยะได้เลยโดยไม่ต้องหยุด ปีกด้านหน้าต้อนขยะเข้ากลาง สายพานโฟม 2 เส้นหนีบด้านข้างแล้วยกขึ้นไปส่งลูกโม่ บนสายพานมีขยะได้หลายชิ้นพร้อมกัน จึงไม่มีจังหวะรอเหมือนลิฟต์ถ้วย</p>
   <p class="lead en">A mecanum robot that plows straight through the items without stopping. Front wings funnel each item to the centre, and two foam belts grip it from the sides and carry it up to the revolver. Several items can ride the belts at once, so there is no waiting for a lift cup to come back down.</p>
   <dl class="specs">
-    <div><dt>ขนาดตอนเริ่ม · start size</dt><dd>24 × 24.6 ซม. <small>(≤ 25 × 25)</small></dd></div>
-    <div><dt>ความสูง · height</dt><dd>≈ 94 ซม. <small>(ไม่จำกัด)</small></dd></div>
+    <div><dt>ขนาดตอนเริ่ม · start size</dt><dd><span id="szStart">24 × 24.6</span> ซม. <small>(≤ 25 × 25)</small></dd></div>
+    <div><dt>ความสูง · height</dt><dd>≈ <span id="szH">94</span> ซม. <small>(ไม่จำกัด)</small></dd></div>
     <div><dt>ความจุบนตัว · capacity</dt><dd>12 ชิ้น <small>(3 ช่อง × 4)</small></dd></div>
     <div><dt>หุ่นหยุดรอต่อชิ้น · stop per item</dt><dd>0 วิ <small>(M4 0.5 · R3 ≈ 8)</small></dd></div>
     <div><dt>แบตเตอรี่ · battery</dt><dd>3S 12.6 V <small>(≤ 25 V)</small></dd></div>
@@ -208,6 +214,8 @@ footer{color:var(--muted);font-size:13px}
         <button class="btn" id="bStrafe">▶ ล้อ Mecanum</button>
         <button class="btn" id="bStart" aria-pressed="false">ท่าเริ่ม + กล่อง 25×25</button>
         <button class="btn" id="bPins" aria-pressed="true">หมุดชื่อชิ้นส่วน</button>
+        <button class="btn" id="bDims" aria-pressed="false">แสดงขนาด (ซม.)</button>
+        <div class="seg" id="vSeg" role="group" aria-label="มุมมองแบบแปลน"><button data-v="iso" aria-pressed="true">3D</button><button data-v="front" aria-pressed="false">หน้า</button><button data-v="side" aria-pressed="false">ข้าง</button><button data-v="top" aria-pressed="false">บน</button></div>
       </div>
       <div class="acts" id="actsField" hidden>
         <button class="btn primary" id="bPlay">▶ เล่นเดโม 1 รอบ</button>
@@ -271,6 +279,16 @@ footer{color:var(--muted);font-size:13px}
   <div class="eqgrid" id="eqGrid"></div>
 </section>
 
+<section class="block" id="buySec">
+  <div class="buyhead"><h2>รายการสั่งซื้อ + งบประมาณ</h2><button class="btn primary" id="buyCsv" type="button">ดาวน์โหลดรายการ (CSV เปิดใน Excel)</button></div>
+  <p class="en">ราคาเป็นช่วงประมาณจากร้านออนไลน์ในไทย ยังไม่ได้เช็กราคาวันนี้ ราคาจริงขึ้นกับร้าน ยี่ห้อ และค่าส่ง ติ๊กช่องเมื่อซื้อแล้ว ระบบจำไว้ในเบราว์เซอร์นี้ · Price ranges are rough estimates from Thai online shops, not checked today; tick items as you buy them.</p>
+  <dl class="specs" id="buyTot"></dl>
+  <div class="tablewrap"><table class="buytbl">
+    <thead><tr><th>ซื้อแล้ว</th><th>รายการ · คำค้นหา</th><th class="num">จำนวน</th><th class="num">ราคา/ชิ้น (฿)</th><th class="num">รวม (฿)</th><th>ซื้อที่ไหน</th></tr></thead>
+    <tbody id="buyRows"></tbody>
+  </table></div>
+</section>
+
 <section class="block">
   <h2>เทียบ 3 แบบ</h2>
   <div class="tablewrap"><table>
@@ -318,7 +336,7 @@ footer{color:var(--muted);font-size:13px}
   <div class="tablewrap"><table>
     <thead><tr><th>ข้อ</th><th>กติกากำหนด</th><th>แบบนี้ทำอย่างไร</th><th>สถานะ</th></tr></thead>
     <tbody>
-      <tr><td class="ref">3.2-1</td><td>ก่อนเริ่ม กว้าง ≤ 25 ยาว ≤ 25 ซม. สูงไม่จำกัด ขยายได้ระหว่างแข่ง</td><td>ฐาน 24 × 24 ซม. ปีกไถพับแนบหน้าหุ่น (ยื่นสุด 12.3 ซม. จากกึ่งกลาง) ลิ้นชักหดเข้า กางปีกหลังสัญญาณเริ่ม (กดปุ่ม “ท่าเริ่ม” เพื่อดูกล่อง)</td><td><span class="chip ok">ผ่าน</span></td></tr>
+      <tr><td class="ref">3.2-1</td><td>ก่อนเริ่ม กว้าง ≤ 25 ยาว ≤ 25 ซม. สูงไม่จำกัด ขยายได้ระหว่างแข่ง</td><td>ฐาน 24 × 24 ซม. ปีกไถพับแนบหน้าหุ่น (ยื่นสุด 12.35 ซม. จากกึ่งกลาง) ลิ้นชักหดเข้า กางปีกหลังสัญญาณเริ่ม (กดปุ่ม “ท่าเริ่ม” เพื่อดูกล่อง)</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">3.2-2</td><td>ไม่จำกัดน้ำหนัก</td><td>ประมาณ 3.8 กก. (ถ่วงฐานให้ล้อ Mecanum เกาะทางลาด)</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">3.2-3</td><td>อัตโนมัติเท่านั้น ห้าม RF, Bluetooth, Wi-Fi, IR remote, สายทุกชนิด</td><td>เริ่มด้วยปุ่มบนตัว Arduino Mega ไม่มีวิทยุ Raspberry Pi 5 ปิด Wi-Fi/BT ใน <span class="mono">config.txt</span> (<span class="mono">dtoverlay=disable-wifi</span>, <span class="mono">disable-bt</span>)</td><td><span class="chip warn">ถามกรรมการ</span></td></tr>
       <tr><td class="ref">3.2-4, 5</td><td>บอร์ด มอเตอร์ เซนเซอร์ ไม่จำกัด</td><td>มอเตอร์ DC 5 (ล้อ 4 + สายพาน 1), สเต็ปเปอร์ 2, เซอร์โว 3 (ปีก ตัวดัน ประตู)</td><td><span class="chip ok">ผ่าน</span></td></tr>
@@ -1536,12 +1554,20 @@ try{ renderer=new T.WebGLRenderer({canvas,antialias:true}); }
 catch(e){ stage.insertAdjacentHTML('beforeend','<div class="hint" style="top:45%">เบราว์เซอร์นี้เปิด WebGL ไม่ได้ จึงแสดงโมเดล 3 มิติไม่ได้</div>'); return; }
 renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
 renderer.shadowMap.enabled=true; renderer.shadowMap.type=T.PCFSoftShadowMap;
+if(T.ColorManagement) T.ColorManagement.legacyMode=false; renderer.outputEncoding=T.sRGBEncoding; renderer.toneMapping=T.ACESFilmicToneMapping; renderer.toneMappingExposure=1.15;
 const scene=new T.Scene();
 const camera=new T.PerspectiveCamera(36,1,0.5,5000);
 const controls=new T.OrbitControls(camera,canvas);
 controls.enableDamping=true; controls.dampingFactor=.08; controls.maxPolarAngle=Math.PI*.49;
-scene.add(new T.HemisphereLight(0xffffff,0x88948f,.78));
-const sun=new T.DirectionalLight(0xffffff,.85); sun.castShadow=true; sun.shadow.mapSize.set(2048,2048); sun.shadow.bias=-.0006;
+scene.add(new T.HemisphereLight(0xffffff,0x88948f,.42));
+try{ // small studio room baked into a reflection map: metal and acrylic pick up soft highlights
+  const pm=new T.PMREMGenerator(renderer), es=new T.Scene();
+  const room=new T.Mesh(new T.BoxGeometry(60,30,60),new T.MeshBasicMaterial({color:0x3a3f43,side:T.BackSide})); room.position.y=12; es.add(room);
+  [[0,26,0,36,.5,36,2.6],[-29.5,13,0,.5,12,34,1.7],[29.5,11,-8,.5,9,22,1.25],[0,10,29.5,26,9,.5,1.0],[0,-2.5,0,60,.5,60,.35]].forEach(([x,y,z,w,h,d,k])=>{
+    const m=new T.Mesh(new T.BoxGeometry(w,h,d),new T.MeshBasicMaterial({color:new T.Color(k,k,k)})); m.position.set(x,y,z); es.add(m); });
+  scene.environment=pm.fromScene(es,.035).texture; pm.dispose();
+}catch(e){}
+const sun=new T.DirectionalLight(0xffffff,1.25); sun.castShadow=true; sun.shadow.mapSize.set(2048,2048); sun.shadow.bias=-.0006;
 scene.add(sun); scene.add(sun.target);
 function setSun(r,pos){ sun.position.copy(pos); const c=sun.shadow.camera; c.left=-r;c.right=r;c.top=r;c.bottom=-r;c.near=1;c.far=pos.length()*2+200;c.updateProjectionMatrix(); }
 
@@ -1549,7 +1575,14 @@ function setSun(r,pos){ sun.position.copy(pos); const c=sun.shadow.camera; c.lef
 const partMats={};
 function mat(part,color,o){ const m=new T.MeshStandardMaterial(Object.assign({color,roughness:.55,metalness:.12},o||{})); if(part)(partMats[part]=partMats[part]||[]).push(m); return m; }
 function mesh(geo,m,parent,x=0,y=0,z=0){ const me=new T.Mesh(geo,m); me.position.set(x,y,z); me.castShadow=true; me.receiveShadow=true; parent.add(me); return me; }
-const box=(w,h,d)=>new T.BoxGeometry(w,h,d);
+const _bx={};
+const box=(w,h,d)=>{ const key=w+'|'+h+'|'+d; if(_bx[key]) return _bx[key]; const b=Math.min(.14,Math.min(w,h,d)*.22);
+  if(b<.03) return _bx[key]=new T.BoxGeometry(w,h,d);
+  const W=w-2*b, H=h-2*b, r=Math.min(b*1.3,Math.min(W,H)*.45), x0=-W/2, y0=-H/2, s=new T.Shape();
+  s.moveTo(x0+r,y0); s.lineTo(x0+W-r,y0); s.quadraticCurveTo(x0+W,y0,x0+W,y0+r); s.lineTo(x0+W,y0+H-r); s.quadraticCurveTo(x0+W,y0+H,x0+W-r,y0+H);
+  s.lineTo(x0+r,y0+H); s.quadraticCurveTo(x0,y0+H,x0,y0+H-r); s.lineTo(x0,y0+r); s.quadraticCurveTo(x0,y0,x0+r,y0);
+  const g=new T.ExtrudeGeometry(s,{depth:Math.max(d-2*b,.001),bevelEnabled:true,bevelThickness:b,bevelSize:b,bevelSegments:2,curveSegments:3});
+  g.translate(0,0,-(d-2*b)/2); return _bx[key]=g; };
 const cyl=(rt,rb,h,s=28,open=false)=>new T.CylinderGeometry(rt,rb,h,s,1,open);
 function circlePts(r,n){ const a=[]; for(let i=0;i<n;i++){ const t=i/n*Math.PI*2; a.push([r*Math.sin(t),r*Math.cos(t)]); } return a; }
 function flatShape(pts,holes){ const s=new T.Shape(); pts.forEach((p,i)=> i? s.lineTo(p[0],-p[1]) : s.moveTo(p[0],-p[1])); (holes||[]).forEach(h=>{ const p=new T.Path(); p.absarc(h.x,-h.z,h.r,0,Math.PI*2,true); s.holes.push(p); }); return s; }
@@ -1607,7 +1640,11 @@ mesh(cyl(.9,.9,.8,20),mat('power',0xD62828),base,-6.6,6.2,-10.8);
 mesh(box(2,1.2,1.4),mat('power',0x111111),base,6.6,6.4,-10.8);
 // frame posts + slide rails
 const postM=mat('frame',COL.alu,{metalness:.6,roughness:.35});
-[[7.8,-10.5],[-7.8,-10.5],[7.8,3.5],[-7.8,3.5]].forEach(p=>mesh(box(2,22.6,2),postM,base,p[0],17.1,p[1]));
+function ext2020(len){ const P=[[-1,-1],[-.31,-1],[-.31,-.45],[.31,-.45],[.31,-1],[1,-1],[1,-.31],[.45,-.31],[.45,.31],[1,.31],[1,1],[.31,1],[.31,.45],[-.31,.45],[-.31,1],[-1,1],[-1,.31],[-.45,.31],[-.45,-.31],[-1,-.31]];
+  const s=new T.Shape(); P.forEach((p,i)=>i?s.lineTo(p[0],p[1]):s.moveTo(p[0],p[1])); const hp=new T.Path(); hp.absarc(0,0,.21,0,Math.PI*2,true); s.holes.push(hp);
+  const g=new T.ExtrudeGeometry(s,{depth:len,bevelEnabled:false,curveSegments:12}); g.rotateX(-Math.PI/2); g.translate(0,-len/2,0); return g; }
+const post2020=ext2020(22.6);
+[[7.8,-10.5],[-7.8,-10.5],[7.8,3.5],[-7.8,3.5]].forEach(p=>mesh(post2020,postM,base,p[0],17.1,p[1]));
 [-10.5,3.5].forEach(z=>mesh(box(24,.8,1.2),mat('slide',0x8E979E,{metalness:.8,roughness:.3}),base,0,28.8,z));
 mesh(box(4.2,4.2,4.2),mat('slide',COL.dark),base,-9.6,25.8,-3.6);
 // side QR camera
@@ -1616,10 +1653,10 @@ const camSide=new T.Group(); camSide.position.set(CAM_SIDE.x,CAM_SIDE.y,CAM_SIDE
 mesh(box(1.1,2.4,2.4),mat('vision',0x1C2328),camSide,0,0,0);
 mesh(cyl(.6,.6,.6,16),mat('vision',0x0B0D0F,{metalness:.5}),camSide,.8,0,0).rotation.z=Math.PI/2;
 // plow: fixed inner funnel + fold-out wings
-[1,-1].forEach(sx=>{ const a=new T.Vector2(sx*2.6,9.8), b=new T.Vector2(sx*6.6,12.3); const m=mesh(box(a.distanceTo(b),7,.4),mat('plow',COL.orange),base,(a.x+b.x)/2,4,(a.y+b.y)/2); m.rotation.y=-Math.atan2(b.y-a.y,b.x-a.x); });
-const wings=[1,-1].map(sx=>{ const g=new T.Group(); g.position.set(sx*6.6,0,12.3); base.add(g);
+[1,-1].forEach(sx=>{ const a=new T.Vector2(sx*2.6,9.8), b=new T.Vector2(sx*6.6,12.0); const m=mesh(box(a.distanceTo(b),7,.4),mat('plow',COL.orange),base,(a.x+b.x)/2,4,(a.y+b.y)/2); m.rotation.y=-Math.atan2(b.y-a.y,b.x-a.x); });
+const wings=[1,-1].map(sx=>{ const g=new T.Group(); g.position.set(sx*6.6,0,12.0); base.add(g);
   mesh(box(5.6,6,.4),mat('plow',COL.orange),g,sx*2.8,3.5,0); mesh(box(5.4,.6,.5),mat('plow',COL.rubber),g,sx*2.8,.35,0);
-  mesh(cyl(.5,.5,7,12),mat('plow',COL.dark),g,0,3.5,0); g.userData.sx=sx; return g; });
+  mesh(cyl(.35,.35,7,12),mat('plow',COL.dark),g,0,3.5,0); g.userData.sx=sx; return g; });
 mesh(box(1.6,1.4,1.4),mat('plow',0x1F2A33),base,7.6,7.6,11.2);
 mesh(box(1.6,1.4,1.4),mat('plow',0x1F2A33),base,-7.6,7.6,11.2);
 // twin-belt squeeze elevator: two foam belts, inner runs face each other, run upward
@@ -1643,7 +1680,7 @@ function beltPt(s){ // position along one loop: inner run goes up
 }
 function placeLugs(){ lugs.forEach(l=>{ const p=beltPt(st.belt+l.k*beltLen/NL); l.m.position.x=l.sx*p.x; l.m.position.y=p.y; }); }
 mesh(box(12.4,1,3),mat('belt',COL.dark),base,0,ROD_TOP-1.2,7.4);
-mesh(cyl(1.6,1.6,4.6,20),mat('belt',0xC9A227,{metalness:.6}),base,-4.4,ROD_TOP+1.4,10.6).rotation.x=Math.PI/2;
+mesh(cyl(1.6,1.6,4.6,20),mat('belt',0xC9A227,{metalness:.6}),base,-4.4,ROD_TOP+1.4,10.4).rotation.z=Math.PI/2;
 // one-way pawls at the top hold the item once it leaves the belts
 [1,-1].forEach(sx=>mesh(box(1.4,.3,2.6),mat('belt',0xE8590C),base,sx*1.9,BELT_TOP-.1,CH_Z));
 const guideM=new T.MeshStandardMaterial({color:0xCFE3F5,transparent:true,opacity:.35,roughness:.15,side:T.DoubleSide,depthWrite:false});
@@ -1662,7 +1699,7 @@ mesh(box(3,2,1.6),mat('vision',0x1C2328),camTop,0,0,0);
 mesh(cyl(.6,.6,.6,16),mat('vision',0x0B0D0F,{metalness:.5}),camTop,0,0,1.05).rotation.x=Math.PI/2;
 // upper (slides): plate + revolver + gate
 const upper=new T.Group(); robot.add(upper);
-slab([[-12,-12.4],[12,-12.4],[12,4.9],[-12,4.9]],[{x:HOLE.x,z:HOLE.z,r:3.7}],.6,mat('slide',COL.orange),upper,UPPER_Y-.6);
+slab([[-12,-12.0],[12,-12.0],[12,4.9],[-12,4.9]],[{x:HOLE.x,z:HOLE.z,r:3.7}],.6,mat('slide',COL.orange),upper,UPPER_Y-.6);
 [-10.5,3.5].forEach(z=>[-10,-5].forEach(x=>mesh(box(4.4,.9,2.2),mat('slide',0x5B646B,{metalness:.7}),upper,x,28.95,z)));
 mesh(box(4.2,3.8,4.2),mat('revolver',COL.dark),upper,C.x,27.5,C.z);
 const shutPivot=new T.Group(); shutPivot.position.set(HOLE.x,UPPER_Y-.95,HOLE.z+4.6); upper.add(shutPivot);
@@ -1683,6 +1720,10 @@ const tubeG=tubeA.map((a,i)=>{
   mesh(cyl(4.0,TUBE_R,1.6,40,true),mat('revolver',0xCBD5DC,{side:T.DoubleSide,metalness:.3}),g,0,TUBE_H+.8,0);
   g.userData.items=[]; return g;
 });
+// bolt heads on the deck and the sliding plate
+{ const bg=cyl(.42,.42,.3,6), bd=mat('drive',0xC8CDD2,{metalness:.95,roughness:.28}), bu=mat('slide',0xC8CDD2,{metalness:.95,roughness:.28});
+  [[8.2,11.2],[-8.2,11.2],[8.2,-11.2],[-8.2,-11.2],[11.2,3],[-11.2,3],[11.2,-3],[-11.2,-3]].forEach(([x,z])=>mesh(bg,bd,base,x,5.95,z));
+  [[11.2,-11.3],[-11.2,-11.3],[11.2,4.1],[-11.2,4.1],[-1,-11.3],[-1,4.1]].forEach(([x,z])=>mesh(bg,bu,upper,x,UPPER_Y+.15,z)); }
 // QR beam
 const beamMat=new T.MeshBasicMaterial({color:0xE8590C,transparent:true,opacity:.28,depthWrite:false,side:T.DoubleSide});
 const beam=new T.Mesh(new T.ConeGeometry(4,1,32,1,true),beamMat); beam.rotation.z=Math.PI/2; beam.visible=false; base.add(beam);
@@ -1852,7 +1893,7 @@ const floor=new T.Mesh(new T.CircleGeometry(150,64),floorMat); floor.rotation.x=
 const grid=new T.GridHelper(240,24,0xB7C2BD,0xB7C2BD); grid.position.y=.02; grid.material.transparent=true; grid.material.opacity=.55; robotScene.add(grid);
 const loose=new T.Group(); robotScene.add(loose);
 const sizeBox=new T.Group(); robotScene.add(sizeBox); sizeBox.visible=false;
-sizeBox.add(new T.LineSegments(new T.EdgesGeometry(box(25,100,25)),new T.LineBasicMaterial({color:0xE8590C}))); sizeBox.children[0].position.y=50;
+sizeBox.add(new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(25,100,25)),new T.LineBasicMaterial({color:0xE8590C}))); sizeBox.children[0].position.y=50;
 const sbFill=new T.Mesh(box(25,.2,25),new T.MeshBasicMaterial({color:0xE8590C,transparent:true,opacity:.18,depthWrite:false})); sbFill.position.y=.15; sizeBox.add(sbFill);
 const sizePin=addPin('กรอบ 25 × 25 ซม. · สูงไม่จำกัด','flabel',sizeBox,new T.Vector3(0,101,0),'robot'); sizePin.always=true; sizePin.on=false;
 
@@ -2078,6 +2119,139 @@ $('#bShuffle').addEventListener('click',()=>{ stopAll(); missionOn=false; seed=(
 document.querySelectorAll('[data-sp]').forEach(b=>b.addEventListener('click',()=>{ speed=+b.dataset.sp; document.querySelectorAll('[data-sp]').forEach(x=>x.setAttribute('aria-pressed',String(x===b))); }));
 $('#bFollow').addEventListener('click',()=>{ follow=!follow; setPressed('#bFollow',follow); lastRobotPos.copy(robot.position); });
 
+/* ---------- dimensions (cm) + plan views ---------- */
+const V3=(x,y,z)=>new T.Vector3(x,y,z);
+const DIMC=0x0B7285, dimM=new T.MeshBasicMaterial({color:DIMC,depthTest:false,transparent:true});
+const dimCone=new T.ConeGeometry(.5,1.5,12), dimUp=new T.Vector3(0,1,0);
+function dimBar(g,p,q,r){ const L=p.distanceTo(q); if(L<1e-3) return; const m=new T.Mesh(cyl(r,r,L,6),dimM); m.position.copy(p).lerp(q,.5); m.quaternion.setFromUnitVectors(dimUp,q.clone().sub(p).normalize()); m.renderOrder=22; g.add(m); }
+// a,b: measured points (local to parent) · off: where the dimension line sits relative to them
+function dimLine(parent,a,b,off,text){
+  const g=new T.Group(); parent.add(g); g.visible=false;
+  const A=a.clone().add(off), B=b.clone().add(off), od=off.clone().normalize();
+  dimBar(g,a,A.clone().addScaledVector(od,.9),.07); dimBar(g,b,B.clone().addScaledVector(od,.9),.07); dimBar(g,A,B,.12);
+  const dir=B.clone().sub(A).normalize();
+  [[A,dir.clone().negate()],[B,dir]].forEach(([p,d])=>{ const c=new T.Mesh(dimCone,dimM); c.renderOrder=22; c.quaternion.setFromUnitVectors(dimUp,d); c.position.copy(p).addScaledVector(d,-.75); g.add(c); });
+  const pin=addPin(text,'flabel dim',parent,A.clone().lerp(B,.5),'robot'); pin.always=true; pin.on=false;
+  return {g,pin};
+}
+function dimShow(list,on){ (list||[]).forEach(d=>{ d.g.visible=on; d.pin.on=on; }); }
+// measure the real model (start pose: wings folded, slide in)
+applyRobot(); robot.updateMatrixWorld(true);
+const BB=new T.Box3().setFromObject(robot,true), f1=v=>v.toFixed(1);
+const DV=[['iso','front','top'],['iso','side','top'],['iso','front','side'],['iso','front','top'],['iso','side','top'],['iso','front','side'],['iso','front','side'],['iso','side']];
+const DIM_ALL=[
+  dimLine(robot,V3(BB.min.x,0,BB.max.z),V3(BB.max.x,0,BB.max.z),V3(0,0,6),`กว้าง ${f1(BB.max.x-BB.min.x)} ซม.`),
+  dimLine(robot,V3(BB.max.x,0,BB.min.z),V3(BB.max.x,0,BB.max.z),V3(6,0,0),`ยาว ${f1(BB.max.z-BB.min.z)} ซม.`),
+  dimLine(robot,V3(BB.min.x,0,BB.min.z),V3(BB.min.x,BB.max.y,BB.min.z),V3(-6,0,0),`สูง ${f1(BB.max.y)} ซม.`),
+  dimLine(robot,V3(-10.6,0,-8),V3(10.6,0,-8),V3(0,0,-8),'ระยะล้อซ้าย–ขวา 21.2'),
+  dimLine(robot,V3(-10.6,0,-8),V3(-10.6,0,8),V3(-5,0,0),'ระยะล้อหน้า–หลัง 16.0'),
+  dimLine(robot,V3(12,0,4.9),V3(12,UPPER_Y,4.9),V3(4,0,0),`แผ่นบนสูง ${f1(UPPER_Y)}`),
+  dimLine(upper,V3(C.x-RING,UPPER_Y,C.z),V3(C.x-RING,UPPER_Y+TUBE_H,C.z),V3(-4,0,0),`ท่อสูง ${f1(TUBE_H)} · Ø ใน 7.0`),
+  dimLine(robot,V3(-BELT_X-2,0,BZ1+.6),V3(-BELT_X-2,BELT_TOP,BZ1+.6),V3(0,0,5),`ยกสูง ${f1(BELT_TOP)}`)
+];
+const WTX=6.6+5.6*Math.cos(50*D), WTZ=12.0+5.6*Math.sin(50*D);
+const GDIM=[[],
+  [dimLine(base,V3(-WTX,6.6,WTZ),V3(WTX,6.6,WTZ),V3(0,0,3.5),`ปากไถกว้าง ${f1(2*WTX)} ซม.`), dimLine(base,V3(-2.2,7.4,9.8),V3(2.2,7.4,9.8),V3(0,2.2,0),'ช่องกลาง 4.4')],
+  [dimLine(base,V3(-2.2,6,BZ1+.3),V3(2.2,6,BZ1+.3),V3(0,0,3),'ช่องหนีบ 4.4 ซม. (ของกว้าง 4.0–5.3)')],
+  [dimLine(base,V3(-BELT_X-2,0,BZ),V3(-BELT_X-2,TOP_Y,BZ),V3(-3,0,0),`ยกสูง ${f1(TOP_Y)} ซม.`)],
+  [],
+  [dimLine(robot,V3(4,TOP_Y+9,PUSH_PARK),V3(4,TOP_Y+9,PUSH_PARK-PUSH_L),V3(0,2,0),`ระยะดัน ${f1(PUSH_L)} ซม.`)],
+  [dimLine(base,V3(12,UPPER_Y+.6,-12),V3(12+SLIDE_MAX,UPPER_Y+.6,-12),V3(0,0,-3),`เลื่อนออก ${SLIDE_MAX} ซม.`)]
+];
+DIM_ALL.forEach((d,i)=>d.v=DV[i]);
+$('#szStart').textContent=`${f1(BB.max.x-BB.min.x)} × ${f1(BB.max.z-BB.min.z)}`; $('#szH').textContent=Math.round(BB.max.y);
+let dimsOn=false, curView='iso';
+function dimApply(){ const on=dimsOn && mode==='robot' && !(typeof guideOn!=='undefined'&&guideOn); DIM_ALL.forEach(d=>dimShow([d],on&&d.v.includes(curView))); }
+// plan views: long lens from far away ≈ orthographic, so lengths read true
+const VIEWS={iso:null,front:[0,47,1],side:[1,47,0],top:[0,1,.0001]};
+function setView(v,noCam){
+  curView=v;
+  document.querySelectorAll('#vSeg button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===v)));
+  if(v==='iso'){ if(camera.fov!==36){ camera.fov=36; camera.updateProjectionMatrix(); } controls.maxDistance=420; if(!noCam){ camera.position.set(105,92,128); controls.target.set(0,42,0); } return; }
+  camera.fov=9; camera.updateProjectionMatrix(); controls.maxDistance=2000;
+  const R=Math.max(BB.max.y,60)*.62/Math.tan(4.5*D), d=VIEWS[v];
+  if(v==='top'){ controls.target.set(0,0,0); camera.position.set(0,R,.01); }
+  else { controls.target.set(0,BB.max.y/2,0); camera.position.set(d[0]*R,BB.max.y/2,d[2]*R); }
+  if(!dimsOn){ dimsOn=true; setPressed('#bDims',true); dimApply(); }
+}
+
+$('#bDims').addEventListener('click',()=>{ if(guideOn) return; dimsOn=!dimsOn; setPressed('#bDims',dimsOn); dimApply(); });
+document.querySelectorAll('#vSeg button').forEach(b=>b.addEventListener('click',()=>{ if(mode!=='robot') setMode('robot'); if(guideOn) guideExit(); setView(b.dataset.v); dimApply(); }));
+/* ---------- shopping list (THB, rough ranges) ---------- */
+// [group, item, spec / search keyword, qty, unit low, unit high, shop type, optional?]
+const BUY=[
+ ['ฐานขับ','ล้อ Mecanum Ø60 มม. ชุด 4 ล้อ (ซ้าย 2 / ขวา 2)','mecanum wheel 60mm set',1,900,1500,'ร้านหุ่นยนต์ออนไลน์'],
+ ['ฐานขับ','มอเตอร์เกียร์หนอน JGY-370 12 V 210 rpm มี encoder','JGY370 encoder 12V 210rpm',4,380,550,'ร้านหุ่นยนต์ออนไลน์'],
+ ['ฐานขับ','ข้อต่อเพลา hub 6 มม. ต่อล้อ','hex coupling 6mm mecanum',4,40,80,'ร้านหุ่นยนต์ออนไลน์'],
+ ['ฐานขับ','ไดรเวอร์มอเตอร์ Cytron MDD3A (2 ช่อง)','Cytron MDD3A',2,330,420,'ตัวแทน Cytron / ร้านอิเล็กทรอนิกส์'],
+ ['ปากไถ + ตัวดัน + ประตู','เซอร์โว MG90S เฟืองโลหะ (ปีก · ตัวดัน · ประตู)','MG90S metal gear',3,90,150,'ร้านอิเล็กทรอนิกส์'],
+ ['ปากไถ + ตัวดัน + ประตู','เฟืองสะพาน (rack) 80 มม. + เฟืองเซอร์โว','gear rack module 0.5',1,60,150,'ร้านอะไหล่ / พิมพ์ 3D เอง'],
+ ['ปากไถ + ตัวดัน + ประตู','อะคริลิก 3 มม. ตัดเลเซอร์ (ปีก แผ่นสอบ แผ่นดัน ประตู วงแหวน 3 ชั้น)','ส่งไฟล์ DXF ให้ร้านตัด',1,600,1200,'ร้านตัดเลเซอร์อะคริลิก'],
+ ['ปากไถ + ตัวดัน + ประตู','ยางขอบปีก EPDM แถบ 5 มม.','EPDM rubber strip',1,50,100,'ร้านฮาร์ดแวร์'],
+ ['สายพานหนีบยก','มอเตอร์ JGA25-370 12 V ~300 rpm','JGA25-370 12V 300rpm',1,180,280,'ร้านหุ่นยนต์ออนไลน์'],
+ ['สายพานหนีบยก','สายพาน PU/ยาง กว้าง 40 มม. ต่อเป็นวง ยาว ~1.7 ม. + ผิวโฟม EVA 5 มม.','สายพานลำเลียง PU 40mm สั่งต่อวง',2,350,700,'ร้านสายพานลำเลียง (สั่งตัดต่อวง)'],
+ ['สายพานหนีบยก','พูลเลย์ Ø30 มม. กว้าง 45 มม. (พิมพ์ 3D หรือกลึงอะลูมิเนียม)','flat belt pulley 30mm',4,60,200,'พิมพ์ 3D เอง / ร้านกลึง'],
+ ['สายพานหนีบยก','ชุดเฟืองกลับทิศ เฟืองตรง M1 20T ×2 + เพลา 6 มม.','spur gear M1 20T 6mm',1,120,250,'ร้านอะไหล่ / ร้านหุ่นยนต์'],
+ ['สายพานหนีบยก','ลูกปืน 608ZZ (ลูกกดหลังสายพาน 8 + พูลเลย์ 4)','608ZZ bearing',12,12,25,'ร้านลูกปืน / อะไหล่ 3D printer'],
+ ['สายพานหนีบยก','IR break-beam 5 มม. คู่ส่ง–รับ (ปาก + ยอด)','IR break beam sensor 5mm',2,60,150,'ร้านอิเล็กทรอนิกส์'],
+ ['สายพานหนีบยก','สปริงบิดเล็ก (ลิ้นกันตก)','torsion spring small',4,10,25,'ร้านฮาร์ดแวร์'],
+ ['ลูกโม่','ท่ออะคริลิกใส OD 76 / ID 70 มม. ตัดยาว 460 มม.','ท่ออะคริลิก 76 มม.',3,220,400,'ร้านอะคริลิก'],
+ ['ลูกโม่','สเต็ปเปอร์ NEMA17 42×40 มม.','NEMA17 42HS40',1,280,450,'ร้านอะไหล่ 3D printer'],
+ ['ลูกโม่','ไดรเวอร์ TMC2209 (ลูกโม่ + ลิ้นชัก)','TMC2209 stepstick',2,120,220,'ร้านอะไหล่ 3D printer'],
+ ['ลูกโม่','Hall A3144 + แม่เหล็กนีโอ 5 มม.','A3144 hall sensor',1,30,60,'ร้านอิเล็กทรอนิกส์'],
+ ['ลูกโม่','ลูกปืนหน้าแปลน 8 มม. + แกน 8 มม. (แกนลูกโม่)','KFL08 + shaft 8mm',1,120,220,'ร้านอะไหล่ 3D printer'],
+ ['ลิ้นชักเลื่อน','ราง MGN12H ยาว 250 มม. + carriage 2 ตัว','MGN12H 250mm',2,450,750,'ร้านอะไหล่ 3D printer'],
+ ['ลิ้นชักเลื่อน','สเต็ปเปอร์ NEMA17 แบบสั้น (pancake 23 มม.)','NEMA17 pancake 23mm',1,250,400,'ร้านอะไหล่ 3D printer'],
+ ['ลิ้นชักเลื่อน','ชุด GT2: สายพาน 1 ม. + พูลเลย์ 20T + idler','GT2 belt pulley kit',1,120,200,'ร้านอะไหล่ 3D printer'],
+ ['สมอง + กล้อง','Raspberry Pi 5 (4 GB)','Raspberry Pi 5 4GB',1,2400,2900,'ตัวแทน Raspberry Pi'],
+ ['สมอง + กล้อง','Active Cooler สำหรับ Pi 5','Pi 5 active cooler',1,180,250,'ตัวแทน Raspberry Pi'],
+ ['สมอง + กล้อง','microSD 64 GB (A2)','microSD 64GB A2',1,200,350,'ร้านไอที'],
+ ['สมอง + กล้อง','Camera Module 3 Wide (กล้องบน + กล้องข้าง)','Raspberry Pi Camera Module 3 Wide',2,1250,1600,'ตัวแทน Raspberry Pi'],
+ ['สมอง + กล้อง','สายแพกล้อง Pi 5 (22→15 pin) 30 ซม.','Pi 5 camera cable 300mm',2,60,120,'ตัวแทน Raspberry Pi'],
+ ['สมอง + กล้อง','Arduino Mega 2560 R3 (บอร์ดเทียบเท่า)','Arduino Mega 2560',1,450,700,'ร้านอิเล็กทรอนิกส์'],
+ ['เซนเซอร์','IR line 8 ช่อง QTR-8RC (หรือเทียบเท่า)','QTR-8RC',1,300,650,'ร้านหุ่นยนต์ออนไลน์'],
+ ['เซนเซอร์','IMU BNO055','BNO055 module',1,650,1300,'ร้านอิเล็กทรอนิกส์'],
+ ['เซนเซอร์','ToF VL53L0X (ซ้าย + หน้า)','VL53L0X',2,100,180,'ร้านอิเล็กทรอนิกส์'],
+ ['ไฟฟ้า','แบต LiPo 3S 3000 mAh 11.1 V ขั้ว XT60 (2 ก้อนไว้สลับ)','LiPo 3S 3000mAh XT60',2,900,1400,'ร้านอุปกรณ์ RC'],
+ ['ไฟฟ้า','Buck 5 V 5 A (เลี้ยง Pi 5)','buck converter 5V 5A',1,150,300,'ร้านอิเล็กทรอนิกส์'],
+ ['ไฟฟ้า','UBEC 6 V 5 A (เลี้ยงเซอร์โว)','UBEC 6V 5A',1,150,250,'ร้านอุปกรณ์ RC'],
+ ['ไฟฟ้า','กล่องฟิวส์ + ฟิวส์ 15 A, สวิตช์หลัก 20 A, ปุ่ม Start','fuse holder 15A switch',1,150,300,'ร้านอิเล็กทรอนิกส์'],
+ ['ไฟฟ้า','ขั้ว XT60, JST, สายไฟ 18/22 AWG, Dupont, หางปลา, ท่อหด','XT60 JST wire kit',1,300,600,'ร้านอิเล็กทรอนิกส์'],
+ ['โครง','แผ่นอะลูมิเนียม 3 มม. ตัด CNC/เลเซอร์ (ฐาน + แผ่นบน)','ส่งไฟล์ DXF ให้ร้านตัด',1,800,1600,'ร้านตัดโลหะ CNC'],
+ ['โครง','อะลูมิเนียมโปรไฟล์ 2020 ตัดยาว 226 มม.','2020 aluminium profile',4,50,90,'ร้านอะลูมิเนียมโปรไฟล์'],
+ ['โครง','T-nut M5 + ฉากยึด 2020 + สกรู M5','2020 T-nut corner bracket',1,200,350,'ร้านอะลูมิเนียมโปรไฟล์'],
+ ['โครง','แผ่นโพลีคาร์บอเนตใส 2 มม. 80 × 850 มม. (แผ่นนำทาง)','polycarbonate 2mm',1,150,300,'ร้านพลาสติก/อะคริลิก'],
+ ['โครง','ชุดน็อต สกรู แหวน spacer M3/M4','M3 M4 screw kit',1,250,450,'ร้านฮาร์ดแวร์'],
+ ['โครง','เส้นพิมพ์ 3D PETG 1 กก. (ขายึดมอเตอร์ พูลเลย์ ฐานกล้อง)','PETG 1kg',1,450,650,'ร้านอะไหล่ 3D printer'],
+ ['ไม่บังคับ (มีแล้วข้ามได้)','เครื่องชาร์จ LiPo แบบ balance','LiPo balance charger',1,1200,2500,'ร้านอุปกรณ์ RC',1],
+ ['ไม่บังคับ (มีแล้วข้ามได้)','ถุงกันไฟ LiPo (แนะนำมาก)','LiPo safe bag',1,150,300,'ร้านอุปกรณ์ RC',1],
+ ['ไม่บังคับ (มีแล้วข้ามได้)','มัลติมิเตอร์','digital multimeter',1,300,800,'ร้านอิเล็กทรอนิกส์',1],
+ ['ไม่บังคับ (มีแล้วข้ามได้)','ขยะจริงไว้ซ้อม: กระป๋อง ขวด กล่องนม อย่างละ 4','—',1,100,200,'ร้านสะดวกซื้อ',1]
+];
+const baht=n=>n.toLocaleString('th-TH');
+const bRng=(a,b)=>a===b?baht(a):`${baht(a)}–${baht(b)}`;
+let bought={}; try{ bought=JSON.parse(localStorage.getItem('b5-bought')||'{}')||{}; }catch(e){ bought={}; }
+function buyRender(){
+  const groups=[...new Set(BUY.map(r=>r[0]))]; let req=[0,0], opt=[0,0], left=[0,0], nReq=0, nGot=0;
+  const rows=groups.map(gname=>{ let gs=[0,0];
+    const body=BUY.map((r,i)=>[r,i]).filter(([r])=>r[0]===gname).map(([r,i])=>{ const lo=r[3]*r[4], hi=r[3]*r[5]; gs[0]+=lo; gs[1]+=hi;
+      if(r[7]){ opt[0]+=lo; opt[1]+=hi; } else { req[0]+=lo; req[1]+=hi; nReq++; if(bought[i]) nGot++; else { left[0]+=lo; left[1]+=hi; } }
+      return `<tr class="${bought[i]?'got':''}"><td><input type="checkbox" data-buy="${i}" ${bought[i]?'checked':''} aria-label="ซื้อแล้ว: ${r[1]}"></td><td><b>${r[1]}</b><br><span class="en">ค้นหา: ${r[2]}</span></td><td class="mono num">${r[3]}</td><td class="mono num">${bRng(r[4],r[5])}</td><td class="mono num">${bRng(lo,hi)}</td><td class="en">${r[6]}</td></tr>`; }).join('');
+    return `<tr class="grp"><th colspan="4">${gname}</th><th class="mono num">${bRng(gs[0],gs[1])}</th><th></th></tr>`+body; }).join('');
+  $('#buyRows').innerHTML=rows;
+  const pad=[Math.round(req[0]*1.1/100)*100,Math.round(req[1]*1.1/100)*100];
+  $('#buyTot').innerHTML=`<div><dt>ของที่ต้องซื้อ (${nReq} รายการ)</dt><dd>${bRng(req[0],req[1])} ฿</dd></div><div><dt>เผื่ออะไหล่/ค่าส่ง +10%</dt><dd>${bRng(pad[0],pad[1])} ฿</dd></div><div><dt>ไม่บังคับ (มีแล้วข้ามได้)</dt><dd>${bRng(opt[0],opt[1])} ฿</dd></div><div><dt>ซื้อแล้ว ${nGot}/${nReq} · เหลือ</dt><dd>${bRng(left[0],left[1])} ฿</dd></div>`;
+  document.querySelectorAll('[data-buy]').forEach(cb=>cb.addEventListener('change',()=>{ if(cb.checked) bought[cb.dataset.buy]=1; else delete bought[cb.dataset.buy]; try{ localStorage.setItem('b5-bought',JSON.stringify(bought)); }catch(e){} buyRender(); }));
+}
+buyRender();
+$('#buyCsv').addEventListener('click',()=>{
+  const q=v=>`"${String(v).replace(/"/g,'""')}"`;
+  const lines=[['หมวด','รายการ','คำค้น','จำนวน','ราคา/ชิ้น ต่ำ','ราคา/ชิ้น สูง','รวม ต่ำ','รวม สูง','ซื้อที่','ไม่บังคับ','ซื้อแล้ว'].map(q).join(',')]
+    .concat(BUY.map((r,i)=>[r[0],r[1],r[2],r[3],r[4],r[5],r[3]*r[4],r[3]*r[5],r[6],r[7]?'ใช่':'',bought[i]?'ใช่':''].map(q).join(',')));
+  const url=URL.createObjectURL(new Blob(['﻿'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}));
+  const a=document.createElement('a'); a.href=url; a.download='B5-shopping-list.csv'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+
 /* ---------- how-it-works guide: one station at a time ---------- */
 let guideOn=false, gIdx=0, gAuto=false, gSlow=true, gSaved=null, gPending=null, gClock=0;
 const GC=0xE0249A;
@@ -2127,7 +2301,7 @@ const EQ={
  wings:{ty:'mech',s:'ปีกไถ ×2',n:'ปีกอะคริลิก 3 มม. 56×60 มม. ขอบยาง',q:2,r:'ต้อนขยะเข้ากลาง',at:[base,V(-11,6,16)]},
  lineImu:{ty:'sensor',s:'เซนเซอร์เส้น + IMU',n:'IR line QTR-8RC + IMU BNO055',q:2,r:'วิ่งตรงตามคอลัมน์ คุมทิศตอนสไลด์',at:[base,V(0,1,2.2)]},
  topCam:{ty:'sensor',s:'กล้องบน',n:'Camera Module 3 Wide (กล้องบน)',q:1,r:'มองทั้งโซน บอกตำแหน่งและชนิดขยะล่วงหน้า',at:[camTop,V(0,0,0)]},
- beltMotor:{ty:'motor',s:'มอเตอร์สายพาน',n:'มอเตอร์ JGA25-370 12 V + เฟืองกลับทิศ',q:1,r:'ตัวเดียวขับสายพานทั้ง 2 เส้นให้วิ่งสวนกัน',at:[base,V(-4.4,ROD_TOP+1.4,10.6)]},
+ beltMotor:{ty:'motor',s:'มอเตอร์สายพาน',n:'มอเตอร์ JGA25-370 12 V + เฟืองกลับทิศ',q:1,r:'ตัวเดียวขับสายพานทั้ง 2 เส้นให้วิ่งสวนกัน',at:[base,V(-4.4,ROD_TOP+1.4,10.4)]},
  belts:{ty:'mech',s:'สายพานโฟม ×2',n:'สายพานยางผิวโฟม 40 มม. + พูลเลย์ Ø30 ×4 + ลูกปืนกด ×8',q:2,r:'หนีบขยะด้านข้างแล้วยก',at:[base,V(-BELT_X-1.6,44,BZ)]},
  irMouth:{ty:'sensor',s:'IR ปากสายพาน',n:'IR break-beam (ปาก)',q:1,r:'นับลำดับชิ้นที่เข้าสายพาน',at:[base,V(5.9,3,BZ1+.6)]},
  guidePlate:{ty:'mech',s:'แผ่นนำทางใส',n:'แผ่นโพลีคาร์บอเนต สูง 84 ซม.',q:1,r:'กั้นหลังสายพาน ไม่ให้ของหลุดไปข้างหลัง',at:[base,V(0,40,5.3)]},
@@ -2168,7 +2342,7 @@ function eqSummary(){ return Object.keys(ETYPE).map(t=>{ const ks=Object.keys(EQ
 function eqShow(ks,labels){ Object.values(EQ).forEach(e=>{ e.mk.visible=false; e.pin.on=false; }); (ks||[]).forEach((k,i)=>{ EQ[k].mk.visible=true; EQ[k].pin.on=!!labels; EQ[k].pin.el.innerHTML=`<span class="eqn">${i+1}</span>${EQ[k].s}`; }); }
 // keep guide labels from sitting on top of each other (screen-space, top to bottom)
 function gDeclutter(){
-  const L=[]; GSTEPS[gIdx].pins.concat(Object.values(EQ).map(e=>e.pin)).forEach(p=>{ if(p.on&&!p.el.hidden){ const w=p.el.offsetWidth,h=p.el.offsetHeight,x=parseFloat(p.el.style.left),y=parseFloat(p.el.style.top); L.push({p,x0:x-w/2,x1:x+w/2,y:y-h-(p.el.classList.contains('eq')?12:0),h,y0:y}); } });
+  const L=[]; pins.filter(p=>/\b(g|eq|dim)\b/.test(p.el.className)).forEach(p=>{ if(p.on&&!p.el.hidden){ const w=p.el.offsetWidth,h=p.el.offsetHeight,x=parseFloat(p.el.style.left),y=parseFloat(p.el.style.top); L.push({p,x0:x-w/2,x1:x+w/2,y:y-h-(p.el.classList.contains('eq')?12:0),h,y0:y}); } });
   L.sort((a,b)=>a.y-b.y); const done=[];
   L.forEach(a=>{ let moved=true, n=0; while(moved&&n++<12){ moved=false; for(const b of done){ if(a.x0<b.x1+4&&a.x1>b.x0-4&&a.y<b.y+b.h+3&&a.y+a.h>b.y-3){ a.y=b.y+b.h+3; moved=true; } } } done.push(a);
     a.p.el.style.top=(a.y+a.h+(a.p.el.classList.contains('eq')?12:0))+'px'; });
@@ -2199,7 +2373,7 @@ const GSTEPS=[
   how:'ปีกที่กางทำให้ปากรับกว้าง 20 ซม. ขยะที่เยื้องจากแนวกลางได้ถึง ±8 ซม. จะชนแผ่นเอียงแล้วไถลเข้าหาช่องกลางกว้าง 4.4 ซม. เอง หุ่นจึงแค่ขับตรงผ่านขยะ ไม่ต้องหยุดเล็ง',
   enHow:'Opened wings give a 20 cm mouth. An item up to ±8 cm off-centre hits the angled plates and slides into the 4.4 cm centre slot while the robot keeps driving.',
   cam:[50,40,66],tg:[0,6,-6],focus:['plow','drive'],arrows:['wing','drive'],
-  labels:[['ปีกกาง 50°',base,V(13,9,17)],['หุ่นวิ่งตรง ไม่หยุด',base,V(17,4,-6)],['ช่องกลาง 4.4 ซม.',base,V(0,9,11)]],
+  labels:[['ปีกกาง 50°',base,V(13,9,17)],['หุ่นวิ่งตรง ไม่หยุด',base,V(17,4,-6)]],
   setup(){ st.wing=0; setPose({x:0,z:-46,h:0}); const it=makeItem(1); it.position.set(5.5,0,8); it.rotation.y=.6; loose.add(it); this.it=it; },
   run(){ const it=this.it; return [S({wing:1},1.0), wait(.3), tMove(0,-9,25,true), funnel(it,15), rise(it,14), wait(.5)]; }},
  {t:'สายพาน 2 เส้นหนีบขยะ',en:'Two belts grip the item',
@@ -2263,7 +2437,7 @@ function gResetScene(){
 }
 function gFocus(keys){ for(const k in partMats){ const on=!keys||keys.includes(k); partMats[k].forEach(m=>{ if(!m.userData.o0) m.userData.o0={t:m.transparent,o:m.opacity,dw:m.depthWrite}; const o=m.userData.o0;
   if(on){ m.transparent=o.t; m.opacity=o.o; m.depthWrite=o.dw; } else { m.transparent=true; m.opacity=Math.min(o.o,.07); m.depthWrite=false; } m.needsUpdate=true; }); } }
-function gHideAll(){ eqShow(null); Object.values(GA).flat().forEach(a=>a.visible=false); pathG.visible=false; GSTEPS.forEach(s=>s.pins.forEach(p=>p.on=false)); }
+function gHideAll(){ eqShow(null); GDIM.flat().forEach(d=>{ d.g.visible=false; d.pin.on=false; }); Object.values(GA).flat().forEach(a=>a.visible=false); pathG.visible=false; GSTEPS.forEach(s=>s.pins.forEach(p=>p.on=false)); }
 function clearSel(){ selPart=null; PARTS.forEach(p=>{ p.btn.setAttribute('aria-pressed','false'); p.pin.el.classList.remove('sel'); p.mats.forEach(k=>(partMats[k]||[]).forEach(m=>{ m.emissive.copy(BLACK); m.emissiveIntensity=0; })); }); renderDesc(); }
 function guideGo(n){
   if(mode!=='robot') setMode('robot');
@@ -2272,7 +2446,7 @@ function guideGo(n){
   speed=gSlow?.5:1; gFly=null; gResetScene(); gHideAll(); gFocus(s.focus);
   s.arrows.forEach(k=>GA[k].forEach(a=>a.visible=true)); if(s.revDir) revArc.scale.z=s.revDir; pathG.visible=!!s.path; s.pins.forEach(p=>p.on=true);
   s.setup(); applyRobot(); applyPose();
-  eqShow(GEQ[gIdx],gIdx>0); $('#gEq').innerHTML=gIdx?GEQ[gIdx].map(eqCard).join(''):eqSummary(); $('#gEqH').textContent=gIdx?'อุปกรณ์ที่ใช้ในขั้นนี้':'อุปกรณ์ทั้งหมดบนหุ่น (จุดสีบนโมเดล)';
+  setView('iso',true); dimShow(DIM_ALL,false); dimShow(GDIM[gIdx],true); eqShow(GEQ[gIdx],gIdx>0); $('#gEq').innerHTML=gIdx?GEQ[gIdx].map(eqCard).join(''):eqSummary(); $('#gEqH').textContent=gIdx?'อุปกรณ์ที่ใช้ในขั้นนี้':'อุปกรณ์ทั้งหมดบนหุ่น (จุดสีบนโมเดล)';
   $('#gCap').innerHTML=`<small>${gIdx?'ขั้น '+gIdx+' / '+(GSTEPS.length-1):'ภาพรวม'}</small>${s.t}`;
   $('#gStep').textContent=gIdx? `ขั้น ${gIdx} จาก ${GSTEPS.length-1}`:'ภาพรวม';
   $('#gTitle').textContent=s.t; $('#gEnT').textContent=s.en; $('#gPart').textContent=s.part; $('#gTime').textContent=s.time; $('#gMove').textContent=s.move; $('#gTrig').textContent=s.trig;
@@ -2284,7 +2458,7 @@ function guideGo(n){
 function guideExit(){
   if(!guideOn) return; guideOn=false; gPending=null; gEl.hidden=true; $('.rail').classList.remove('guiding'); $('.viewer').classList.remove('guiding'); $('#gCap').hidden=true; $('#gLeg').hidden=true; $('#hint').hidden=false; setPressed('#bGuide',false);
   gHideAll(); gFocus(null); speed=gSaved.speed; showPins=gSaved.pins; setPressed('#bPins',showPins); revArc.scale.z=1;
-  gResetScene(); st.wing=0; applyRobot(); camera.position.set(105,92,128); controls.target.set(0,42,0);
+  gResetScene(); st.wing=0; applyRobot(); dimApply(); camera.position.set(105,92,128); controls.target.set(0,42,0);
 }
 function guideAnim(dt){
   gClock+=dt*speed; eqFlyStep(dt);
@@ -2334,7 +2508,7 @@ function setMode(m){
     $('#hint').textContent='ผังสนามประมาณจากแบบในกติกา · ทีม A เริ่มมุมขวาล่าง เก็บโซน A ทิ้งถังฝั่งซ้าย';
     $('#bPlay').textContent='▶ เล่นเดโม 1 รอบ';
   }
-  applyPose(); hud(); controls.update();
+  applyPose(); hud(); setView('iso',true); dimApply(); controls.update();
 }
 $('#mRobot').addEventListener('click',()=>{ if(mode!=='robot') setMode('robot'); });
 $('#mField').addEventListener('click',()=>{ if(mode!=='field') setMode('field'); });
@@ -2361,7 +2535,7 @@ function frame(){
   tick(dt); if(guideOn) guideAnim(dt); if(!paused && (guideOn||missionOn||bgRs.length||main)) st.belt+=dt*speed*BELT_V; applyRobot(); applyPose();
   if(mode==='field'){ if(follow){ const d=robot.position.clone().sub(lastRobotPos); camera.position.add(d); controls.target.add(d); } lastRobotPos.copy(robot.position); $('#hTime').textContent=fmt(simTime); hud(); }
   if(toastT>0){ toastT-=dt; if(toastT<=0) $('#toast').hidden=true; }
-  controls.update(); renderer.render(scene,camera); placePins(); if(guideOn) gDeclutter();
+  controls.update(); renderer.render(scene,camera); placePins(); if(guideOn||dimsOn) gDeclutter();
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
