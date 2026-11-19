@@ -144,7 +144,33 @@ footer{color:var(--muted);font-size:13px}
 .gbtns .btn:disabled{opacity:.45;cursor:default}
 .gkey{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
 .gkey i{width:18px;height:4px;border-radius:2px;background:#E0249A;display:inline-block}
-.flabel.g{background:#E0249A;color:#fff;border:0;font-weight:500}
+.flabel.g{background:#E0249A;color:#fff;border:0;font:600 14px var(--f-body);padding:4px 10px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.t-motor{--tc:#D9480F}.t-servo{--tc:#1971C2}.t-sensor{--tc:#2B8A3E}.t-ctrl{--tc:#7048E8}.t-mech{--tc:#5C6670}
+.flabel.eq{background:var(--tc);color:#fff;border:0;font:600 13px var(--f-body);padding:3px 8px;border-radius:6px;margin-top:-12px;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.eqt{display:inline-block;font:600 11px var(--f-body);color:#fff;background:var(--tc);padding:2px 7px;border-radius:4px;white-space:nowrap}
+.geqh{font-weight:600;font-size:14px;margin-top:2px}
+#gEq{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.eqc{display:grid;grid-template-columns:auto 1fr auto;gap:3px 8px;align-items:center;padding:7px 9px;border:1px solid var(--line);border-left:5px solid var(--tc);border-radius:7px;background:var(--panel);font-size:13.5px}
+.eqc .q{font:600 13px var(--f-mono);color:var(--muted)}
+.eqc small{grid-column:1/-1;color:var(--muted);font-size:12.5px;line-height:1.45}
+.gcap{position:absolute;left:12px;top:12px;max-width:min(62%,520px);background:var(--panel);color:var(--ink);border-left:5px solid #E0249A;padding:8px 13px;border-radius:8px;font:600 18px/1.35 var(--f-body);box-shadow:0 2px 10px rgba(0,0,0,.18);pointer-events:none}
+.gcap small{display:block;font:600 12px var(--f-mono);color:#E0249A;letter-spacing:.05em}
+.glegend{position:absolute;left:12px;bottom:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px 12px;width:max-content;max-width:calc(100% - 24px);background:var(--panel);color:var(--ink);padding:6px 11px;border-radius:8px;font-size:12.5px;border:1px solid var(--line);pointer-events:none}
+.glegend span{display:inline-flex;align-items:center;gap:5px}.glegend i{width:12px;height:12px;border-radius:50%;background:var(--tc)}.glegend .mv i{width:20px;height:5px;border-radius:3px;background:#E0249A}
+@media (min-width:941px){.viewer.guiding{grid-template-columns:minmax(0,1fr) 390px}}
+@media (max-width:600px){.gcap{font-size:15px;max-width:calc(100% - 24px)}.flabel.g,.flabel.eq{font-size:12px}}
+.guide{font-size:14.5px}.guide .gdl{font-size:14px}
+.eqgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.eqcol{border:1px solid var(--line);border-top:5px solid var(--tc);border-radius:9px;padding:10px 12px;background:var(--panel)}
+.eqcol h3{margin:0 0 6px;font-size:15px;display:flex;align-items:center;gap:8px}
+.eqcol ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:13.5px}
+.eqcol li{padding-top:8px;border-top:1px solid var(--line)}.eqcol li:first-child{border-top:0;padding-top:0}
+.eqcol .q{font:600 12.5px var(--f-mono);color:var(--muted)}
+.btn.sm{font-size:12px;padding:3px 8px;margin-top:4px}
+.eqc.click{cursor:pointer}.eqc.click:hover,.eqc.click:focus-visible{background:var(--soft);outline:2px solid var(--tc);outline-offset:-1px}
+.eqn{display:inline-grid;place-items:center;min-width:17px;height:17px;border-radius:50%;background:#fff;color:var(--tc);font:700 11px var(--f-mono);margin-right:5px;vertical-align:-2px}
+.eqc .go{color:var(--tc);font-weight:600;white-space:nowrap}
+.flabel.eq.hot{outline:3px solid #fff;transform:translate(-50%,-100%) scale(1.15);z-index:5}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -196,6 +222,8 @@ footer{color:var(--muted);font-size:13px}
     <div class="stage" id="stage">
       <canvas id="c" aria-label="โมเดล 3 มิติของหุ่นยนต์ ลากเพื่อหมุน เลื่อนล้อเพื่อซูม"></canvas>
       <div id="pins"></div>
+      <div class="gcap" id="gCap" hidden></div>
+      <div class="glegend" id="gLeg" hidden><span class="mv"><i></i>ทิศที่ขยับ</span><span class="t-motor"><i></i>มอเตอร์</span><span class="t-servo"><i></i>เซอร์โว</span><span class="t-sensor"><i></i>เซนเซอร์</span><span class="t-ctrl"><i></i>สมอง/ไฟ</span><span class="t-mech"><i></i>กลไก</span></div>
       <div class="hud" id="hud" hidden>
         <div class="row"><span>เวลา</span><span class="big" id="hTime">0:00.0</span></div>
         <div class="row"><span>คะแนน</span><span class="big" id="hScore">0</span></div>
@@ -220,9 +248,9 @@ footer{color:var(--muted);font-size:13px}
       <div class="guide" id="guide" hidden aria-live="polite">
         <div class="gh"><span class="gstep" id="gStep">ภาพรวม</span><div class="gdots" id="gDots" role="group" aria-label="เลือกขั้น"></div><button class="gx" id="gX" type="button" aria-label="ปิดโหมดอธิบาย">✕</button></div>
         <h3 id="gTitle"></h3><p class="gen" id="gEnT"></p>
-        <dl class="gdl"><dt>ชิ้นที่ขยับ</dt><dd id="gPart"></dd><dt>ขับด้วย</dt><dd id="gAct"></dd><dt>ขยับแบบไหน</dt><dd id="gMove"></dd><dt>สั่งงานเมื่อ</dt><dd id="gTrig"></dd></dl>
+        <dl class="gdl"><dt>ชิ้นที่ขยับ</dt><dd id="gPart"></dd><dt>ขยับแบบไหน</dt><dd id="gMove"></dd><dt>สั่งงานเมื่อ</dt><dd id="gTrig"></dd><dt>ใช้เวลา</dt><dd id="gTime"></dd></dl>
+        <div class="geqh" id="gEqH">อุปกรณ์ที่ใช้ในขั้นนี้</div><ul id="gEq"></ul>
         <p id="gHow"></p><p class="en" id="gEn"></p>
-        <div class="gkey"><i></i>ลูกศรสีชมพู = ทิศที่ชิ้นส่วนกำลังขยับ · ส่วนที่ไม่เกี่ยวจะจางลง</div>
         <div class="gbtns"><button class="btn" id="gPrev" type="button">◀ ก่อนหน้า</button><button class="btn" id="gAgain" type="button">↻ เล่นซ้ำ</button><button class="btn primary" id="gNext" type="button">ถัดไป ▶</button><button class="btn" id="gAuto" type="button" aria-pressed="false">เล่นต่ออัตโนมัติ</button><button class="btn" id="gSlow" type="button" aria-pressed="true">ช้า ½×</button></div>
       </div>
   </aside>
@@ -235,6 +263,12 @@ footer{color:var(--muted);font-size:13px}
     <thead><tr><th>ขั้น</th><th>สถานี · ชิ้นที่ขยับ</th><th>ขับด้วย</th><th>ขยับแบบไหน</th><th>สั่งงานเมื่อ</th><th>เวลา</th><th></th></tr></thead>
     <tbody id="howRows"></tbody>
   </table></div>
+</section>
+
+<section class="block" id="eqSec">
+  <h2>อุปกรณ์ที่ต้องใช้ แยกตามประเภท</h2>
+  <p class="en">สีเดียวกับจุดบนโมเดลในโหมดอธิบาย กด “ดูขั้น” เพื่อดูว่าอุปกรณ์นั้นทำงานตอนไหน · Same colours as the dots on the model; press “ดูขั้น” to see when each device works.</p>
+  <div class="eqgrid" id="eqGrid"></div>
 </section>
 
 <section class="block">
@@ -2050,8 +2084,8 @@ const GC=0xE0249A;
 const gMat=new T.MeshBasicMaterial({color:GC,transparent:true,opacity:.95,depthTest:false,side:T.DoubleSide});
 const UPV=new T.Vector3(0,1,0);
 function gArrow(parent,len,x,y,z,dir){
-  const g=new T.Group(); const sh=new T.Mesh(cyl(.32,.32,len,10),gMat); sh.position.y=len/2; g.add(sh);
-  const hd=new T.Mesh(new T.ConeGeometry(.95,1.9,16),gMat); hd.position.y=len+.95; g.add(hd);
+  const g=new T.Group(); const sh=new T.Mesh(cyl(.5,.5,len,10),gMat); sh.position.y=len/2; g.add(sh);
+  const hd=new T.Mesh(new T.ConeGeometry(1.45,2.8,16),gMat); hd.position.y=len+1.4; g.add(hd);
   g.children.forEach(m=>m.renderOrder=20);
   const dv=new T.Vector3(...dir).normalize(); g.position.set(x,y,z); g.quaternion.setFromUnitVectors(UPV,dv);
   g.userData={base:g.position.clone(),dir:dv,pulse:true}; g.visible=false; parent.add(g); return g;
@@ -2071,8 +2105,8 @@ const GA={
 // curved arrow riding on the revolver, so it turns the same way the tubes turn
 const revArc=new T.Group(); revArc.position.y=TUBE_H+1.6; revolver.add(revArc); revArc.visible=false;
 { const R=RING+1.3, A1=1.9, pts=[]; for(let i=0;i<=24;i++){ const t=i/24*A1; pts.push(new T.Vector3(R*Math.cos(t),0,R*Math.sin(t))); }
-  const tube=new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),40,.32,8,false),gMat); tube.renderOrder=20; revArc.add(tube);
-  const hd=new T.Mesh(new T.ConeGeometry(.95,1.9,16),gMat); hd.renderOrder=20; hd.position.copy(pts[24]);
+  const tube=new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),40,.5,8,false),gMat); tube.renderOrder=20; revArc.add(tube);
+  const hd=new T.Mesh(new T.ConeGeometry(1.45,2.8,16),gMat); hd.renderOrder=20; hd.position.copy(pts[24]);
   hd.quaternion.setFromUnitVectors(UPV,new T.Vector3(-Math.sin(A1),0,Math.cos(A1))); revArc.add(hd); }
 GA.rev.push(revArc);
 // dotted path of one item, robot frame
@@ -2081,10 +2115,75 @@ const pathG=new T.Group(); robot.add(pathG); pathG.visible=false;
 const pLine=new T.Line(new T.BufferGeometry().setFromPoints(PATH),new T.LineDashedMaterial({color:GC,dashSize:1.6,gapSize:1.2,depthTest:false,transparent:true}));
 pLine.computeLineDistances(); pLine.renderOrder=19; pathG.add(pLine);
 const segL=[]; let pathLen=0; for(let i=1;i<PATH.length;i++){ const l=PATH[i].distanceTo(PATH[i-1]); segL.push(l); pathLen+=l; }
-const pDots=[]; for(let k=0;k<16;k++){ const m=new T.Mesh(new T.SphereGeometry(.75,12,8),gMat); m.renderOrder=20; pathG.add(m); pDots.push(m); }
+const pDots=[]; for(let k=0;k<16;k++){ const m=new T.Mesh(new T.SphereGeometry(.95,12,8),gMat); m.renderOrder=20; pathG.add(m); pDots.push(m); }
 function pathAt(s){ s=((s%pathLen)+pathLen)%pathLen; for(let i=0;i<segL.length;i++){ if(s<=segL[i]) return PATH[i].clone().lerp(PATH[i+1],s/segL[i]); s-=segL[i]; } return PATH[PATH.length-1].clone(); }
-const V=(x,y,z)=>new T.Vector3(x,y,z);
+const V=(x,y,z)=>new T.Vector3(x,y,z); const vq=new T.Quaternion();
 function gLabel(html,obj,at){ const p=addPin(html,'flabel g',obj,at,'robot'); p.always=true; p.on=false; return p; }
+// ---------- equipment: what device does the work, where it sits ----------
+const ETYPE={motor:{n:'มอเตอร์',c:0xD9480F},servo:{n:'เซอร์โว',c:0x1971C2},sensor:{n:'เซนเซอร์',c:0x2B8A3E},ctrl:{n:'สมอง/ไฟ',c:0x7048E8},mech:{n:'กลไก (ไม่ใช้ไฟ)',c:0x5C6670}};
+const EQ={
+ wheelMotor:{ty:'motor',s:'มอเตอร์ล้อ ×4',n:'มอเตอร์เกียร์ JGY-370 12 V 210 rpm + encoder',q:4,r:'หมุนล้อ Mecanum ล้อละตัว · ไดรเวอร์ Cytron MDD3A ×2',at:[base,V(8,8.1,8)]},
+ wingServo:{ty:'servo',s:'เซอร์โวปีก',n:'เซอร์โว MG90S',q:1,r:'กางปีกทั้ง 2 ข้างผ่านก้านต่อ ครั้งเดียวตอนเริ่ม',at:[base,V(7.6,7.6,11.2)]},
+ wings:{ty:'mech',s:'ปีกไถ ×2',n:'ปีกอะคริลิก 3 มม. 56×60 มม. ขอบยาง',q:2,r:'ต้อนขยะเข้ากลาง',at:[base,V(-11,6,16)]},
+ lineImu:{ty:'sensor',s:'เซนเซอร์เส้น + IMU',n:'IR line QTR-8RC + IMU BNO055',q:2,r:'วิ่งตรงตามคอลัมน์ คุมทิศตอนสไลด์',at:[base,V(0,1,2.2)]},
+ topCam:{ty:'sensor',s:'กล้องบน',n:'Camera Module 3 Wide (กล้องบน)',q:1,r:'มองทั้งโซน บอกตำแหน่งและชนิดขยะล่วงหน้า',at:[camTop,V(0,0,0)]},
+ beltMotor:{ty:'motor',s:'มอเตอร์สายพาน',n:'มอเตอร์ JGA25-370 12 V + เฟืองกลับทิศ',q:1,r:'ตัวเดียวขับสายพานทั้ง 2 เส้นให้วิ่งสวนกัน',at:[base,V(-4.4,ROD_TOP+1.4,10.6)]},
+ belts:{ty:'mech',s:'สายพานโฟม ×2',n:'สายพานยางผิวโฟม 40 มม. + พูลเลย์ Ø30 ×4 + ลูกปืนกด ×8',q:2,r:'หนีบขยะด้านข้างแล้วยก',at:[base,V(-BELT_X-1.6,44,BZ)]},
+ irMouth:{ty:'sensor',s:'IR ปากสายพาน',n:'IR break-beam (ปาก)',q:1,r:'นับลำดับชิ้นที่เข้าสายพาน',at:[base,V(5.9,3,BZ1+.6)]},
+ guidePlate:{ty:'mech',s:'แผ่นนำทางใส',n:'แผ่นโพลีคาร์บอเนต สูง 84 ซม.',q:1,r:'กั้นหลังสายพาน ไม่ให้ของหลุดไปข้างหลัง',at:[base,V(0,40,5.3)]},
+ irTop:{ty:'sensor',s:'IR ยอด',n:'IR break-beam (ยอด)',q:1,r:'บอกว่าของขึ้นถึงลิ้นกันตกแล้ว',at:[base,V(5.9,BELT_TOP+.5,CH_Z)]},
+ pawls:{ty:'mech',s:'ลิ้นสปริง ×2',n:'ลิ้นกันตกแบบสปริง',q:2,r:'รองใต้ของเมื่อพ้นสายพาน',at:[base,V(1.9,BELT_TOP,CH_Z)]},
+ nema:{ty:'motor',s:'NEMA17 หมุนลูกโม่',n:'สเต็ปเปอร์ NEMA17 + ไดรเวอร์ TMC2209',q:1,r:'หมุนลูกโม่ทีละ 120° ให้ท่อที่ถูกชนิดมารอ',at:[upper,V(C.x,27.5,C.z)]},
+ hall:{ty:'sensor',s:'Hall',n:'Hall A3144 + แม่เหล็ก',q:1,r:'ยืนยันว่าลูกโม่หมุนถึงตำแหน่ง (จุดศูนย์)',at:[upper,V(C.x+3.2,28.6,C.z+2)]},
+ tubes:{ty:'mech',s:'ท่อใส ×3',n:'ท่ออะคริลิก OD 76 / ID 70 มม. ยาว 460 มม.',q:3,r:'ท่อละ 1 ชนิด จุได้ 4 ชิ้น',at:[upper,V(C.x-9,UPPER_Y+18,C.z)]},
+ pusherServo:{ty:'servo',s:'เซอร์โวตัวดัน',n:'เซอร์โว MG90S + เฟืองสะพาน 80 มม.',q:1,r:'เลื่อนแผ่นดัน 7 ซม. แล้วถอยกลับ',at:[base,V(0,ROD_TOP+2,10.4)]},
+ slideStepper:{ty:'motor',s:'สเต็ปเปอร์ลิ้นชัก',n:'สเต็ปเปอร์ตัวสั้น + สายพาน GT2',q:1,r:'เลื่อนชุดลูกโม่ออกข้าง 16 ซม.',at:[base,V(-9.6,25.8,-3.6)]},
+ rails:{ty:'mech',s:'ราง MGN12 ×2',n:'ราง MGN12 ยาว 250 มม. (4 carriage)',q:2,r:'ให้ลิ้นชักเลื่อนตรงและนิ่ง',at:[base,V(9,28.8,-10.5)]},
+ tof:{ty:'sensor',s:'ToF วัดระยะถัง',n:'ToF VL53L0X',q:2,r:'ยืนยันว่าหุ่นชิดถังก่อนเปิดประตู',at:[base,V(12.1,7,C.z)]},
+ sideCam:{ty:'sensor',s:'กล้องข้าง (QR)',n:'Camera Module 3 Wide (กล้องข้าง)',q:1,r:'อ่าน QR บนถัง บอกว่าถังนี้รับชนิดไหน',at:[camSide,V(0,0,0)]},
+ gateServo:{ty:'servo',s:'เซอร์โวประตู',n:'เซอร์โว MG90S + แผ่นปิด 3 มม.',q:1,r:'หมุนประตูใต้รูเทให้เปิด/ปิด',at:[upper,V(HOLE.x+1.5,UPPER_Y-1.8,HOLE.z+5.4)]},
+ brain:{ty:'ctrl',s:'Pi 5 + Mega',n:'Raspberry Pi 5 (4 GB) + Arduino Mega 2560',q:2,r:'Pi ประมวลภาพ · Mega คุมมอเตอร์ เซอร์โว และเซนเซอร์ทุกตัว',at:[base,V(-3,8.9,-3.5)]},
+ power:{ty:'ctrl',s:'แบต LiPo 3S',n:'LiPo 3S 3000 mAh + buck 5 V 5 A + UBEC 6 V + ฟิวส์ 15 A',q:1,r:'จ่ายไฟทั้งหุ่น · UBEC 6 V แยกให้เซอร์โว',at:[base,V(0,7.1,-8.6)]}
+};
+const GEQ=[
+ Object.keys(EQ),
+ ['wingServo','wheelMotor','topCam','lineImu','wings'],
+ ['beltMotor','irMouth','belts'],
+ ['beltMotor','belts','guidePlate'],
+ ['irTop','pawls','nema','hall','topCam'],
+ ['pusherServo','hall','tubes'],
+ ['slideStepper','rails','tof','sideCam','nema','gateServo']
+];
+const eqMatT={}; Object.keys(ETYPE).forEach(t=>eqMatT[t]=new T.MeshBasicMaterial({color:ETYPE[t].c,transparent:true,opacity:.95,depthTest:false}));
+const eqRingGeo=new T.TorusGeometry(1.7,.22,8,32), eqDotGeo=new T.SphereGeometry(.7,14,10);
+Object.entries(EQ).forEach(([k,e])=>{
+  const g=new T.Group(); g.position.copy(e.at[1]); e.at[0].add(g);
+  const d=new T.Mesh(eqDotGeo,eqMatT[e.ty]); const r=new T.Mesh(eqRingGeo,eqMatT[e.ty]); d.renderOrder=r.renderOrder=21; g.add(d); g.add(r);
+  g.visible=false; e.mk=g; e.ring=r;
+  e.pin=addPin(e.s,'flabel eq t-'+e.ty,e.at[0],e.at[1],'robot'); e.pin.always=true; e.pin.on=false;
+});
+function eqCard(k,i){ const e=EQ[k]; return `<li class="eqc t-${e.ty} click" data-eq="${k}" tabindex="0" role="button" title="คลิกเพื่อดูตำแหน่งบนโมเดล"><span class="eqt"><span class="eqn">${i+1}</span>${ETYPE[e.ty].n}</span><b>${e.n}</b><span class="q">×${e.q}</span><small>${e.r} <span class="go">· ดูตำแหน่ง ⌖</span></small></li>`; }
+function eqSummary(){ return Object.keys(ETYPE).map(t=>{ const ks=Object.keys(EQ).filter(k=>EQ[k].ty===t); const n=ks.reduce((a,k)=>a+EQ[k].q,0);
+  return `<li class="eqc t-${t}"><span class="eqt">${ETYPE[t].n}</span><b>${n} ชิ้น</b><span class="q"></span><small>${ks.map(k=>EQ[k].s.replace(/ ×\d+$/,'')+(EQ[k].q>1?' ×'+EQ[k].q:'')).join(' · ')}</small></li>`; }).join(''); }
+function eqShow(ks,labels){ Object.values(EQ).forEach(e=>{ e.mk.visible=false; e.pin.on=false; }); (ks||[]).forEach((k,i)=>{ EQ[k].mk.visible=true; EQ[k].pin.on=!!labels; EQ[k].pin.el.innerHTML=`<span class="eqn">${i+1}</span>${EQ[k].s}`; }); }
+// keep guide labels from sitting on top of each other (screen-space, top to bottom)
+function gDeclutter(){
+  const L=[]; GSTEPS[gIdx].pins.concat(Object.values(EQ).map(e=>e.pin)).forEach(p=>{ if(p.on&&!p.el.hidden){ const w=p.el.offsetWidth,h=p.el.offsetHeight,x=parseFloat(p.el.style.left),y=parseFloat(p.el.style.top); L.push({p,x0:x-w/2,x1:x+w/2,y:y-h-(p.el.classList.contains('eq')?12:0),h,y0:y}); } });
+  L.sort((a,b)=>a.y-b.y); const done=[];
+  L.forEach(a=>{ let moved=true, n=0; while(moved&&n++<12){ moved=false; for(const b of done){ if(a.x0<b.x1+4&&a.x1>b.x0-4&&a.y<b.y+b.h+3&&a.y+a.h>b.y-3){ a.y=b.y+b.h+3; moved=true; } } } done.push(a);
+    a.p.el.style.top=(a.y+a.h+(a.p.el.classList.contains('eq')?12:0))+'px'; });
+}
+// click an equipment card: fly the camera to that device and flash its label
+let gFly=null;
+function eqFly(k){ const e=EQ[k]; if(!e) return; const t1=new T.Vector3(); e.mk.getWorldPosition(t1);
+  const off=camera.position.clone().sub(controls.target).setLength(48);
+  gFly={p0:camera.position.clone(),t0:controls.target.clone(),p1:t1.clone().add(off),t1,k:0};
+  e.mk.visible=true; e.pin.on=true; e.pin.el.classList.add('hot'); setTimeout(()=>e.pin.el.classList.remove('hot'),2200); }
+function eqFlyStep(dt){ if(!gFly) return; gFly.k=Math.min(1,gFly.k+dt/0.9); const q=ease(gFly.k);
+  camera.position.lerpVectors(gFly.p0,gFly.p1,q); controls.target.lerpVectors(gFly.t0,gFly.t1,q); if(gFly.k>=1) gFly=null; }
+$('#gEq').addEventListener('click',ev=>{ const li=ev.target.closest&&ev.target.closest('[data-eq]'); if(li) eqFly(li.dataset.eq); });
+$('#gEq').addEventListener('keydown',ev=>{ if(ev.key==='Enter'||ev.key===' '){ const li=ev.target.closest&&ev.target.closest('[data-eq]'); if(li){ ev.preventDefault(); eqFly(li.dataset.eq); } } });
+
 
 const GSTEPS=[
  {t:'ภาพรวม: เส้นทางของขยะ 1 ชิ้น',en:'Overview: the path of one item',
@@ -2124,7 +2223,7 @@ const GSTEPS=[
   how:'เมื่อขยะพ้นยอดสายพาน ลิ้นกันตกรองใต้ของไว้ ระหว่างนั้นลูกโม่หมุนท่อของประเภทนั้นมาอยู่ใต้ตัวดัน แถบสีบนท่อบอกประเภท: เทา โลหะ · ฟ้า พลาสติก · เขียว กล่องนม',
   enHow:'Spring pawls catch the item above the belts while the stepper turns the matching tube (colour band) under the pusher.',
   cam:[42,118,60],tg:[0,77,0],focus:['belt','revolver','pusher','vision'],arrows:['rev'],revDir:1,
-  labels:[['ลิ้นกันตกรองไว้',base,V(-11,BELT_TOP-2,CH_Z)],['ลูกโม่หมุน 120°',upper,V(C.x+13,UPPER_Y+TUBE_H+1,C.z)],['กล้องบน: รู้ชนิดล่วงหน้า',camTop,V(0,3,0)]],
+  labels:[['ลิ้นกันตกรองไว้',base,V(-11,BELT_TOP-2,CH_Z)],['ลูกโม่หมุน 120°',upper,V(C.x+13,UPPER_Y+TUBE_H+1,C.z)]],
   setup(){ const it=makeItem(1); chanAnchor.add(it); it.position.set(0,TOP_Y,0); this.it=it; st.psi=0; },
   run(){ return [wait(.8), tRev(1,'load',1.4), wait(.6)]; }},
  {t:'ตัวดันส่งลงท่อ ซ้อนตั้งในท่อ',en:'Pusher drops it into the tube; items stack',
@@ -2140,7 +2239,7 @@ const GSTEPS=[
   how:'เทได้ทั้งท่อในคำสั่งเดียว ประตูปิดไว้ตลอดตอนลูกโม่หมุน ท่ออื่นที่หมุนผ่านรูเทจึงไม่หล่นผิดถัง กล้องข้างต้องอ่าน QR ได้ก่อนจึงจะเปิดประตู',
   enHow:'One command empties a whole tube. The gate stays shut while the revolver turns, so other tubes passing the hole cannot spill into the wrong bin.',
   cam:[82,62,98],tg:[12,24,-4],focus:['slide','revolver','shutter','vision'],arrows:['slide','fall','rev'],revDir:-1,
-  labels:[['ลิ้นชักเลื่อนออก 16 ซม.',base,V(9,UPPER_Y+7,-14.5)],['กล้องข้างอ่าน QR',camSide,V(-2,-5,5)],['ประตูเปิด ของหล่นลงถัง',upper,V(HOLE.x+9,UPPER_Y-3,HOLE.z+7)]],
+  labels:[['ลิ้นชักเลื่อนออก 16 ซม.',base,V(9,UPPER_Y+7,-14.5)],['ประตูเปิด ของหล่นลงถัง',upper,V(HOLE.x+9,UPPER_Y-3,HOLE.z+7)]],
   setup(){ fillTube(1,3,1); st.psi=wrapA(BETA_L-tubeA[1]); rBin.visible=true; rBinPin.on=false; rBinPin.el.textContent='QR → '+TYPES[1].th; rBinPin.el.style.background=css(TYPES[1].cssv); },
   run(){ return [wait(.4), S({slide:SLIDE_MAX},1.4), call(()=>showBeam(8.6)), wait(.9), call(()=>{ beam.visible=false; rBinPin.on=true; }),
     tRev(1,'dump',1.2), S({shut:1},.6), dropTube(1,{group:rBin,floorY:.6,sx:13,sz:21}), wait(1.2), S({shut:0},.5), S({slide:0},1.3)]; }}
@@ -2163,34 +2262,37 @@ function gResetScene(){
   Object.assign(st,START_STATE); st.wing=1; setPose({x:0,z:0,h:0}); beam.visible=false; hud();
 }
 function gFocus(keys){ for(const k in partMats){ const on=!keys||keys.includes(k); partMats[k].forEach(m=>{ if(!m.userData.o0) m.userData.o0={t:m.transparent,o:m.opacity,dw:m.depthWrite}; const o=m.userData.o0;
-  if(on){ m.transparent=o.t; m.opacity=o.o; m.depthWrite=o.dw; } else { m.transparent=true; m.opacity=Math.min(o.o,.09); m.depthWrite=false; } m.needsUpdate=true; }); } }
-function gHideAll(){ Object.values(GA).flat().forEach(a=>a.visible=false); pathG.visible=false; GSTEPS.forEach(s=>s.pins.forEach(p=>p.on=false)); }
+  if(on){ m.transparent=o.t; m.opacity=o.o; m.depthWrite=o.dw; } else { m.transparent=true; m.opacity=Math.min(o.o,.07); m.depthWrite=false; } m.needsUpdate=true; }); } }
+function gHideAll(){ eqShow(null); Object.values(GA).flat().forEach(a=>a.visible=false); pathG.visible=false; GSTEPS.forEach(s=>s.pins.forEach(p=>p.on=false)); }
 function clearSel(){ selPart=null; PARTS.forEach(p=>{ p.btn.setAttribute('aria-pressed','false'); p.pin.el.classList.remove('sel'); p.mats.forEach(k=>(partMats[k]||[]).forEach(m=>{ m.emissive.copy(BLACK); m.emissiveIntensity=0; })); }); renderDesc(); }
 function guideGo(n){
   if(mode!=='robot') setMode('robot');
-  if(!guideOn){ guideOn=true; gSaved={speed,pins:showPins}; showPins=false; setPressed('#bPins',false); clearSel(); resetStartBox(); gEl.hidden=false; $('.rail').classList.add('guiding'); $('#hint').hidden=true; setPressed('#bGuide',true); }
+  if(!guideOn){ guideOn=true; gSaved={speed,pins:showPins}; showPins=false; setPressed('#bPins',false); clearSel(); resetStartBox(); gEl.hidden=false; $('.rail').classList.add('guiding'); $('.viewer').classList.add('guiding'); $('#gCap').hidden=false; $('#gLeg').hidden=false; $('#hint').hidden=true; setPressed('#bGuide',true); }
   gIdx=Math.max(0,Math.min(GSTEPS.length-1,n)); const s=GSTEPS[gIdx];
-  speed=gSlow?.5:1; gResetScene(); gHideAll(); gFocus(s.focus);
+  speed=gSlow?.5:1; gFly=null; gResetScene(); gHideAll(); gFocus(s.focus);
   s.arrows.forEach(k=>GA[k].forEach(a=>a.visible=true)); if(s.revDir) revArc.scale.z=s.revDir; pathG.visible=!!s.path; s.pins.forEach(p=>p.on=true);
   s.setup(); applyRobot(); applyPose();
+  eqShow(GEQ[gIdx],gIdx>0); $('#gEq').innerHTML=gIdx?GEQ[gIdx].map(eqCard).join(''):eqSummary(); $('#gEqH').textContent=gIdx?'อุปกรณ์ที่ใช้ในขั้นนี้':'อุปกรณ์ทั้งหมดบนหุ่น (จุดสีบนโมเดล)';
+  $('#gCap').innerHTML=`<small>${gIdx?'ขั้น '+gIdx+' / '+(GSTEPS.length-1):'ภาพรวม'}</small>${s.t}`;
   $('#gStep').textContent=gIdx? `ขั้น ${gIdx} จาก ${GSTEPS.length-1}`:'ภาพรวม';
-  $('#gTitle').textContent=s.t; $('#gEnT').textContent=s.en; $('#gPart').textContent=s.part; $('#gAct').textContent=s.act; $('#gMove').textContent=s.move; $('#gTrig').textContent=s.trig;
+  $('#gTitle').textContent=s.t; $('#gEnT').textContent=s.en; $('#gPart').textContent=s.part; $('#gTime').textContent=s.time; $('#gMove').textContent=s.move; $('#gTrig').textContent=s.trig;
   $('#gHow').textContent=s.how; $('#gEn').textContent=s.enHow;
   document.querySelectorAll('#gDots button').forEach((b,i)=>{ if(i===gIdx) b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current'); });
   $('#gPrev').disabled=gIdx===0; $('#gNext').textContent=gIdx===GSTEPS.length-1?'จบ ✓':'ถัดไป ▶';
   play([tCam(s.cam,s.tg,1.1), ...s.run(), dyn(()=> gAuto && gIdx<GSTEPS.length-1 ? [wait(1.6), call(()=>{ gPending=gIdx+1; })] : [])]);
 }
 function guideExit(){
-  if(!guideOn) return; guideOn=false; gPending=null; gEl.hidden=true; $('.rail').classList.remove('guiding'); $('#hint').hidden=false; setPressed('#bGuide',false);
+  if(!guideOn) return; guideOn=false; gPending=null; gEl.hidden=true; $('.rail').classList.remove('guiding'); $('.viewer').classList.remove('guiding'); $('#gCap').hidden=true; $('#gLeg').hidden=true; $('#hint').hidden=false; setPressed('#bGuide',false);
   gHideAll(); gFocus(null); speed=gSaved.speed; showPins=gSaved.pins; setPressed('#bPins',showPins); revArc.scale.z=1;
   gResetScene(); st.wing=0; applyRobot(); camera.position.set(105,92,128); controls.target.set(0,42,0);
 }
 function guideAnim(dt){
-  gClock+=dt*speed;
+  gClock+=dt*speed; eqFlyStep(dt);
   if(pathG.visible) pDots.forEach((m,k)=>m.position.copy(pathAt(gClock*14+k*pathLen/pDots.length)));
   GA.beltUp.forEach(a=>{ if(a.visible) a.position.y=BY0+6+((st.belt+a.userData.k*24)%66); });
   GA.beltDown.forEach(a=>{ if(a.visible) a.position.y=BY1-6-((st.belt+a.userData.k*24)%66); });
-  const w=(Math.sin(gClock*5)+1)*.6;
+  const w=(Math.sin(gClock*5)+1)*.6, rs=1+.35*(Math.sin(gClock*4)+1)/2;
+  Object.values(EQ).forEach(e=>{ if(e.mk.visible){ e.ring.scale.setScalar(rs); e.mk.parent.getWorldQuaternion(vq).invert(); e.mk.quaternion.copy(vq.multiply(camera.quaternion)); } });
   Object.values(GA).flat().forEach(a=>{ if(a.visible&&a.userData.pulse&&a.userData.base) a.position.copy(a.userData.base).addScaledVector(a.userData.dir,w); });
   if(gPending!==null && !main){ const n=gPending; gPending=null; guideGo(n); }
 }
@@ -2205,6 +2307,9 @@ $('#gSlow').addEventListener('click',()=>{ gSlow=!gSlow; setPressed('#gSlow',gSl
 document.addEventListener('keydown',e=>{ if(!guideOn) return; if(e.key==='ArrowRight'){ $('#gNext').click(); } else if(e.key==='ArrowLeft' && gIdx>0){ guideGo(gIdx-1); } else if(e.key==='Escape'){ guideExit(); } });
 // summary table under the viewer, built from the same step data
 $('#howRows').innerHTML=GSTEPS.slice(1).map((s,i)=>`<tr><td class="mono">${i+1}</td><td><b>${s.t}</b><br><span class="en">${s.part}</span></td><td>${s.act}</td><td>${s.move}</td><td>${s.trig}</td><td class="mono">${s.time}</td><td><button class="btn" type="button" data-gstep="${i+1}">ดูในโมเดล ▶</button></td></tr>`).join('');
+$('#eqGrid').innerHTML=Object.keys(ETYPE).map(t=>{ const ks=Object.keys(EQ).filter(k=>EQ[k].ty===t);
+  return `<div class="eqcol t-${t}"><h3><span class="eqt">${ETYPE[t].n}</span> ${ks.reduce((a,k)=>a+EQ[k].q,0)} ชิ้น</h3><ul>${ks.map(k=>{ const e=EQ[k]; const st=GEQ.map((g,i)=>i&&g.includes(k)?i:0).filter(Boolean);
+    return `<li><b>${e.n}</b> <span class="q">×${e.q}</span><br><span class="en">${e.r}</span><br>${st.map(i=>`<button class="btn sm" type="button" data-gstep="${i}">ดูขั้น ${i} ▶</button>`).join(' ')}</li>`; }).join('')}</ul></div>`; }).join('');
 document.querySelectorAll('[data-gstep]').forEach(b=>b.addEventListener('click',()=>{ guideGo(+b.dataset.gstep); stage.scrollIntoView({behavior:'smooth',block:'center'}); }));
 
 { const m=(typeof location!=='undefined'&&location.hash||'').match(/^#how(\d)?$/); if(m) setTimeout(()=>guideGo(+(m[1]||0)),0); }
@@ -2256,7 +2361,7 @@ function frame(){
   tick(dt); if(guideOn) guideAnim(dt); if(!paused && (guideOn||missionOn||bgRs.length||main)) st.belt+=dt*speed*BELT_V; applyRobot(); applyPose();
   if(mode==='field'){ if(follow){ const d=robot.position.clone().sub(lastRobotPos); camera.position.add(d); controls.target.add(d); } lastRobotPos.copy(robot.position); $('#hTime').textContent=fmt(simTime); hud(); }
   if(toastT>0){ toastT-=dt; if(toastT<=0) $('#toast').hidden=true; }
-  controls.update(); renderer.render(scene,camera); placePins();
+  controls.update(); renderer.render(scene,camera); placePins(); if(guideOn) gDeclutter();
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
