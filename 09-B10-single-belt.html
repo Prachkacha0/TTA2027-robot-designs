@@ -276,7 +276,7 @@ table.btbl td{font-size:13px;vertical-align:top}
 .sv-gt2b{fill:#17191C;opacity:.75}.sv-brg{fill:#8E979E;stroke:#3A4148}
 .sv-wheelF{fill:#2B2F33;opacity:.35;stroke:#2B2F33}.sv-brgF{fill:#8E979E;stroke:#3A4148}.sv-axleF{fill:#C8CDD2;stroke:#56646F}.sv-pulF{fill:#B9C1C8;stroke:#3A4148}
 .sv-gtF{fill:#17191C}.sv-motF{fill:#C9A227;opacity:.8;stroke:#7A6315}.sv-beltF{fill:#4B5560;stroke:#2B2F33}.sv-beltIn{fill:#9AA3AA}.sv-wallF{fill:#EDEFF2;stroke:#3A4148}.sv-backF{fill:#7D868D}.sv-mk{fill:#B3261E;stroke:#fff;stroke-width:1.5}.sv-mkt{fill:#fff;font:700 11px var(--f-mono);text-anchor:middle}.sv-motG{fill:#C9A227;stroke:#7A6315}
-</style>
+.sv-odw{fill:#2B2F33;opacity:.85}.sv-odh{fill:#3A4148}.sv-odr{fill:#9AA3AA;stroke:#56646F}.sv-odp{fill:#E8590C;opacity:.85}.sv-pcb{fill:#1D6B3A}.sv-odarm{stroke:#E8590C;stroke-width:9;stroke-linecap:round;opacity:.9}.sv-spr{fill:none;stroke:#6A7580;stroke-width:2.2}.sv-ghost{opacity:.45}.sv-arr{stroke:#1971C2;stroke-width:3;fill:none}.sv-arrH{fill:#1971C2}.sv-cen{fill:none;stroke:#C92A2A;stroke-width:2}.odcode{font:12.5px/1.5 var(--f-mono,monospace);background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;white-space:pre;margin:0}</style>
 </head>
 <body>
 <a href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:50;background:#13202B;color:#fff;font:500 13px system-ui,sans-serif;padding:8px 12px;border-radius:8px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.3)">← หน้าแรก · All designs</a>
@@ -412,6 +412,62 @@ table.btbl td{font-size:13px;vertical-align:top}
   <div class="note"><h3>ตารางรูแผ่นบาง</h3><div class="tablewrap"><table class="btbl"><thead><tr><th>รหัส</th><th>ใช้ยึด</th><th>ขนาด</th><th>จำนวน</th><th>พิกัด</th><th>สกรู</th></tr></thead><tbody><tr><td class="mono"><b>T</b></td><td>ยึดแผ่นเข้ารางใน (T-nut)</td><td class="mono">Ø5.5</td><td class="mono">6</td><td>(-62, -80) · (62, -80) · (-62, -10) · (62, -10) · (-62, 30) · (62, 30)</td><td>M5 × 8 หัวจม + T-nut</td></tr><tr><td class="mono"><b>J</b></td><td>ฉากเสากล้องข้าง</td><td class="mono">Ø3.4</td><td class="mono">2</td><td>(-18, -30) · (-18, -42)</td><td>M3 × 8</td></tr><tr><td class="mono"><b>K</b></td><td>สวิตช์หลัก</td><td class="mono">ช่อง 19 × 13</td><td class="mono">1</td><td>(-25, 30)</td><td>ล็อกในตัว</td></tr><tr><td class="mono"><b>L</b></td><td>ปุ่ม Start</td><td class="mono">Ø16</td><td class="mono">1</td><td>(25, 30)</td><td>น็อตในตัว</td></tr><tr><td class="mono"><b>S</b></td><td>เสารองชั้นอุปกรณ์ (บนตัวต่อข้าง)</td><td class="mono">Ø4.5</td><td class="mono">4</td><td>(-88, 0) · (88, 0) · (-88, -110) · (88, -110)</td><td>M4</td></tr><tr><td class="mono"><b>F</b></td><td>ร่องร้อยสายรัดแบต</td><td class="mono">ร่อง 3.5 × 25</td><td class="mono">2</td><td>(0, -110) · (0, -62)</td><td>—</td></tr><tr><td class="mono"><b>I</b></td><td>รูร้อยสายมอเตอร์ + ลูกยาง</td><td class="mono">Ø14</td><td class="mono">1</td><td>(-14, -4)</td><td>ลูกยาง Ø14</td></tr><tr><td class="mono"><b>C</b></td><td>ช่องเสากล้องข้าง (ลอดผ่าน)</td><td class="mono">ช่อง 14 × 14</td><td class="mono">1</td><td>(-18, -36)</td><td>—</td></tr><tr><td class="mono"><b>W</b></td><td>ร่องร้อยสายมอเตอร์ 4 ตัว</td><td class="mono">ร่อง 4 × 20</td><td class="mono">2</td><td>(40, -30) · (-40, -30)</td><td>—</td></tr></tbody></table></div></div>
 </section>
 
+<section class="block" id="odomSec">
+  <h2>ล้อ odometry 2 แกน (แทนเซนเซอร์เส้น)</h2>
+  <p class="en">B10 ไม่ใช้ QTR-8RC แล้ว ใต้แผ่นกลาง (ระหว่างรางในสองข้าง) มี<b>ล้อ omni Ø38 ไม่ขับ 2 ชุดวางตั้งฉากกัน</b> ชุด <b>F</b> วัดระยะเดินหน้า ชุด <b>S</b> วัดระยะสไลด์ข้าง แต่ละชุดมีแขนสวิงกับสปริงบิดกดล้อลงพื้นตลอด ปลายเพลามี <b>AS5600</b> อ่านมุม 4096 จุด/รอบ ใช้มุมหัวจาก <b>BNO055</b> แล้วรวมเป็นตำแหน่ง X, Y, θ บนสนาม ล้อ Mecanum ลื่นก็ไม่ทำให้ระยะเพี้ยน และไม่ต้องมีเส้นบนพื้น</p>
+  <div class="bspec"><div><b>ล้อ odom</b>Ø38 omni ×2</div><div><b>ความละเอียด</b>0.029 มม./จุด</div><div><b>แรงกดล้อ</b>≈ 3 N</div><div><b>อ่านทุก</b>2 ms (500 Hz)</div><div><b>ตำแหน่ง F</b>X +15 · Y −10</div><div><b>ตำแหน่ง S</b>X −15 · Y −75</div></div>
+  <div class="note"><svg viewBox="0 0 980 760" role="img" aria-label="ตำแหน่งล้อ odometry 2 ชุดใต้ฐาน B10 มองจากด้านบน" class="base-svg"><text class="sv-h" x="490.0" y="24.0" text-anchor="middle">ตำแหน่งล้อ odometry ใต้ฐาน B10 · มองจากด้านบน (หน้าหุ่นอยู่บน) · มม.</text><rect class="sv-whlD" x="519.8" y="114.0" width="78.0" height="156.0"/><rect class="sv-whlD" x="519.8" y="530.0" width="78.0" height="156.0"/><rect class="sv-prof" x="465.2" y="88.0" width="52.0" height="624.0"/><rect class="sv-prof" x="600.4" y="88.0" width="52.0" height="624.0"/><rect class="sv-gt2b" x="444.4" y="88.0" width="15.6" height="624.0"/><rect class="sv-whlD" x="62.2" y="114.0" width="78.0" height="156.0"/><rect class="sv-whlD" x="62.2" y="530.0" width="78.0" height="156.0"/><rect class="sv-prof" x="142.8" y="88.0" width="52.0" height="624.0"/><rect class="sv-prof" x="7.6" y="88.0" width="52.0" height="624.0"/><rect class="sv-gt2b" x="200.0" y="88.0" width="15.6" height="624.0"/><rect class="sv-prof sv-ghost" x="194.8" y="290.8" width="270.4" height="52.0"/><rect class="sv-prof sv-ghost" x="194.8" y="478.0" width="270.4" height="52.0"/><rect class="sv-prof sv-ghost" x="194.8" y="660.0" width="270.4" height="52.0"/><rect class="sv-beltF" x="220.8" y="145.2" width="75.4" height="109.2" rx="6"/><rect class="sv-backF" x="395.0" y="129.6" width="45.5" height="130.0"/><rect class="sv-odw" x="352.1" y="376.6" width="33.8" height="98.8" rx="4"/><rect class="sv-odp sv-ghost" x="332.6" y="426.0" width="72.8" height="78.0"/><rect class="sv-pcb" x="408.0" y="400.0" width="5.2" height="52.0"/><rect class="sv-odw" x="241.6" y="578.1" width="98.8" height="33.8" rx="4"/><rect class="sv-odp sv-ghost" x="291.0" y="558.6" width="78.0" height="72.8"/><rect class="sv-pcb" x="265.0" y="550.8" width="52.0" height="5.2"/><defs><marker id="odA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="sv-arrH"/></marker></defs><path class="sv-arr" d="M369.0 498.8 V348.0" marker-end="url(#odA)"/><path class="sv-arr" d="M356.0 595.0 H213.0" marker-end="url(#odA)"/><circle class="sv-cen" cx="330.0" cy="400.0" r="5.0"/><text class="sv-t" x="322.0" y="392.0" text-anchor="end">ศูนย์หมุน (0,0)</text><text class="sv-h" x="369.0" y="327.2" text-anchor="middle">F</text><text class="sv-h" x="192.2" y="579.4" text-anchor="middle">S</text><path class="sv-dim" d="M330.0 355.0 H369.0 M330.0 355.0 v-5 v10 M369.0 355.0 v-5 v10"/><text class="sv-dt" x="349.5" y="349.0" text-anchor="middle">15</text><path class="sv-dim" d="M174.0 400.0 V595.0 M174.0 400.0 h-5 h10 M174.0 595.0 h-5 h10"/><text class="sv-dt" x="168.0" y="501.5" text-anchor="end">75</text><path class="sv-dim" d="M134.0 400.0 V426.0 M134.0 400.0 h-5 h10 M134.0 426.0 h-5 h10"/><text class="sv-dt" x="128.0" y="417.0" text-anchor="end">10</text><rect class="sv-odw" x="720.0" y="78.0" width="26.0" height="16.0"/><text class="sv-t" x="756.0" y="91.0" text-anchor="start">F: ล้อวัดเดินหน้า (X +15, Y −10)</text><rect class="sv-odw" x="720.0" y="110.0" width="26.0" height="16.0"/><text class="sv-t" x="756.0" y="123.0" text-anchor="start">S: ล้อวัดสไลด์ (X −15, Y −75)</text><rect class="sv-odp" x="720.0" y="142.0" width="26.0" height="16.0"/><text class="sv-t" x="756.0" y="155.0" text-anchor="start">แขนสวิง + ตัวแขวน PETG</text><rect class="sv-pcb" x="720.0" y="174.0" width="26.0" height="16.0"/><text class="sv-t" x="756.0" y="187.0" text-anchor="start">AS5600 ปลายเพลา</text><rect class="sv-prof" x="720.0" y="206.0" width="26.0" height="16.0"/><text class="sv-t" x="756.0" y="219.0" text-anchor="start">รางโปรไฟล์ 2020</text><rect class="sv-gt2b" x="720.0" y="238.0" width="26.0" height="16.0"/><text class="sv-t" x="756.0" y="251.0" text-anchor="start">สายพาน GT2 (ห้ามแตะ)</text><rect class="sv-whlD" x="720.0" y="270.0" width="26.0" height="16.0"/><text class="sv-t" x="756.0" y="283.0" text-anchor="start">ล้อ Mecanum (เส้นประ)</text><rect class="sv-beltF" x="720.0" y="302.0" width="26.0" height="16.0"/><text class="sv-t" x="756.0" y="315.0" text-anchor="start">ชุดเก็บขยะ</text><text class="sv-t sv-b" x="720.0" y="362.0" text-anchor="start">ช่องว่าง: X ±43 · Y −100…+22</text><text class="sv-t sv-b" x="720.0" y="386.0" text-anchor="start">สูงถึงใต้คาน 63 · ใต้แผ่นกลาง 83</text></svg></div>
+  <div class="note"><svg viewBox="0 0 980 746" role="img" aria-label="ภาพด้านข้างชุดล้อ odometry: ล้อ omni แขนสวิง สปริงบิด และ AS5600" class="base-svg"><text class="sv-h" x="490.0" y="24.0" text-anchor="middle">ชุดล้อ odometry 1 ชุด · มองด้านข้าง · มม.</text><path class="sv-floor" d="M392.0 546.0 L851.2 546.0"/><rect class="sv-prof" x="616.0" y="81.2" width="224.0" height="112.0"/><rect class="sv-sheet" x="425.6" y="70.0" width="448.0" height="11.2"/><circle class="sv-odw" cx="560.0" cy="439.6" r="106.4"/><circle class="sv-odh" cx="560.0" cy="439.6" r="64.4"/><circle class="sv-odr" cx="471.5" cy="439.6" r="17.9"/><circle class="sv-odr" cx="497.4" cy="377.0" r="17.9"/><circle class="sv-odr" cx="560.0" cy="351.1" r="17.9"/><circle class="sv-odr" cx="622.6" cy="377.0" r="17.9"/><circle class="sv-odr" cx="648.5" cy="439.6" r="17.9"/><circle class="sv-odr" cx="622.6" cy="502.2" r="17.9"/><circle class="sv-odr" cx="560.0" cy="528.1" r="17.9"/><circle class="sv-odr" cx="497.4" cy="502.2" r="17.9"/><path class="sv-odarm" d="M560.0 439.6 L728.0 249.2"/><rect class="sv-odp" x="694.4" y="193.2" width="67.2" height="95.2"/><circle class="sv-shaft" cx="728.0" cy="249.2" r="12.3"/><circle class="sv-spr" cx="728.0" cy="249.2" r="20.2"/><circle class="sv-shaft" cx="560.0" cy="439.6" r="8.4"/><rect class="sv-pcb sv-ghost" x="504.0" y="383.6" width="112.0" height="112.0"/><path class="sv-dim" d="M425.6 546.0 V439.6 M425.6 546.0 h-5 h10 M425.6 439.6 h-5 h10"/><text class="sv-dt" x="431.6" y="496.8" text-anchor="start">19 (Ø38)</text><path class="sv-dim" d="M817.6 546.0 V193.2 M817.6 546.0 h-5 h10 M817.6 193.2 h-5 h10"/><text class="sv-dt" x="811.6" y="373.6" text-anchor="end">63</text><path class="sv-dim" d="M560.0 586.4 H728.0 M560.0 586.4 v-5 v10 M728.0 586.4 v-5 v10"/><text class="sv-dt" x="644.0" y="600.4" text-anchor="middle">30</text><path class="sv-dim" d="M403.2 439.6 V249.2 M403.2 439.6 h-5 h10 M403.2 249.2 h-5 h10"/><text class="sv-dt" x="409.2" y="348.4" text-anchor="start">34</text><circle class="sv-mk" cx="560.0" cy="378.0" r="9.0"/><text class="sv-mkt" x="560.0" y="382.0" text-anchor="middle">1</text><circle class="sv-mk" cx="560.0" cy="439.6" r="9.0"/><text class="sv-mkt" x="560.0" y="443.6" text-anchor="middle">2</text><circle class="sv-mk" cx="644.0" cy="344.4" r="9.0"/><text class="sv-mkt" x="644.0" y="348.4" text-anchor="middle">3</text><circle class="sv-mk" cx="728.0" cy="249.2" r="9.0"/><text class="sv-mkt" x="728.0" y="253.2" text-anchor="middle">4</text><circle class="sv-mk" cx="728.0" cy="215.6" r="9.0"/><text class="sv-mkt" x="728.0" y="219.6" text-anchor="middle">5</text><circle class="sv-mk" cx="604.8" cy="361.2" r="9.0"/><text class="sv-mkt" x="604.8" y="365.2" text-anchor="middle">6</text><circle class="sv-mk" cx="784.0" cy="137.2" r="9.0"/><text class="sv-mkt" x="784.0" y="141.2" text-anchor="middle">7</text><circle class="sv-mk" cx="504.0" cy="75.6" r="9.0"/><text class="sv-mkt" x="504.0" y="79.6" text-anchor="middle">8</text><circle class="sv-mk" cx="49.0" cy="632.0" r="9.0"/><text class="sv-mkt" x="49.0" y="636.0" text-anchor="middle">1</text><text class="sv-t" x="66.0" y="637.0" text-anchor="start">ล้อ omni Ø38 2 แถว (ไม่ขับ)</text><circle class="sv-mk" cx="519.0" cy="632.0" r="9.0"/><text class="sv-mkt" x="519.0" y="636.0" text-anchor="middle">2</text><text class="sv-t" x="536.0" y="637.0" text-anchor="start">เพลา 3 มม. + MR63ZZ ในแผ่นแขน</text><circle class="sv-mk" cx="49.0" cy="656.0" r="9.0"/><text class="sv-mkt" x="49.0" y="660.0" text-anchor="middle">3</text><text class="sv-t" x="66.0" y="661.0" text-anchor="start">แขนสวิง PETG 2 แผ่น (ยาว 45)</text><circle class="sv-mk" cx="519.0" cy="656.0" r="9.0"/><text class="sv-mkt" x="519.0" y="660.0" text-anchor="middle">4</text><text class="sv-t" x="536.0" y="661.0" text-anchor="start">แกนหมุน + สปริงบิด (กด ≈ 3 N)</text><circle class="sv-mk" cx="49.0" cy="680.0" r="9.0"/><text class="sv-mkt" x="49.0" y="684.0" text-anchor="middle">5</text><text class="sv-t" x="66.0" y="685.0" text-anchor="start">ตัวแขวน PETG ยึดด้วย M3</text><circle class="sv-mk" cx="519.0" cy="680.0" r="9.0"/><text class="sv-mkt" x="519.0" y="684.0" text-anchor="middle">6</text><text class="sv-t" x="536.0" y="685.0" text-anchor="start">AS5600 + แม่เหล็ก Ø6 ปลายเพลา</text><circle class="sv-mk" cx="49.0" cy="704.0" r="9.0"/><text class="sv-mkt" x="49.0" y="708.0" text-anchor="middle">7</text><text class="sv-t" x="66.0" y="709.0" text-anchor="start">คานกลาง 2020</text><circle class="sv-mk" cx="519.0" cy="704.0" r="9.0"/><text class="sv-mkt" x="519.0" y="708.0" text-anchor="middle">8</text><text class="sv-t" x="536.0" y="709.0" text-anchor="start">แผ่นกลาง</text></svg></div>
+  <div class="detail2">
+    <div class="note"><h3>คำนวณ</h3><div class="tablewrap"><table class="btbl"><tbody>
+      <tr><td>ระยะต่อรอบ</td><td>π × 38 = 119.4 มม. → ÷ 4096 = 0.029 มม./จุด</td></tr>
+      <tr><td>ความเร็วสูงสุด</td><td>40 ซม./วิ → 3.35 รอบ/วิ · อ่าน 500 Hz → 0.007 รอบ/ครั้ง (ต้องน้อยกว่าครึ่งรอบ จึงนับข้ามรอบถูก)</td></tr>
+      <tr><td>หักผลการหมุน</td><td>F: dy = dF − 15·dθ · S: dx = dS − 75·dθ (มม., dθ เป็นเรเดียน หมุนทวนเข็มเป็นบวก)</td></tr>
+      <tr><td>ที่ว่างใต้ฐาน</td><td>กว้าง X ±43 (สายพาน GT2 ที่ ±44) · สูงถึงใต้คาน 63 · ล้อ + แขนสูงสุด 61</td></tr>
+      <tr><td>แรงกด</td><td>สปริงบิด ≈ 9 N·มม. ÷ แขน 30 มม. ≈ 3 N พอให้ไม่ลื่น แต่ไม่ยกล้อ Mecanum (หุ่น ≈ 29 N)</td></tr>
+      <tr><td>ทางลาดสะพาน</td><td>แขนสวิงยุบได้ 15 มม. · ทางลาด 16° ล้อยังแตะพื้นตลอด</td></tr>
+    </tbody></table></div></div>
+    <div class="note"><h3>การต่อสาย</h3><div class="tablewrap"><table class="btbl"><thead><tr><th>จาก</th><th>ไป</th><th>หมายเหตุ</th></tr></thead><tbody>
+      <tr><td>AS5600 F (SDA/SCL)</td><td>TCA9548A ch0</td><td>ที่อยู่ 0x36 ซ้ำกัน จึงต้องแยกช่อง</td></tr>
+      <tr><td>AS5600 S (SDA/SCL)</td><td>TCA9548A ch1</td><td>ขา DIR ต่อ GND ทั้งสองตัว</td></tr>
+      <tr><td>BNO055</td><td>TCA9548A ch2</td><td>ที่อยู่ 0x28</td></tr>
+      <tr><td>TCA9548A SDA / SCL</td><td>Mega D20 / D21</td><td>I2C 400 kHz · สายบิดเกลียว ≤ 30 ซม.</td></tr>
+      <tr><td>VCC ทั้งหมด</td><td>5 V จาก buck</td><td>AS5600 ใช้ 5 V ได้ · ต่อ 100 nF ใกล้บอร์ด</td></tr>
+    </tbody></table></div></div>
+  </div>
+  <div class="detail2">
+    <div class="note"><h3>ลำดับประกอบ</h3><ol class="asm">
+      <li>พิมพ์แขนสวิง 2 แผ่น และตัวแขวน (PETG เติม 40%) ต่อชุด อัด MR63ZZ ที่รูเพลาและรูแกนหมุน</li>
+      <li>ใส่เพลา 3 มม. → ล้อ omni → แผ่นแขนทั้งสอง · ติดแม่เหล็กที่ปลายเพลาด้วยกาว ให้ตรงศูนย์ ±0.2 มม.</li>
+      <li>ยึด AS5600 บนแผ่นแขนด้านนอก ห่างแม่เหล็ก 1–2 มม. (ใช้เสารองพิมพ์ 3D)</li>
+      <li>ใส่แกนหมุน + สปริงบิดในตัวแขวน ยึดชุด F ใต้คานกลาง (Y −40) · ชุด S ใต้แผ่นกลางที่ Y −75 (M3 + T-nut / น็อตยึดแผ่น)</li>
+      <li>วางหุ่นบนพื้นเรียบ ล้อ odom ต้องยุบลงจากปลายสุด ≈ 5 มม. และแขนไม่ชนอะไรตลอดช่วงยุบ</li>
+    </ol></div>
+    <div class="note"><h3>ตั้งค่าและตรวจรับ</h3><ul>
+      <li>ดันหุ่นตรง 2.00 ม. ตามไม้บรรทัด ปรับ MM_PER_CNT ให้ค่าที่อ่านได้ตรง (ล้อจริงอาจไม่ใช่ 38.0 พอดี)</li>
+      <li>สไลด์ข้าง 1.00 ม. ตรวจชุด S แบบเดียวกัน</li>
+      <li>หมุนตัวอยู่กับที่ 10 รอบ x, y ต้องเปลี่ยน &lt; 10 มม. ถ้าเกินให้ปรับค่า XF / YS</li>
+      <li>วิ่งรอบสนาม 1 รอบกลับจุดเริ่ม ต่างกัน ≤ 20 มม. · ใช้ ToF ชิดถังรีเซ็ตตำแหน่งระหว่างทาง</li>
+      <li>ข้อผิดพลาดที่พบบ่อย: แม่เหล็กเยื้องศูนย์ → ระยะแกว่งเป็นคลื่นทุกรอบ · สปริงแข็งเกิน → ล้อ Mecanum หน้าลอย</li>
+    </ul></div>
+  </div>
+  <div class="note"><h3>โค้ดรวมตำแหน่ง (Arduino Mega)</h3><pre class="odcode">// Mega: อ่าน AS5600 ทั้งสอง (ผ่าน TCA9548A ch0 = F, ch1 = S) ทุก 2 ms
+const float MM_PER_CNT = PI*38.0/4096;   // 0.0291 mm
+const float XF = 15.0, YS = -75.0;       // ระยะติดตั้งจากศูนย์หมุน (mm)
+float x=0, y=0, th=0;                     // ตำแหน่งบนสนาม (mm, rad)
+int16_t wrapd(int16_t d){ if(d&gt;2047) d-=4096; if(d&lt;-2048) d+=4096; return d; }
+void odomStep(){
+  int16_t f=readAS5600(0), sd=readAS5600(1);
+  float dF=wrapd(f-fPrev)*MM_PER_CNT, dS=wrapd(sd-sPrev)*MM_PER_CNT; fPrev=f; sPrev=sd;
+  float thNew=imuYaw(), dth=thNew-th;     // มุมจาก BNO055 (โหมด IMU)
+  float dy = dF - XF*dth;                 // หักส่วนที่เกิดจากการหมุนตัว
+  float dx = dS + YS*dth;
+  float tm = th + dth/2;                  // ใช้มุมกลางช่วง
+  x += dx*cos(tm) - dy*sin(tm);
+  y += dx*sin(tm) + dy*cos(tm);
+  th = thNew;
+}</pre></div>
+</section>
 <section class="block" id="buildSec">
   <h2>คู่มือออกแบบและสร้าง ทีละส่วน</h2>
   <p class="en">หุ่น B8 แบ่งเป็น 10 ส่วน เลขตรงกับหมุดตัวเลขบนโมเดล 3 มิติ แต่ละส่วนมีแบบร่าง เหตุผลการออกแบบ การคำนวณ รายการตัดวัสดุ ลำดับประกอบ และวิธีตรวจรับ · เวลาสร้างรวมประมาณ 55–74 ชม. (คน 2–3 คน)</p>
@@ -432,7 +488,7 @@ table.btbl td{font-size:13px;vertical-align:top}
     </section>
     <section class="bgc"><h4>การสร้าง</h4>
       <h5>รายการตัด / ผลิต</h5><div class="tablewrap"><table class="bgt"><thead><tr><th>ชิ้น</th><th>วัสดุ</th><th>ขนาด (มม.)</th><th>วิธีผลิต</th><th>จำนวน</th></tr></thead><tbody><tr><td>ราง</td><td>โปรไฟล์ 2020</td><td>240</td><td>ตัดฉาก</td><td class="mono">4</td></tr><tr><td>คานกลาง</td><td>โปรไฟล์ 2020</td><td>104</td><td>ตัดฉาก</td><td class="mono">3</td></tr><tr><td>ตัวต่อข้าง</td><td>โปรไฟล์ 2020</td><td>32</td><td>ตัดฉาก</td><td class="mono">6</td></tr><tr><td>แผ่นลูกปืน</td><td>Al 3 มม.</td><td>34 × 49</td><td>ตัดเลเซอร์</td><td class="mono">8</td></tr><tr><td>เพลาล้อ</td><td>เหล็ก 6 มม.</td><td>65</td><td>ตัด + D-cut</td><td class="mono">4</td></tr><tr><td>GT2 20T รู 6</td><td>อะลูมิเนียม</td><td>—</td><td>ซื้อ</td><td class="mono">8</td></tr><tr><td>สายพาน GT2</td><td>วงปิด</td><td>200 ×4</td><td>ซื้อ</td><td class="mono">4</td></tr></tbody></table></div>
-      <h5>ลำดับประกอบ</h5><ol class="asm"><li>ตัดโปรไฟล์ ราง 240 ×4 คาน 104 ×3 ตัวต่อ 32 ×6</li><li>ประกอบโครง 4 รางด้วยฉาก วัดเส้นทแยงมุม ±0.5 มม.</li><li>อัด 626ZZ ในแผ่นลูกปืน 8 แผ่น ยึดใต้รางในและรางนอกที่ Y ±80</li><li>เพลา 6 มม.: พูลเลย์ GT2 (ด้านในรางใน) → ลอดใต้รางใน → ลูกปืนแผ่นใน → ล้อ MW6004 → ลูกปืนแผ่นนอก</li><li>ยึดมอเตอร์หันตูดออกเหนือล้อ (หน้า Y +80 · หลัง Y −75) คล้องสายพาน 200 ×4 ยกแผ่นยึดมอเตอร์ขึ้นให้ตึง · ติดชั้นอุปกรณ์บนเสารอง</li><li>ติด QTR-8RC ใต้คานหน้า สูงจากพื้น 5 มม.</li></ol>
+      <h5>ลำดับประกอบ</h5><ol class="asm"><li>ตัดโปรไฟล์ ราง 240 ×4 คาน 104 ×3 ตัวต่อ 32 ×6</li><li>ประกอบโครง 4 รางด้วยฉาก วัดเส้นทแยงมุม ±0.5 มม.</li><li>อัด 626ZZ ในแผ่นลูกปืน 8 แผ่น ยึดใต้รางในและรางนอกที่ Y ±80</li><li>เพลา 6 มม.: พูลเลย์ GT2 (ด้านในรางใน) → ลอดใต้รางใน → ลูกปืนแผ่นใน → ล้อ MW6004 → ลูกปืนแผ่นนอก</li><li>ยึดมอเตอร์หันตูดออกเหนือล้อ (หน้า Y +80 · หลัง Y −75) คล้องสายพาน 200 ×4 ยกแผ่นยึดมอเตอร์ขึ้นให้ตึง · ติดชั้นอุปกรณ์บนเสารอง</li><li>ติดล้อ odometry 2 ชุดใต้คานกลางและแผ่นกลาง (ดูหัวข้อล้อ odometry)</li></ol>
       <h5>เครื่องมือ</h5><p>สว่าน ดอก 3.2 มม. ประแจหกเหลี่ยม ฉากวัด ไม้บรรทัดเหล็ก เครื่องพิมพ์ 3D</p>
       <h5>ตรวจรับ (ผ่านแล้วค่อยไปส่วนถัดไป)</h5><ul><li>โครงวางบนโต๊ะเรียบไม่โยก</li><li>หมุนล้อด้วยมือ ลื่น ไม่ติด สายพานไม่กระโดดฟัน</li><li>สั่งทุกล้อ 100 rpm นับ encoder 10 วิ ต่างกัน ≤ 2%</li><li>สไลด์ข้าง 50 ซม. หมุนตัว ≤ 3°</li></ul>
       <h5>ข้อผิดพลาดที่พบบ่อย</h5><ul><li>ใส่ล้อ Mecanum ผิดข้าง เป็นลาย O แทน X → สไลด์ข้างไม่ได้</li><li>GT2 1:1 ไม่กลับทิศ ต้องกลับทิศมอเตอร์ข้างขวาในโค้ด</li><li>JGB37 ไม่ล็อกตัวเอง → ตั้ง MDD3A เป็นโหมดเบรก และคุมตำแหน่งด้วย encoder ตอนหยุดบนทางลาด</li><li>สายพานหย่อนต่างกัน → ล้อตอบสนองไม่เท่ากัน ตั้งความตึงให้ใกล้กันทั้ง 4 เส้น</li></ul>
@@ -579,10 +635,10 @@ table.btbl td{font-size:13px;vertical-align:top}
     </section>
   </div>
 </article><article class="bgp" id="bg9" hidden>
-  <header class="bgh"><span class="bgn">9</span><div><h3>กล้อง + เซนเซอร์</h3><p>หาตำแหน่งและชนิดขยะ อ่าน QR ถัง วิ่งตามเส้น และตรวจจังหวะเก็บ</p></div>
+  <header class="bgh"><span class="bgn">9</span><div><h3>กล้อง + เซนเซอร์</h3><p>หาตำแหน่งและชนิดขยะ อ่าน QR ถัง วัดตำแหน่งด้วยล้อ odometry และตรวจจังหวะเก็บ</p></div>
     <button class="btn" type="button" data-showpart="8">ดูชิ้นนี้ในโมเดล ▶</button></header>
-  <div class="bgchips"><span class="chip">กล้อง × 2</span><span class="chip">IR × 2</span><span class="chip">QTR-8RC</span><span class="chip">BNO055</span><span class="chip">ToF × 2</span><span class="chip lvl">ความยาก: ปานกลาง</span><span class="chip">เวลาสร้าง ≈ 6–8 ชม.</span></div>
-  <div class="note"><svg viewBox="0 0 640 340" role="img" aria-label="ตำแหน่งกล้องและเซนเซอร์ มองด้านข้าง" class="intake-svg bg-svg"><text class="sv-h" x="320.0" y="20.0" text-anchor="middle">กล้องและเซนเซอร์ มองด้านข้าง (ด้านหน้าหุ่นอยู่ขวา) · มม.</text><path class="sv-cone" d="M141.0 41.7 L620 109.0 L620 228.0 L261.8 228.0 Z"/><rect class="sv-ghost" x="90.0" y="33.2" width="60.0" height="194.8"/><path class="sv-floor" d="M20.0 228.0 L630.0 228.0"/><text class="sv-s" x="269.8" y="220.0" text-anchor="start">เห็นพื้นตั้งแต่ ≈ 480 มม. หน้ากล้อง</text><circle class="sv-dot" cx="141.0" cy="41.7" r="3.0"/><path class="sv-lead" d="M141.0 41.7 L149.0 35.7"/><text class="sv-t" x="155.0" y="39.7" text-anchor="start"><tspan class="sv-n">①</tspan></text><text class="sv-t" x="30.0" y="250.0" text-anchor="start"><tspan class="sv-n">①</tspan> กล้องบน สูง 909 ก้ม 35° (Camera Module 3 Wide)</text><circle class="sv-dot" cx="111.0" cy="199.3" r="3.0"/><path class="sv-lead" d="M111.0 199.3 L91.0 193.3"/><text class="sv-t" x="85.0" y="197.3" text-anchor="end"><tspan class="sv-n">②</tspan></text><text class="sv-t" x="340.0" y="250.0" text-anchor="start"><tspan class="sv-n">②</tspan> กล้องข้าง สูง 140 หันซ้าย อ่าน QR ถัง</text><circle class="sv-dot" cx="145.0" cy="54.8" r="3.0"/><path class="sv-lead" d="M145.0 54.8 L153.0 48.8"/><text class="sv-t" x="159.0" y="52.8" text-anchor="start"><tspan class="sv-n">③</tspan></text><text class="sv-t" x="30.0" y="272.0" text-anchor="start"><tspan class="sv-n">③</tspan> IR ยอด สูง 845 (ขยะถึงลิ้นแล้ว)</text><circle class="sv-dot" cx="145.0" cy="221.8" r="3.0"/><path class="sv-lead" d="M145.0 221.8 L153.0 215.8"/><text class="sv-t" x="159.0" y="219.8" text-anchor="start"><tspan class="sv-n">④</tspan></text><text class="sv-t" x="340.0" y="272.0" text-anchor="start"><tspan class="sv-n">④</tspan> IR ปาก สูง 30 (ขยะเข้าช่อง → หุบ)</text><circle class="sv-dot" cx="125.5" cy="226.4" r="3.0"/><path class="sv-lead" d="M125.5 226.4 L105.5 226.4"/><text class="sv-t" x="99.5" y="230.4" text-anchor="end"><tspan class="sv-n">⑤</tspan></text><text class="sv-t" x="30.0" y="294.0" text-anchor="start"><tspan class="sv-n">⑤</tspan> IR เส้น QTR-8RC ใต้ฐาน</text><circle class="sv-dot" cx="112.5" cy="215.3" r="3.0"/><path class="sv-lead" d="M112.5 215.3 L92.5 209.3"/><text class="sv-t" x="86.5" y="213.3" text-anchor="end"><tspan class="sv-n">⑥</tspan></text><text class="sv-t" x="340.0" y="294.0" text-anchor="start"><tspan class="sv-n">⑥</tspan> IMU BNO055 กลางฐาน</text><circle class="sv-dot" cx="150.2" cy="213.7" r="3.0"/><path class="sv-lead" d="M150.2 213.7 L158.2 207.7"/><text class="sv-t" x="164.2" y="211.7" text-anchor="start"><tspan class="sv-n">⑦</tspan></text><text class="sv-t" x="30.0" y="316.0" text-anchor="start"><tspan class="sv-n">⑦</tspan> ToF หน้า + ToF ซ้าย (ระยะถึงถัง)</text></svg></div>
+  <div class="bgchips"><span class="chip">กล้อง × 2</span><span class="chip">IR × 2</span><span class="chip">ล้อ odom × 2</span><span class="chip">BNO055</span><span class="chip">ToF × 2</span><span class="chip lvl">ความยาก: ปานกลาง</span><span class="chip">เวลาสร้าง ≈ 6–8 ชม.</span></div>
+  <div class="note"><svg viewBox="0 0 640 340" role="img" aria-label="ตำแหน่งกล้องและเซนเซอร์ มองด้านข้าง" class="intake-svg bg-svg"><text class="sv-h" x="320.0" y="20.0" text-anchor="middle">กล้องและเซนเซอร์ มองด้านข้าง (ด้านหน้าหุ่นอยู่ขวา) · มม.</text><path class="sv-cone" d="M141.0 41.7 L620 109.0 L620 228.0 L261.8 228.0 Z"/><rect class="sv-ghost" x="90.0" y="33.2" width="60.0" height="194.8"/><path class="sv-floor" d="M20.0 228.0 L630.0 228.0"/><text class="sv-s" x="269.8" y="220.0" text-anchor="start">เห็นพื้นตั้งแต่ ≈ 480 มม. หน้ากล้อง</text><circle class="sv-dot" cx="141.0" cy="41.7" r="3.0"/><path class="sv-lead" d="M141.0 41.7 L149.0 35.7"/><text class="sv-t" x="155.0" y="39.7" text-anchor="start"><tspan class="sv-n">①</tspan></text><text class="sv-t" x="30.0" y="250.0" text-anchor="start"><tspan class="sv-n">①</tspan> กล้องบน สูง 909 ก้ม 35° (Camera Module 3 Wide)</text><circle class="sv-dot" cx="111.0" cy="199.3" r="3.0"/><path class="sv-lead" d="M111.0 199.3 L91.0 193.3"/><text class="sv-t" x="85.0" y="197.3" text-anchor="end"><tspan class="sv-n">②</tspan></text><text class="sv-t" x="340.0" y="250.0" text-anchor="start"><tspan class="sv-n">②</tspan> กล้องข้าง สูง 140 หันซ้าย อ่าน QR ถัง</text><circle class="sv-dot" cx="145.0" cy="54.8" r="3.0"/><path class="sv-lead" d="M145.0 54.8 L153.0 48.8"/><text class="sv-t" x="159.0" y="52.8" text-anchor="start"><tspan class="sv-n">③</tspan></text><text class="sv-t" x="30.0" y="272.0" text-anchor="start"><tspan class="sv-n">③</tspan> IR ยอด สูง 845 (ขยะถึงลิ้นแล้ว)</text><circle class="sv-dot" cx="145.0" cy="221.8" r="3.0"/><path class="sv-lead" d="M145.0 221.8 L153.0 215.8"/><text class="sv-t" x="159.0" y="219.8" text-anchor="start"><tspan class="sv-n">④</tspan></text><text class="sv-t" x="340.0" y="272.0" text-anchor="start"><tspan class="sv-n">④</tspan> IR ปาก สูง 30 (ขยะเข้าช่อง → หุบ)</text><circle class="sv-dot" cx="125.5" cy="226.4" r="3.0"/><path class="sv-lead" d="M125.5 226.4 L105.5 226.4"/><text class="sv-t" x="99.5" y="230.4" text-anchor="end"><tspan class="sv-n">⑤</tspan></text><text class="sv-t" x="30.0" y="294.0" text-anchor="start"><tspan class="sv-n">⑤</tspan> ล้อ odometry 2 แกน ใต้ฐาน</text><circle class="sv-dot" cx="112.5" cy="215.3" r="3.0"/><path class="sv-lead" d="M112.5 215.3 L92.5 209.3"/><text class="sv-t" x="86.5" y="213.3" text-anchor="end"><tspan class="sv-n">⑥</tspan></text><text class="sv-t" x="340.0" y="294.0" text-anchor="start"><tspan class="sv-n">⑥</tspan> IMU BNO055 กลางฐาน</text><circle class="sv-dot" cx="150.2" cy="213.7" r="3.0"/><path class="sv-lead" d="M150.2 213.7 L158.2 207.7"/><text class="sv-t" x="164.2" y="211.7" text-anchor="start"><tspan class="sv-n">⑦</tspan></text><text class="sv-t" x="30.0" y="316.0" text-anchor="start"><tspan class="sv-n">⑦</tspan> ToF หน้า + ToF ซ้าย (ระยะถึงถัง)</text></svg></div>
   <div class="bgcols">
     <section class="bgc"><h4>การออกแบบ</h4>
       <h5>ข้อกำหนดที่ต้องได้</h5><ul><li>เห็นขยะทั้งโซนก่อนเก็บ</li><li>อ่าน QR ที่ถังด้านซ้าย</li><li>รู้ว่าขยะเข้าปากและถึงยอดจริง</li></ul>
@@ -663,6 +719,7 @@ table.btbl td{font-size:13px;vertical-align:top}
       <tr><td>ส่วนหนีบ</td><td>สายพาน 2 เส้น ถ่าง–หุบ</td><td>เหมือน B8</td><td>สายพาน 1 เส้น + ผนังสปริง</td></tr>
       <tr><td>หยุดต่อชิ้น</td><td>≈ 0.3 วิ + รอชิ้นก่อน</td><td>เหมือน B8</td><td>ไม่หยุด (ชะลอช่วงเข้า)</td></tr>
       <tr><td>เวลาเดโม 10 สนาม</td><td class="mono">110–147 วิ</td><td class="mono">110–147 วิ</td><td class="mono">92–130 วิ</td></tr>
+      <tr><td>นำทาง</td><td>ล้อ odometry 2 แกน + IMU</td><td>IR เส้น QTR-8RC + IMU</td><td>ล้อ odometry 2 แกน + IMU (ไม่ใช้เส้น)</td></tr>
       <tr><td>ตัวขับเคลื่อน</td><td>12</td><td>12</td><td>10</td></tr>
       <tr><td>ความเสี่ยง</td><td>แคร่บิด</td><td>มอเตอร์หน้าชิดเสา</td><td>แรงสปริง/ความฝืดต้องปรับจริง · ขับสายพานด้านล่าง</td></tr>
     </tbody></table></div>
@@ -677,7 +734,7 @@ table.btbl td{font-size:13px;vertical-align:top}
         <li><div><b>วิ่งไถตามคอลัมน์</b> ขับตรง 30–40 ซม./วิ ปีกต้อนขยะเข้ากลาง สายพานหนีบแล้วยกขึ้นทันที หุ่นวิ่งต่อไปชิ้นถัดไปโดยไม่ชะลอ</div></li>
         <li><div><b>ยอดสายพานส่งลงลูกโม่</b> ขยะพ้นสายพานแล้วค้างบนลิ้นกันตก ลูกโม่หมุนช่องที่ตรงชนิดมารอ ตัวดันส่งลงท่อ ≈ 0.8 วิต่อชิ้น</div></li>
         <li><div><b>เปลี่ยนคอลัมน์ด้วยการสไลด์ข้าง</b> หมุนกลับ 180° ครั้งเดียวต่อคอลัมน์ รัศมีปลายปีก 19.5 ซม. ยังน้อยกว่าระยะคอลัมน์ 28.75 ซม.</div></li>
-        <li><div><b>พับปีก ข้ามสะพาน</b> ปีกพับเข้ากันขูดทางลาด วิ่งตามเส้นดำกลางสะพาน</div></li>
+        <li><div><b>พับปีก ข้ามสะพาน</b> ปีกพับเข้ากันขูดทางลาด วิ่งตรงกลางสะพานด้วยล้อ odom + IMU (ไม่ใช้เส้น)</div></li>
         <li><div><b>ไล่ถังโดยไม่หมุนตัว</b> เลื่อนลิ้นชักออก 16 ซม. อ่าน QR แล้วเททั้งช่องลงถังที่ตรงกัน</div></li>
         <li><div><b>แม่น้ำ</b> หลังเทขยะพื้นครบ ลงแม่น้ำจากตลิ่งฝั่ง A วิ่งไถ 2 คอลัมน์ ถ้าชนิดใดเกิน 4 ชิ้นจะเว้นไว้เก็บรอบ 2 เพื่อให้ลงถังถูกทุกชิ้น</div></li>
       </ol>
@@ -740,7 +797,7 @@ table.btbl td{font-size:13px;vertical-align:top}
       <tr><td>ลิ้นชักเลื่อน</td><td>ราง MGN12 ยาว 250 มม. (4 carriage), สเต็ปเปอร์ตัวสั้น + GT2</td><td class="mono">2 / 1</td><td>ระยะเลื่อน 160 มม.</td></tr>
       <tr><td>ประตูเท</td><td>MG90S + แผ่นปิดอะคริลิก 3 มม.</td><td class="mono">1</td><td>หมุนแนวนอนใต้รูเท</td></tr>
       <tr><td>กล้อง/สมอง</td><td>Raspberry Pi 5 (4 GB), Camera Module 3 Wide, Arduino Mega 2560</td><td class="mono">1 / 2 / 1</td><td>Mega คุมล้อ 4 ล้อด้วย inverse kinematics ของ Mecanum</td></tr>
-      <tr><td>เซนเซอร์นำทาง</td><td>IR line array 8 ช่อง (QTR-8RC), IMU BNO055, ToF VL53L0X</td><td class="mono">1 / 1 / 2</td><td>IMU สำคัญมากกับ Mecanum เพราะล้อลื่นมากกว่า ใช้คุมทิศตอนสไลด์</td></tr>
+      <tr><td>เซนเซอร์นำทาง</td><td>ล้อ odometry omni Ø38 + AS5600 (2 แกน), IMU BNO055, ToF VL53L0X · ไม่ใช้เซนเซอร์เส้น</td><td class="mono">2 / 1 / 2</td><td>IMU สำคัญมากกับ Mecanum เพราะล้อลื่นมากกว่า ใช้คุมทิศตอนสไลด์</td></tr>
       <tr><td>ไฟฟ้า</td><td>LiPo 3S 3000 mAh, buck 5 V 5 A, UBEC 6 V 5 A, ฟิวส์ 15 A, สวิตช์หลัก, ปุ่ม Start</td><td class="mono">1 ชุด</td><td>มอเตอร์ 4 ล้อกินกระแสมากกว่า R3</td></tr>
       <tr><td>โครง</td><td>ฐานอะลูมิเนียม 3 มม. มีช่องหน้าสำหรับสายพาน, เสา 2020 ยาว 226 มม., แผ่นนำทางโพลีคาร์บอเนต</td><td class="mono">1 / 4 / 1</td><td>แผ่นนำทางกั้นหลังสายพาน สูง 84 ซม.</td></tr>
     </tbody>
@@ -2015,7 +2072,31 @@ const wheels=[];
   wheels.push({spin,sx,sz});
 });
 // sensors under/around the deck
-mesh(box(9,.4,1.6),mat('sensors',0x1B5E20),base,0,.7,2.9);
+// two-axis odometry pods: passive omni Ø38 + AS5600 magnet encoder, torsion spring keeps the wheel on the floor (no line sensor)
+{ const oP=mat('odom',0xE8590C,{roughness:.55}), oH=mat('odom',0x2B2F33,{roughness:.6}), oR=mat('odom',0x9AA3AA,{roughness:.45}),
+      oS=mat('odom',0xC8CDD2,{metalness:.9,roughness:.3}), oB=mat('odom',0x1D6B3A,{roughness:.6}), oM=mat('odom',0x6A7580,{metalness:.5,roughness:.4});
+  const pod=(x,z,ry,top,dy,dz)=>{ const g=new T.Group(); g.position.set(x,1.9,z); g.rotation.y=ry; base.add(g);
+    const ax=(len,r,m,px,py,pz)=>{ const c=mesh(cyl(r,r,len,20),m,g,px,py,pz); c.rotation.z=Math.PI/2; return c; };
+    ax(1.3,1.15,oH,0,0,0);                                                                   // hub
+    [-.36,.36].forEach((rx,row)=>{ for(let i=0;i<8;i++){ const a=(i+row*.5)/8*Math.PI*2;
+      const r=mesh(cyl(.32,.32,.6,12),oR,g,rx,1.58*Math.sin(a),1.58*Math.cos(a)); r.rotation.x=-a; } });   // 2 rows x 8 rollers -> Ø38
+    ax(3.0,.15,oS,0,0,0);                                                                    // 3 mm axle
+    const Lr=Math.hypot(dy,dz), a=Math.atan2(-dy,dz);
+    [-1.05,1.05].forEach(px=>{ const p=mesh(box(.25,.9,Lr+.9),oP,g,px,dy/2,dz/2); p.rotation.x=a;   // swing arm plates
+      ax(.3,.32,oS,px,0,0); ax(.3,.32,oS,px,dy,dz); });                                       // MR63ZZ at axle + pivot
+    ax(3.3,.15,oS,0,dy,dz);                                                                  // pivot pin
+    const bh=top-1.9-(dy-.7); [-1.4,1.4].forEach(px=>mesh(box(.3,bh,1.2),oP,g,px,dy-.7+bh/2,dz));   // hanger cheeks
+    mesh(box(3.1,.4,1.6),oP,g,0,top-1.9-.2,dz);                                              // hanger top (bolts to the frame/plate)
+    const hp=[]; for(let i=0;i<=90;i++){ const t=i/90; hp.push(new T.Vector3(-.7+1.4*t, dy+.36*Math.sin(t*Math.PI*12), dz+.36*Math.cos(t*Math.PI*12))); }
+    hp.push(new T.Vector3(.75,dy-.2,dz-Math.sign(dz)*1.0));
+    mesh(new T.TubeGeometry(new T.CatmullRomCurve3(hp),140,.05,6,false),oM,g,0,0,0);        // torsion spring around the pivot
+    ax(.25,.3,oM,-1.32,0,0);                                                                 // Ø6 diametric magnet on the axle end
+    mesh(box(.16,2.0,2.0),oB,g,-1.62,0,0); mesh(box(.1,.5,.5),oH,g,-1.5,0,0);              // AS5600 board, chip faces the magnet
+    [[-.8,-.8],[.8,.8],[-.8,.8],[.8,-.8]].forEach(([py,pz])=>ax(.3,.08,oS,-1.4,py,pz));
+  };
+  pod(-1.50,-1.00,0.0000,6.30,3.40,-3.00);   // F: measures forward travel, hangs under the middle cross
+  pod(1.50,-7.50,1.5708,8.30,3.40,-3.00);   // S: measures sideways travel, hangs under the centre sheet
+}
 mesh(box(1.6,1,.4),mat('sensors',0x6A1B9A),base,-7.9,9.0,11.4);
 mesh(box(.4,1,1.6),mat('sensors',0x6A1B9A),base,11.4,8.8,C.z);
 // power + brains
@@ -2278,6 +2359,9 @@ const PARTS=[
   {k:'power',mats:['power'],n:'สมอง + ไฟฟ้า',en:'Control + power',obj:base,at:[-3,9.6,-3.5],
    spec:['Raspberry Pi 5 + Arduino Mega','LiPo 3S 11.1 V เต็ม 12.6 V, ฟิวส์ 15 A'],
    why:'Mega คุมล้อ 4 ล้อ สายพาน และกลไก Pi ส่งแค่เป้าหมาย'},
+  {k:'odom',mats:['odom'],n:'ล้อ odometry 2 แกน',en:'2-axis odometry pods',obj:base,at:[0.00,2.2,-4.20],
+   spec:['ล้อ omni Ø38 ไม่ขับ 2 ชุด ตั้งฉากกัน: F วัดเดินหน้า · S วัดสไลด์ข้าง','AS5600 4096 จุด/รอบ → 0.029 มม./จุด','แขนสวิงพิมพ์ 3D + สปริงบิด กดล้อลงพื้น ≈ 3 N','รวมกับมุมจาก BNO055 → ตำแหน่ง X, Y, θ บนสนาม'],
+   why:'ล้อ Mecanum ลื่นตอนสไลด์ นับ encoder มอเตอร์ได้ระยะผิด ล้อ odom ไม่ขับจึงวัดระยะจริง ไม่ต้องพึ่งเส้นบนพื้น'},
 ];
 const plist=$('#plist'), pdesc=$('#pdesc'); let selPart=null, showPins=true, mode='robot';
 PARTS.forEach((p,i)=>{
@@ -2626,7 +2710,10 @@ const BUY=[
  ['สมอง + กล้อง','Camera Module 3 Wide (กล้องบน + กล้องข้าง)','Raspberry Pi Camera Module 3 Wide',2,1250,1600,'ตัวแทน Raspberry Pi'],
  ['สมอง + กล้อง','สายแพกล้อง Pi 5 (22→15 pin) 30 ซม.','Pi 5 camera cable 300mm',2,60,120,'ตัวแทน Raspberry Pi'],
  ['สมอง + กล้อง','Arduino Mega 2560 R3 (บอร์ดเทียบเท่า)','Arduino Mega 2560',1,450,700,'ร้านอิเล็กทรอนิกส์'],
- ['เซนเซอร์','IR line 8 ช่อง QTR-8RC (หรือเทียบเท่า)','QTR-8RC',1,300,650,'ร้านหุ่นยนต์ออนไลน์'],
+ ['เซนเซอร์','ล้อ omni Ø38 มม. 2 แถว (ล้อ odometry ไม่ขับ)','omni wheel 38mm',2,60,150,'ร้านหุ่นยนต์ออนไลน์'],
+ ['เซนเซอร์','เซนเซอร์มุมแม่เหล็ก AS5600 + แม่เหล็ก Ø6 × 2.5 แบบ diametric','AS5600 magnetic encoder',2,60,120,'ร้านอิเล็กทรอนิกส์'],
+ ['เซนเซอร์','TCA9548A ตัวแยก I2C (AS5600 ที่อยู่ซ้ำ 0x36)','TCA9548A I2C mux',1,50,100,'ร้านอิเล็กทรอนิกส์'],
+ ['เซนเซอร์','ลูกปืน MR63ZZ ×8 + เพลา 3 มม. ×4 + สปริงบิด 0.5 มม. ×2 + แขน/ตัวแขวน PETG','MR63ZZ bearing 3x6x2.5',1,120,250,'ร้านอะไหล่ 3D printer'],
  ['เซนเซอร์','IMU BNO055','BNO055 module',1,650,1300,'ร้านอิเล็กทรอนิกส์'],
  ['เซนเซอร์','ToF VL53L0X (ซ้าย + หน้า)','VL53L0X',2,100,180,'ร้านอิเล็กทรอนิกส์'],
  ['ไฟฟ้า','แบต LiPo 3S 3000 mAh 11.1 V ขั้ว XT60 (2 ก้อนไว้สลับ)','LiPo 3S 3000mAh XT60',2,900,1400,'ร้านอุปกรณ์ RC'],
@@ -2717,7 +2804,7 @@ const EQ={
  wheelBelt:{ty:'mech',s:'สายพาน GT2 ล้อ ×4',n:'GT2 20T:20T + วงปิด 280 มม. ×2 (หน้า) / 232 มม. ×2 (หลัง) + ขายึด U ลูกปืน 626ZZ 2 ฝั่ง ×4',q:4,r:'สายพานวิ่งขึ้นจากเพลาล้อไปมอเตอร์บนโครง เพลาล้อมีลูกปืนทั้ง 2 ฝั่ง แรงจากล้อไม่ลงเกียร์มอเตอร์',at:[base,V(11.9,7.4,-6)]},
  wingServo:{ty:'servo',s:'เซอร์โวปีก',n:'เซอร์โว MG90S',q:1,r:'กางปีกทั้ง 2 ข้างผ่านก้านต่อ ครั้งเดียวตอนเริ่ม',at:[base,V(7.6,7.6,11.2)]},
  wings:{ty:'mech',s:'ปีกไถ ×2',n:'ปีกอะคริลิก 3 มม. 56×60 มม. ขอบยาง',q:2,r:'ต้อนขยะเข้ากลาง',at:[base,V(-11,6,16)]},
- lineImu:{ty:'sensor',s:'เซนเซอร์เส้น + IMU',n:'IR line QTR-8RC + IMU BNO055',q:2,r:'วิ่งตรงตามคอลัมน์ คุมทิศตอนสไลด์',at:[base,V(0,.7,2.9)]},
+ odom:{ty:'sensor',s:'ล้อ odometry 2 แกน + IMU',n:'ล้อ omni Ø38 ×2 + AS5600 ×2 + BNO055',q:3,r:'วัดระยะเดินหน้าและสไลด์จากพื้นจริง ล้อ Mecanum ลื่นก็ไม่เพี้ยน · IMU ให้มุมหัว · ไม่ใช้เซนเซอร์เส้น',at:[base,V(-1.50,1.9,-1.00)]},
  topCam:{ty:'sensor',s:'กล้องบน',n:'Camera Module 3 Wide (กล้องบน)',q:1,r:'มองทั้งโซน บอกตำแหน่งและชนิดขยะล่วงหน้า',at:[camTop,V(0,0,0)]},
  beltMotor:{ty:'motor',s:'มอเตอร์สายพาน',n:'N20 12 V 300 rpm เกียร์โลหะ (ขับพูลเลย์ล่าง)',q:1,r:'ขับสายพานเส้นเดียว ≈ 46 ซม./วิ',at:[base,V(BX,BY0,2.6)]},
  belts:{ty:'mech',s:'สายพานโฟม ×1',n:'สายพาน PU 40 มม. + โฟม EVA 3 มม. + พูลเลย์ Ø20 ×2',q:1,r:'ด้านในวิ่งขึ้น พาขยะขึ้นด้วยแรงเสียดทาน',at:[base,V(BX-1.7,44,BZ)]},
@@ -2740,7 +2827,7 @@ const EQ={
 };
 const GEQ=[
  Object.keys(EQ),
- ['wingServo','wheelMotor','wheelBelt','topCam','lineImu','wings'],
+ ['wingServo','wheelMotor','wheelBelt','topCam','odom','wings'],
  ['beltMotor','belts','springWall','irMouth'],
  ['beltMotor','belts','springWall','guidePlate','irTop'],
  ['irTop','pawls','nema','hall','topCam'],
