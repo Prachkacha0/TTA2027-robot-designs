@@ -136,7 +136,7 @@ footer{color:var(--muted);font-size:13px}
 
 <div class="wrap">
 <header class="top">
-  <p class="eyebrow">TTA 2027 · Robot Contest · หุ่นยนต์เก็บและคัดแยกขยะ</p>
+  <p class="eyebrow">TTA 2027 · Robot Contest · หุ่นยนต์เก็บและคัดแยกขยะ · รุ่นปรับ: ล้อ Mecanum บัสมอเตอร์ 18 V + แขนยืดเก็บแม่น้ำ 2 แถวจากตลิ่งฝั่งเรา</p>
   <h1>Revolver Sorter R3</h1>
   <p class="lead">หุ่นยนต์ทรงหอคอย คีบขยะทีละชิ้นแล้วหย่อนลง “ลูกโม่” 3 ช่องตามประเภททันที จึงขนขยะพื้นครบ 9 ชิ้นได้ในเที่ยวเดียว ไปถึงถังแล้วอ่าน QR และเทครั้งละ 1 ช่องลงถังที่ตรงกัน</p>
   <p class="lead en">A tower robot that sorts each item into one of three tubes the moment it picks it up. All 9 floor items travel in a single trip, and each tube is emptied in one drop into the bin whose QR code matches.</p>
@@ -144,9 +144,9 @@ footer{color:var(--muted);font-size:13px}
     <div><dt>ขนาดตอนเริ่ม · start size</dt><dd>24 × 24 ซม. <small>(≤ 25 × 25)</small></dd></div>
     <div><dt>ความสูง · height</dt><dd>≈ 98 ซม. <small>(ไม่จำกัด)</small></dd></div>
     <div><dt>ความจุบนตัว · capacity</dt><dd>12 ชิ้น <small>(3 ช่อง × 4)</small></dd></div>
-    <div><dt>แขนยื่นพ้นตัว · reach</dt><dd>18.5 ซม.</dd></div>
-    <div><dt>แบตเตอรี่ · battery</dt><dd>3S 12.6 V <small>(≤ 25 V)</small></dd></div>
-    <div><dt>ตัวขับเคลื่อน · actuators</dt><dd>8 ตัว</dd></div>
+    <div><dt>แขนยื่นพ้นตัว · reach</dt><dd>18.5 → 47 ซม. <small>(ยืดได้)</small></dd></div>
+    <div><dt>แบตเตอรี่ · battery</dt><dd>6S LiFePO4 21.6 V <small>บัสมอเตอร์ 18 V (≤ 25 V)</small></dd></div>
+    <div><dt>ตัวขับเคลื่อน · actuators</dt><dd>11 ตัว <small>(ล้อ Mecanum 4)</small></dd></div>
   </dl>
 </header>
 
@@ -206,11 +206,11 @@ footer{color:var(--muted);font-size:13px}
       <h2>ลำดับการทำงานใน 1 รอบ</h2>
       <ol class="steps">
         <li><div><b>ออกจาก Start แล้วถ่ายภาพโซน</b> กล้องบนยอดเสา (สูง 96 ซม.) มองทั้งโซน A ได้ในภาพเดียว ระบุว่า 9 จาก 14 จุดไหนมีขยะ และเป็นชนิดอะไร</div></li>
-        <li><div><b>เก็บจากแถวไกลแม่น้ำเข้าหาแม่น้ำ</b> แขนยื่นพ้นหน้าหุ่น 18.5 ซม. หุ่นจึงจอดอยู่บนแถวที่เก็บไปแล้วเสมอ ไม่ต้องขับเบียดจุดที่ยังมีของ (จุดห่างกัน 28 ซม. แต่หุ่นกว้าง 24 ซม.)</div></li>
+        <li><div><b>เก็บจากแถวไกลแม่น้ำเข้าหาแม่น้ำ</b> แขนยื่นพ้นหน้าหุ่น 18.5 ซม. (ตอนหด) หุ่นจึงจอดอยู่บนแถวที่เก็บไปแล้วเสมอ ล้อ Mecanum เลื่อนเข้าจุดจอดพร้อมหมุนหน้าได้ในท่าเดียว ไม่ต้องขับเบียดจุดที่ยังมีของ (จุดห่างกัน 28 ซม. แต่หุ่นกว้าง 24 ซม.)</div></li>
         <li><div><b>คีบ → ยก → สวิงแขนไปหลัง → ลูกโม่หมุนช่องมารับ → ปล่อย</b> ขยะตั้งตรงตลอดทาง ไม่พลิก ไม่ต้องจำว่าชิ้นไหนอยู่ตรงไหน เพราะช่องเดียวมีขยะชนิดเดียว</div></li>
         <li><div><b>ครบ 9 ชิ้นแล้วข้ามสะพานฝั่งตัวเอง</b> วิ่งตามเส้นดำกว้าง 2.5 ซม. กลางสะพาน (สะพานกว้าง 30 ซม. เหลือที่ข้างละ 3 ซม.) ลดความเร็วบนทางลาด</div></li>
         <li><div><b>อ่าน QR ทีละถัง แล้วเททั้งช่อง</b> ลิ้นชักเลื่อนลูกโม่ออกไปเหนือถัง 14 ซม. หมุนช่องที่ตรงกับ QR มาที่รูเท เปิดประตู ขยะทั้งช่องตกลงถังในครั้งเดียว</div></li>
-        <li><div><b>ปลดล็อกแม่น้ำ</b> ซอฟต์แวร์จะไปแม่น้ำได้ต่อเมื่อนับว่าเทครบ 9 ชิ้นแล้วเท่านั้น (ข้อ 5.2-6) เก็บแถวใกล้ 4 ชิ้นจากตลิ่งฝั่งเรา โดยยื่นแขนข้ามกำแพง แล้วกลับไปเท</div></li>
+        <li><div><b>ปลดล็อกแม่น้ำ</b> ซอฟต์แวร์จะไปแม่น้ำได้ต่อเมื่อนับว่าเทครบ 9 ชิ้นแล้วเท่านั้น (ข้อ 5.2-6) หุ่นจอดชิดกำแพงบน <b>ตลิ่งฝั่งเรา</b> แล้วสไลด์ข้างเลียบตลิ่งด้วยล้อ Mecanum เก็บ <b>ทั้ง 2 แถว 8 ชิ้น</b> แถวใกล้ใช้แขนหด ส่วนแถวไกล (43 ซม. เลยกำแพง) ยืดรางลิ้นชักออกได้สูงสุด 28.5 ซม. แล้วกลับไปเท</div></li>
         <li><div><b>ตัวจัดการเวลา</b> ก่อนเก็บชิ้นถัดไป ระบบประเมินว่ายังมีเวลากลับไปเทหรือไม่ ถ้าไม่พอจะหยุดเก็บแล้วไปเททันที เพราะคะแนนนับเฉพาะของที่อยู่ในถังตอนหมดเวลา</div></li>
       </ol>
     </div>
@@ -232,17 +232,17 @@ footer{color:var(--muted);font-size:13px}
     <thead><tr><th>ข้อ</th><th>กติกากำหนด</th><th>แบบนี้ทำอย่างไร</th><th>สถานะ</th></tr></thead>
     <tbody>
       <tr><td class="ref">3.2-1</td><td>ก่อนเริ่ม กว้าง ≤ 25 ยาว ≤ 25 ซม. สูงไม่จำกัด ขยายได้ระหว่างแข่ง</td><td>ฐาน 24 × 24 ซม. ทุกชิ้นอยู่ในกรอบ ±12.3 ซม. แขนพับไว้เหนือลูกโม่ ลิ้นชักหดเข้า กางแขน/เลื่อนลิ้นชักหลังสัญญาณเริ่มเท่านั้น (กดปุ่ม “ท่าเริ่ม” เพื่อดูกล่อง)</td><td><span class="chip ok">ผ่าน</span></td></tr>
-      <tr><td class="ref">3.2-2</td><td>ไม่จำกัดน้ำหนัก</td><td>ประมาณ 3.5 กก.</td><td><span class="chip ok">ผ่าน</span></td></tr>
+      <tr><td class="ref">3.2-2</td><td>ไม่จำกัดน้ำหนัก</td><td>ประมาณ 3.9 กก.</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">3.2-3</td><td>อัตโนมัติเท่านั้น ห้าม RF, Bluetooth, Wi-Fi, IR remote, สายทุกชนิด</td><td>เริ่มด้วยปุ่มบนตัวหุ่น Arduino Mega ไม่มีวิทยุ ส่วน Raspberry Pi 5 ปิด Wi-Fi/BT ใน <span class="mono">config.txt</span> (<span class="mono">dtoverlay=disable-wifi</span>, <span class="mono">disable-bt</span>)</td><td><span class="chip warn">ถามกรรมการ</span></td></tr>
-      <tr><td class="ref">3.2-4, 5</td><td>บอร์ด มอเตอร์ เซนเซอร์ ไม่จำกัด</td><td>Pi 5 + Mega, มอเตอร์ DC 2 + สเต็ปเปอร์ 3 + เซอร์โว 3</td><td><span class="chip ok">ผ่าน</span></td></tr>
-      <tr><td class="ref">3.2-6</td><td>แรงดันรวม ≤ 24 V และ ≤ 25 V ตอนชาร์จเต็ม</td><td>LiPo 3S ก้อนเดียว 11.1 V ชาร์จเต็ม 12.6 V</td><td><span class="chip ok">ผ่าน</span></td></tr>
+      <tr><td class="ref">3.2-4, 5</td><td>บอร์ด มอเตอร์ เซนเซอร์ ไม่จำกัด</td><td>Pi 5 + Mega, มอเตอร์ DC 4 (ล้อ) + N20 1 (แขนยืด) + สเต็ปเปอร์ 3 + เซอร์โว 3 · มอเตอร์ทุกตัวอยู่บนบัส 18 V</td><td><span class="chip ok">ผ่าน</span></td></tr>
+      <tr><td class="ref">3.2-6</td><td>แรงดันรวม ≤ 24 V และ ≤ 25 V ตอนชาร์จเต็ม</td><td>LiFePO4 6S ก้อนเดียว 19.2 V ชาร์จเต็ม 21.6 V (LiPo 6S เต็ม 25.2 V เกินกติกา) · บัสมอเตอร์ 18 V คงที่ผ่าน DC-DC</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">3.2-7</td><td>ต้องสแกน QR Code ได้</td><td>กล้องข้างซ้ายสูง 14 ซม. ห่างหน้าถัง ~9.6 ซม. ใช้ OpenCV QRCodeDetector</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">3.2-8, 5.2-8</td><td>หยิบ จับ คีบ และบรรทุก/ซ้อน (Stack) ได้มากกว่า 1 ชิ้น</td><td>มือคีบ + ลูกโม่ 3 ช่อง ช่องละ 4 ชิ้นซ้อนแนวตั้ง รวม 12</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">3.2-9</td><td>ห้ามหุ่นยนต์สำเร็จรูป ต้องสร้าง/ประกอบเอง</td><td>โครงสร้างออกแบบเองทั้งหมด ใช้ชิ้นส่วนมาตรฐาน (มอเตอร์ ราง บอร์ด)</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">5.2-2, 3</td><td>วางทิศใดก็ได้ใน Start, สลับฝั่ง A/B ระหว่างรอบ</td><td>สวิตช์เลือกฝั่งบนตัวหุ่น โปรแกรมสลับซ้าย-ขวาของเส้นทางทั้งหมดให้อัตโนมัติ</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">5.2-5, 7</td><td>เก็บฝั่งตัวเอง ทิ้งถังฝั่งตรงข้าม ใช้สะพานฝั่งตัวเอง</td><td>เส้นทางล็อกไว้กับสะพานฝั่งเดียวกับ Start</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">5.2-6</td><td>เก็บแม่น้ำได้หลังเทขยะพื้นครบทุกชิ้น</td><td>State machine ปลดล็อกเฟสแม่น้ำเมื่อนับการเทครบ 9 ชิ้น</td><td><span class="chip ok">ผ่าน</span></td></tr>
-      <tr><td class="ref">5.3-5</td><td>ชนขยะฝ่ายตรงข้ามจนขยับ หัก 10 คะแนน/ชิ้น</td><td>วิ่งในเลนขอบสนาม ห่างจุดวางของโซน B มากกว่า 20 ซม. ไม่เข้าไปเก็บแถวไกลของแม่น้ำจากตลิ่งฝั่ง B ถ้าจุดของโซน B แถวนั้นยังมีของ</td><td><span class="chip ok">ผ่าน</span></td></tr>
+      <tr><td class="ref">5.3-5</td><td>ชนขยะฝ่ายตรงข้ามจนขยับ หัก 10 คะแนน/ชิ้น</td><td>วิ่งในเลนขอบสนาม ห่างจุดวางของโซน B มากกว่า 20 ซม. เก็บแม่น้ำทั้ง 2 แถวจากตลิ่งฝั่ง A จึงไม่ต้องเข้าใกล้ขยะของโซน B เลย</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">5.3-8</td><td>ขยะตกนอกสนามแล้วใช้ไม่ได้</td><td>เปิดประตูเทเฉพาะเมื่อ ToF ด้านซ้ายยืนยันว่าชิดถัง ≤ 1 ซม. และกล้องเห็น QR อยู่กลางภาพ</td><td><span class="chip ok">ผ่าน</span></td></tr>
       <tr><td class="ref">5.4-3</td><td>Retry ตอนมีของบนหุ่น ของนั้นถูกริบ</td><td>ข้อแลกเปลี่ยนของการขนเยอะ: มีปุ่มเลือกเฟสตอน Retry (เริ่มที่ “เท” หรือ “แม่น้ำ”) และต้องซ้อมให้เสถียรก่อนเพิ่มความเร็ว</td><td><span class="chip warn">ความเสี่ยง</span></td></tr>
     </tbody>
@@ -255,7 +255,7 @@ footer{color:var(--muted);font-size:13px}
     <div class="bar3" id="budget"></div>
     <div class="scale"><span>0 s</span><span>60</span><span>120</span><span>180 s</span></div>
     <div class="bkey" id="bkey"></div>
-    <p class="en">ตัวเลขเป็นค่าประมาณจากความเร็วที่ตั้งไว้ในเดโม (ขับ 45 ซม./วินาที, บนสะพาน 30, ยก 79 ซม. ใน 2 วินาที) เวลาจริงของแต่ละสนามที่สุ่มดูได้จากนาฬิกาในโหมด “ในสนาม” · Floor run ≈ 100 s for 90 points; the near river row brings it to ≈ 175 s for 170 points.</p>
+    <p class="en">ตัวเลขเป็นค่าเฉลี่ยจากเดโม 20 สนามสุ่ม ความเร็วที่ตั้งไว้ที่ 18 V: ขับ 66 ซม./วินาที, บนสะพาน 40, ยก 79 ซม. ใน 1.4 วินาที เก็บแม่น้ำครบ 8 ชิ้นทุกสนาม จบเฉลี่ย 141 วินาที ได้เฉลี่ย 242 คะแนน (11/20 สนามได้ 250) ที่หายไปเกิดจากสนามที่ขยะแม่น้ำชนิดเดียวมีเกิน 4 ชิ้น ช่องเต็มจึงต้องใส่ช่องอื่น และลงถังผิดได้ครึ่งคะแนน</p>
   </div>
 </section>
 
@@ -264,16 +264,16 @@ footer{color:var(--muted);font-size:13px}
   <div class="tablewrap"><table>
     <thead><tr><th>ระบบ</th><th>ชิ้นส่วน</th><th>จำนวน</th><th>หมายเหตุ</th></tr></thead>
     <tbody>
-      <tr><td>ฐานขับ</td><td>มอเตอร์ DC 12 V มี encoder (JGB37-520, 333 rpm), ล้อยาง 70 มม., ball caster</td><td class="mono">2 / 2 / 2</td><td>caster หลังแบบมีสปริง กันล้อขับลอยตอนขึ้น-ลงทางลาด, ไดรเวอร์ Cytron MDD3A</td></tr>
+      <tr><td>ฐานขับ</td><td>มอเตอร์ JGB37-520 333 rpm รุ่น 12 V (ขนาดเดิม) มี encoder, ล้อ Mecanum 60 มม. (ซ้าย/ขวา)</td><td class="mono">4 / 4</td><td>จ่าย 18 V (1.5 เท่าของพิกัด): ความเร็วตัวเปล่าราว 500 rpm แรงบิดตอนออกตัวและกระแสสูงขึ้นราว 50% ความร้อนในขดลวดราว 2.25 เท่า ต้องจำกัดกระแสและความเร่งในเฟิร์มแวร์ ห้ามค้างมอเตอร์ตอนติด ไดรเวอร์ Cytron MDD10A 2 ตัว (รับได้ถึง 25 V)</td></tr>
       <tr><td>ลิฟต์</td><td>NEMA17 + TMC2209, อะลูมิเนียม 2020 ยาว 900 มม., ชุดล้อ V-slot, สายพาน GT2 + พูลเลย์ 20T</td><td class="mono">1 ชุด</td><td>ลิมิตสวิตช์ล่างสำหรับ home</td></tr>
-      <tr><td>แขนสวิง</td><td>เซอร์โว 270° (DS3218), แขนอะลูมิเนียม 19.5 ซม., ลูกปืนหน้าแปลน</td><td class="mono">1</td><td>รับน้ำหนักด้วยลูกปืน เซอร์โวแค่หมุน</td></tr>
+      <tr><td>แขนสวิง + ยืด</td><td>เซอร์โว 270° (DS3218), แขนอะลูมิเนียม 19.5 ซม., ลูกปืนหน้าแปลน, รางลิ้นชักลูกปืน 3 ตอน 300 มม. ประกบ 2 เส้น, N20 รุ่น 12 V + รอก Ø16 + เชือก</td><td class="mono">1 / 1 / 2 / 1</td><td>ยืด 0–28.5 ซม. N20 อยู่บนบัส 18 V แต่จำกัด PWM ไม่เกิน 67% (เทียบเท่า 12 V) ลิมิตสวิตช์ปลายหด</td></tr>
       <tr><td>มือคีบ</td><td>MG996R, นิ้วพิมพ์ 3D บุยาง, Inductive LJ12A3-4-Z/BX, IR break-beam</td><td class="mono">1 / 2 / 1 / 1</td><td>Inductive ยืนยันกระป๋องโลหะซ้ำกับกล้อง</td></tr>
       <tr><td>ลูกโม่</td><td>ท่ออะคริลิกใส OD 76 / ID 70 มม. ยาว 460 มม., แผ่นวงแหวนตัดเลเซอร์, NEMA17 + TMC2209, Hall A3144</td><td class="mono">3 / 3 / 1 / 1</td><td>แผ่นรองใต้ท่อติดเทป PTFE ให้ขยะลื่นตอนหมุน</td></tr>
       <tr><td>ลิ้นชักเลื่อน</td><td>ราง MGN12 ยาว 250 มม. (4 carriage), สเต็ปเปอร์ตัวสั้น + GT2, ลิมิตสวิตช์</td><td class="mono">2 / 1 / 2</td><td>ระยะเลื่อน 140 มม.</td></tr>
       <tr><td>ประตูเท</td><td>MG90S + แผ่นปิดอะคริลิก 3 มม.</td><td class="mono">1</td><td>หมุนแนวนอน ไม่ห้อยลงไปชนถัง</td></tr>
       <tr><td>กล้อง/สมอง</td><td>Raspberry Pi 5 (4 GB), Camera Module 3 Wide, Arduino Mega 2560</td><td class="mono">1 / 2 / 1</td><td>Pi ทำภาพ ส่งคำสั่งให้ Mega ทาง UART</td></tr>
       <tr><td>เซนเซอร์นำทาง</td><td>IR line array 8 ช่อง (QTR-8RC), IMU BNO055, ToF VL53L0X</td><td class="mono">1 / 1 / 2</td><td>ToF หน้า + ซ้าย สำหรับระยะชิดกำแพง/ถัง</td></tr>
-      <tr><td>ไฟฟ้า</td><td>LiPo 3S 2200–3000 mAh, buck 5 V 5 A, UBEC 6 V 5 A, ฟิวส์ 10 A, สวิตช์หลัก, ปุ่ม Start</td><td class="mono">1 ชุด</td><td>ไฟเซอร์โวแยกจากไฟ Pi</td></tr>
+      <tr><td>ไฟฟ้า</td><td>LiFePO4 6S 2500 mAh, DC-DC 18 V 20 A (บัสมอเตอร์ล้อ/สเต็ปเปอร์/N20), buck 5 V 5 A (Pi), UBEC 6 V 5 A (เซอร์โว), ฟิวส์ 20 A, สวิตช์หลัก, ปุ่ม Start</td><td class="mono">1 ชุด</td><td>ไฟเซอร์โวแยกจากไฟ Pi</td></tr>
       <tr><td>โครง</td><td>ฐานอะลูมิเนียม 3 มม. 240 × 240, เสา 2020 ยาว 226 มม.</td><td class="mono">1 / 4</td><td>แผ่นบนลูกโม่ตัดเลเซอร์อะคริลิก 6 มม.</td></tr>
     </tbody>
   </table></div>
@@ -1438,6 +1438,8 @@ const BETA_L=Math.atan2(LOAD.x-C.x, LOAD.z-C.z), BETA_D=Math.PI/2;
 const HOLE={x:C.x+RR, z:C.z};
 const CLAW={x:PIV.x, z:PIV.z+ARM_L};
 const CAM_SIDE={x:3.0,y:14,z:-3};
+const EXT_MAX=28.5, XBANK=43.25;   // drawer-slide extension of the arm; robot centre x when its front touches the river wall
+const V_DRIVE=66, V_BRIDGE=40, K_LIFT=0.7;   // 18 V bus: drive +50 % (JGB37 333 -> ~500 rpm no-load, capped for a 98 cm tall robot), steppers step faster
 const TYPES=[
   {th:'โลหะ', color:0x6B7987, cssv:'--t-metal', w:5.3, H:10.4},
   {th:'พลาสติก', color:0x2C7BE5, cssv:'--t-plastic', w:4.7, H:10.8},
@@ -1495,15 +1497,19 @@ function makeItem(type){
 const COL={frame:0x39434C,orange:0xE8590C,alu:0xB9C1C8,dark:0x252C32,rubber:0x17191C};
 const robot=new T.Group(); scene.add(robot);
 const base=new T.Group(); robot.add(base);
-slab([[-12,-12],[12,-12],[12,-5.2],[9,-5.2],[9,3.2],[12,3.2],[12,12],[-12,12],[-12,3.2],[-9,3.2],[-9,-5.2],[-12,-5.2]],null,.6,mat('drive',COL.frame,{metalness:.35,roughness:.45}),base,5.2);
-[1,-1].forEach(sx=>{
-  const w=new T.Group(); w.position.set(sx*10.6,3.5,-1); base.add(w);
-  mesh(cyl(3.5,3.5,2.4,40),mat('drive',COL.rubber,{roughness:.9}),w).rotation.z=Math.PI/2;
-  mesh(cyl(2,2,2.5,24),mat('drive',COL.orange),w).rotation.z=Math.PI/2;
-  mesh(cyl(1.85,1.85,5.2,24),mat('drive',COL.alu,{metalness:.7,roughness:.3}),base,sx*6.0,3.5,-1).rotation.z=Math.PI/2;
-  mesh(box(1.6,3.4,3.4),mat('drive',0xC9A227,{metalness:.6}),base,sx*8.3,3.5,-1);
+slab([[-9,-12],[9,-12],[9,-4.4],[12,-4.4],[12,4.4],[9,4.4],[9,12],[-9,12],[-9,4.4],[-12,4.4],[-12,-4.4],[-9,-4.4]],null,.6,mat('drive',COL.frame,{metalness:.35,roughness:.45}),base,5.2);
+const wheels=[];
+[[1,1],[-1,1],[1,-1],[-1,-1]].forEach(([sx,sz])=>{          // Mecanum Ø60 at the four corners, rollers at 45 deg (X pattern seen from above)
+  const w=new T.Group(); w.position.set(sx*10.6,3.0,sz*8.2); base.add(w); const sp=new T.Group(); w.add(sp);
+  mesh(cyl(1.5,1.5,2.6,20),mat('drive',COL.orange),sp).rotation.z=Math.PI/2;
+  [-1.15,1.15].forEach(x=>mesh(cyl(2.2,2.2,.3,24),mat('drive',COL.alu,{metalness:.6,roughness:.35}),sp,x,0,0).rotation.z=Math.PI/2);
+  for(let i=0;i<9;i++){ const a=i/9*Math.PI*2; const r=new T.Group(); r.position.set(0,Math.cos(a)*2.45,Math.sin(a)*2.45); r.rotation.x=-a; sp.add(r);
+    const ro=mesh(cyl(.55,.55,2.3,10),mat('drive',COL.rubber,{roughness:.9}),r); ro.rotation.z=Math.PI/2; ro.rotation.y=sx*sz*Math.PI/4; }
+  wheels.push({sp,sx,sz});
+  mesh(cyl(1.85,1.85,5.2,24),mat('drive',COL.alu,{metalness:.7,roughness:.3}),base,sx*5.2,3.0,sz*8.2).rotation.z=Math.PI/2;
+  mesh(box(1.6,3.4,3.4),mat('drive',0xC9A227,{metalness:.6}),base,sx*8.3,3.0,sz*8.2);
 });
-[8,-9.5].forEach(z=>{ mesh(new T.SphereGeometry(1.2,20,14),mat('drive',0xD0D5DA,{metalness:.8,roughness:.2}),base,0,1.2,z); mesh(cyl(1.6,1.6,3,20),mat('drive',COL.dark),base,0,3.7,z); });
+mesh(box(5.4,2.2,3.6),mat('power',0x8C1C13),base,0,2.4,0);        // DC-DC 18 V 20 A buck: the 18 V bus for all motors (under the plate)
 mesh(box(9,.4,1.6),mat('sensors',0x1B5E20),base,0,1.0,10.9);
 mesh(box(1.6,1,.4),mat('sensors',0x6A1B9A),base,0,7.0,12.1);
 mesh(box(.4,1,1.6),mat('sensors',0x6A1B9A),base,12.1,7.0,3.5);
@@ -1539,6 +1545,12 @@ mesh(box(2.2,4,2),mat('arm',0x1F2A33),carriage,PIV.x,-2.6,PIV.z);
 const armPivot=new T.Group(); armPivot.position.set(PIV.x,0,PIV.z); carriage.add(armPivot);
 mesh(cyl(1.3,1.3,.8,24),mat('arm',COL.alu,{metalness:.7}),armPivot,0,.2,0);
 mesh(box(1.6,1.2,ARM_L+1.6),mat('arm',COL.orange),armPivot,0,.3,ARM_L/2);
+// 2 x 3-section ball-bearing drawer slides (300 mm) back-to-back under the arm, string-driven by an N20 + spool at the pivot
+const slideMid=new T.Group(), slideIn=new T.Group(); armPivot.add(slideMid); armPivot.add(slideIn);
+mesh(box(2.4,.9,24),mat('arm',0xB9C1C8,{metalness:.75,roughness:.3}),armPivot,0,-.75,ARM_L-12+.8);
+mesh(box(2.0,.7,22),mat('arm',0xD5DADF,{metalness:.7,roughness:.3}),slideMid,0,-.75,ARM_L-11+.8);
+mesh(box(1.6,.5,21),mat('arm',0x8E979E,{metalness:.7,roughness:.35}),slideIn,0,-.75,ARM_L-10.5+.8);
+mesh(box(1.4,1.2,2.6),mat('arm',COL.dark),armPivot,0,1.5,1.2);
 const claw=new T.Group(); claw.position.set(0,0,ARM_L); armPivot.add(claw);
 mesh(box(2.4,2.6,4.2),mat('claw',0x1F2A33),claw,0,2,0);
 mesh(box(9.8,.6,4),mat('claw',COL.dark),claw,0,-.6,0);
@@ -1575,10 +1587,10 @@ const beam=new T.Mesh(new T.ConeGeometry(4,1,32,1,true),beamMat); beam.rotation.
 function showBeam(L){ beam.scale.set(1,L,1); beam.position.set(CAM_SIDE.x+.9+L/2,CAM_SIDE.y,CAM_SIDE.z); beam.visible=true; }
 
 /* ---------- robot state ---------- */
-const START_STATE={h:H_TOP,yaw:YAW_LOAD,gap:GAP_OPEN,psi:0,slide:0,shut:0};
+const START_STATE={h:H_TOP,yaw:YAW_LOAD,gap:GAP_OPEN,psi:0,slide:0,shut:0,ext:0};
 const st=Object.assign({},START_STATE);
 function applyRobot(){
-  carriage.position.y=st.h; armPivot.rotation.y=st.yaw;
+  carriage.position.y=st.h; armPivot.rotation.y=st.yaw; claw.position.z=ARM_L+st.ext; slideMid.position.z=st.ext/2; slideIn.position.z=st.ext;
   fingers[0].position.x=st.gap/2+.35; fingers[1].position.x=-(st.gap/2+.35);
   upper.position.x=st.slide; revolver.rotation.y=st.psi; shutPivot.rotation.y=-100*D*st.shut;
 }
@@ -1625,14 +1637,14 @@ function releaseInto(it,i){ return {init(){
   const p=it.position.clone(), gfrom=st.gap; it.userData.state='tube'; it.userData.tube=i; hud();
   return {d:.5,u:k=>{ st.gap=gfrom+(GAP_OPEN-gfrom)*Math.min(1,k*2.5); it.position.set(p.x*(1-k),p.y+(y0-p.y)*k*k,p.z*(1-k)); }};
 }}; }
-function pickSeq(it){
+function pickSeq(it,ext=0){
   const ty=TYPES[it.userData.type]; let tube=-1;
   return [
-    waitBg(), dyn(()=> Math.abs(st.yaw)>.01 ? [S({h:H_TOP},1.2), S({yaw:0},.7)] : []),
-    S({h:7+ty.H/2,gap:GAP_OPEN},1.8),
+    waitBg(), dyn(()=> Math.abs(st.yaw)>.01 ? [S({h:H_TOP},1.2*K_LIFT), S({yaw:0},.7)] : []),
+    par(S({h:7+ty.H/2,gap:GAP_OPEN},1.8*K_LIFT), S({ext},ext>0?.7:.01)),
     S({gap:ty.w},.35),
     call(()=>{ carryAnchor.attach(it); it.position.set(0,-ty.H/2,0); it.rotation.set(0,0,0); it.userData.state='carried'; tube=chooseTube(it); if(it.userData.ring){ it.userData.ring.parent.remove(it.userData.ring); it.userData.ring=null; } }),
-    dyn(()=>[par(S({h:H_TOP},2.0),tRev(Math.max(tube,0),'load',.8))]),
+    dyn(()=>[par(S({h:H_TOP},2.0*K_LIFT),S({ext:0},st.ext>0?.7:.01),tRev(Math.max(tube,0),'load',.8))]),
     S({yaw:YAW_LOAD},.7),
     dyn(()=> tube>=0 ? [releaseInto(it,tube)] : [])
   ];
@@ -1657,15 +1669,15 @@ function placePins(){ const w=stage.clientWidth,h=stage.clientHeight; pins.forEa
 
 /* ---------- parts ---------- */
 const PARTS=[
-  {k:'drive',mats:['drive'],n:'ฐานขับเคลื่อน',en:'Drive base',obj:base,at:[12.6,3.5,-1],
-   spec:['มอเตอร์ DC 12 V มี encoder 2 ตัว ล้อ 70 มม.','ball caster หน้า + หลัง (หลังมีสปริง)','IR line array 8 ช่องใต้หน้า + IMU'],
-   why:'วิ่งตามเส้นดำกลางสะพานได้แม่น เพราะสะพานกว้าง 30 ซม. แต่หุ่นกว้าง 24 ซม.'},
+  {k:'drive',mats:['drive'],n:'ฐานล้อ Mecanum',en:'Mecanum base',obj:base,at:[12.6,3.0,8.2],
+   spec:['JGB37-520 333 rpm (รุ่น 12 V ขนาดเดิม) 4 ตัว มี encoder','จ่ายไฟ 18 V คงที่จาก DC-DC · ความเร็วตัวเปล่าราว 500 rpm (+50%)','ล้อ Mecanum Ø60 มม. 4 ล้อ · IR line array 8 ช่อง + IMU'],
+   why:'สไลด์ข้างเลียบตลิ่งได้โดยไม่ต้องหมุนตัว ใช้เก็บแม่น้ำทีละชิ้น และจอดหน้าถังได้แม่นกว่าล้อ 2 ล้อ'},
   {k:'lift',mats:['lift'],n:'ลิฟต์แนวตั้ง',en:'Vertical lift',obj:base,at:[MAST.x+1.2,62,MAST.z+1.2],
    spec:['NEMA17 + สายพาน GT2 บนอะลูมิเนียม 2020 สูง 95 ซม.','ระยะยกแขน 12 → 91 ซม. ใช้เวลา ~2 วินาที'],
    why:'ยกขยะจากพื้นขึ้นไปเหนือปากท่อ (สูง 77 ซม.) ด้วยการเคลื่อนที่ทางเดียว'},
-  {k:'arm',mats:['arm'],n:'แขนสวิง',en:'Swing arm',obj:armPivot,at:[0,1.4,ARM_L*.45],
-   spec:['เซอร์โว 270° หมุนแขนยาว 19.5 ซม.','ท่าหน้า: มือคีบยื่นพ้นหน้าหุ่น 18.5 ซม.','ท่าหลัง: มือคีบอยู่ตรงช่องรับของลูกโม่พอดี'],
-   why:'ยื่นข้ามกำแพงแม่น้ำได้ และเก็บของโดยไม่ต้องขับทับจุดที่ยังมีขยะ'},
+  {k:'arm',mats:['arm'],n:'แขนสวิง + รางลิ้นชักยืด',en:'Swing + telescoping arm',obj:armPivot,at:[0,1.4,ARM_L*.45],
+   spec:['เซอร์โว 270° หมุนแขนยาว 19.5 ซม.','รางลิ้นชักลูกปืน 3 ตอน 2 เส้น ยืดเพิ่ม 0 → 28.5 ซม. ด้วย N20 + เชือก','ท่าหน้า: ยื่นพ้นหน้าหุ่น 18.5 ซม. (หด) ถึง 47 ซม. (ยืด)','ท่าหลัง: หดสุด มือคีบอยู่ตรงช่องรับของลูกโม่'],
+   why:'ยืนบนตลิ่งฝั่งเราแล้วเอื้อมถึงแถวไกลของแม่น้ำ (43 ซม. เลยกำแพง) ไม่ต้องข้ามไปตลิ่งฝั่ง B'},
   {k:'claw',mats:['claw'],n:'มือคีบ',en:'Gripper',obj:claw,at:[0,-4,0],
    spec:['MG996R นิ้วบุยาง อ้าได้ 8.6 ซม.','Inductive sensor ยืนยันว่าเป็นกระป๋องโลหะ','IR break-beam ตรวจว่ามีของในมือ'],
    why:'คีบของที่ตั้งอยู่และปล่อยลงท่อในท่าตั้ง ของจึงซ้อนกันเป็นระเบียบ'},
@@ -1682,7 +1694,7 @@ const PARTS=[
    spec:['กล้องบนยอดเสา 96 ซม. มองทั้งโซน แยกชนิดขยะ','กล้องข้างซ้ายสูง 14 ซม. อ่าน QR ที่ระยะ ~9.6 ซม.','ToF หน้า/ซ้าย วัดระยะชิดกำแพงและถัง'],
    why:'ถ่ายภาพครั้งเดียวรู้ทั้งตำแหน่งและชนิดของขยะทั้ง 9 ชิ้น จึงวางลำดับการเก็บได้ก่อนออกตัว'},
   {k:'power',mats:['power'],n:'สมอง + ไฟฟ้า',en:'Control + power',obj:base,at:[-3.5,9.4,1],
-   spec:['Raspberry Pi 5 (ภาพ) + Arduino Mega (มอเตอร์)','LiPo 3S 11.1 V เต็ม 12.6 V, ฟิวส์ 10 A','ปุ่ม Start + สวิตช์เลือกฝั่ง A/B'],
+   spec:['Raspberry Pi 5 (ภาพ) + Arduino Mega (มอเตอร์)','LiFePO4 6S 19.2 V (เต็ม 21.6 V) · DC-DC 18 V 20 A เป็นบัสมอเตอร์ทุกตัว · ฟิวส์ 20 A','ปุ่ม Start + สวิตช์เลือกฝั่ง A/B'],
    why:'แยกงานภาพกับงานคุมมอเตอร์ ถ้า Pi ช้า หุ่นก็ยังหยุด/เบรกตรงเวลา'},
 ];
 const plist=$('#plist'), pdesc=$('#pdesc'); let selPart=null, showPins=true, mode='robot';
@@ -1795,44 +1807,54 @@ function layoutField(){
 /* ---------- field motion ---------- */
 let pose={x:185,z:85,h:-Math.PI/2};
 function groundY(x,z){ const az=Math.abs(z); if(az<70||az>100) return 0; const ax=Math.abs(x); if(ax>=65) return 0; if(ax<=30) return 10; return 10*(65-ax)/35; }
-function applyPose(){ const s=Math.sin(pose.h),c=Math.cos(pose.h); const f=groundY(pose.x+9*s,pose.z+9*c), b=groundY(pose.x-9*s,pose.z-9*c); robot.position.set(pose.x,(f+b)/2,pose.z); robot.rotation.set(-Math.atan2(f-b,18),pose.h,0,'YXZ'); }
+let pPrev=null; function applyPose(){ if(pPrev&&wheels){ const dx=pose.x-pPrev.x,dz=pose.z-pPrev.z,dh=wrapA(pose.h-pPrev.h),s0=Math.sin(pose.h),c0=Math.cos(pose.h),f=dx*s0+dz*c0,sd=dx*c0-dz*s0; wheels.forEach(w=>{ w.sp.rotation.x+=(f+w.sx*w.sz*sd*-1-w.sx*dh*14)/3; }); } pPrev={x:pose.x,z:pose.z,h:pose.h}; const s=Math.sin(pose.h),c=Math.cos(pose.h); const f=groundY(pose.x+9*s,pose.z+9*c), b=groundY(pose.x-9*s,pose.z-9*c); robot.position.set(pose.x,(f+b)/2,pose.z); robot.rotation.set(-Math.atan2(f-b,18),pose.h,0,'YXZ'); }
 function turnInit(target){ const from=pose.h, d=wrapA(target-from); if(Math.abs(d)<1e-3) return {d:0,u(){}}; return {d:Math.abs(d)/Math.PI*1.1+.15,u:k=>{ pose.h=from+d*ease(k); }}; }
 const tTurnTo=h=>({init(){ return turnInit(h); }});
 const tTurnToward=(x,z)=>({init(){ const dx=x-pose.x,dz=z-pose.z; if(Math.hypot(dx,dz)<.5) return {d:0,u(){}}; let t=Math.atan2(dx,dz); if(Math.abs(wrapA(t-pose.h))>Math.PI/2+.05) t=wrapA(t+Math.PI); return turnInit(t); }});
-const tDrive=(x,z,v=45)=>({init(){ const fx=pose.x,fz=pose.z,dist=Math.hypot(x-fx,z-fz); if(dist<.2) return {d:0,u(){}}; return {d:dist/v+.35,u:k=>{ const e=ease(k); pose.x=fx+(x-fx)*e; pose.z=fz+(z-fz)*e; }}; }});
-const go=(x,z,v)=>[tTurnToward(x,z),tDrive(x,z,v)];
+const tDrive=(x,z,v=V_DRIVE)=>({init(){ const fx=pose.x,fz=pose.z,dist=Math.hypot(x-fx,z-fz); if(dist<.2) return {d:0,u(){}}; return {d:dist/v+.35,u:k=>{ const e=ease(k); pose.x=fx+(x-fx)*e; pose.z=fz+(z-fz)*e; }}; }});
+// Mecanum: translate and turn at the same time, no need to face the direction of travel
+const tGoTo=(x,z,h,v=V_DRIVE)=>({init(){ const fx=pose.x,fz=pose.z,fh=pose.h,dh=h==null?0:wrapA(h-fh),dist=Math.hypot(x-fx,z-fz); if(dist<.2&&Math.abs(dh)<1e-3) return {d:0,u(){}};
+  return {d:Math.max(dist/v,Math.abs(dh)/Math.PI*1.1)+.3,u:k=>{ const e=ease(k); pose.x=fx+(x-fx)*e; pose.z=fz+(z-fz)*e; pose.h=fh+dh*e; }}; }});
+const go=(x,z,v)=>[tGoTo(x,z,null,v)];
 const WEST=-Math.PI/2, NORTH=Math.PI, EAST=Math.PI/2;
 function clawPose(p,h){ const s=Math.sin(h),c=Math.cos(h); return {x:p.x-(CLAW.x*c+CLAW.z*s), z:p.z-(-CLAW.x*s+CLAW.z*c)}; }
-function pickAt(it){ const p=clawPose(it.position,WEST); return [...go(p.x,p.z),tTurnTo(WEST),...pickSeq(it),bgTask(S({yaw:0},.7))]; }
+function pickAt(it){ const p=clawPose(it.position,WEST); return [tGoTo(p.x,p.z,WEST),...pickSeq(it),bgTask(S({yaw:0},.7))]; }
 function snake(items){ const cols={}; items.forEach(it=>{ const k=it.position.x.toFixed(2); (cols[k]=cols[k]||[]).push(it); }); const out=[]; let desc=true; Object.keys(cols).map(Number).sort((a,b)=>b-a).forEach(k=>{ out.push(...cols[k.toFixed(2)].sort((a,b)=>desc?b.position.z-a.position.z:a.position.z-b.position.z)); desc=!desc; }); return out; }
 const binTarget=b=>({group:b.group,floorY:.6,sx:13,sz:21,onItem:it=>{ const full=it.userData.river?20:10; const pts=it.userData.type===b.type?full:full/2; score+=pts; flash(`+${pts} ${TYPES[it.userData.type].th}${pts<full?' (ผิดถัง ได้ครึ่งเดียว)':''}`); }});
 function scanTask(b){ return {init(){ showBeam(9.4); setPhase('กล้องข้างอ่าน QR ของถัง…'); return {d:.6,u:k=>{ if(k>=1){ beam.visible=false; b.pin.on=true; } }}; }}; }
-function dumpAt(b){ return [ ...go(-165.5,b.z-3,30), tTurnTo(NORTH), scanTask(b), dyn(()=>{ const i=b.type; if(!tubeCount(i)) return [call(()=>setPhase(`ถัง ${TYPES[i].th}: ไม่มีของในช่องนี้ ข้ามไป`)),wait(.3)]; return [call(()=>setPhase(`เทช่อง ${TYPES[i].th} ลงถัง ${TYPES[i].th}`)),tRev(i,'dump',.6),S({shut:1},.3),dropTube(i,binTarget(b)),wait(.3),S({shut:0},.3)]; }) ]; }
+function dumpAt(b){ return [ tGoTo(-165.5,b.z-3,NORTH,30), scanTask(b), dyn(()=>{ const i=b.type; if(!tubeCount(i)) return [call(()=>setPhase(`ถัง ${TYPES[i].th}: ไม่มีของในช่องนี้ ข้ามไป`)),wait(.3)]; return [call(()=>setPhase(`เทช่อง ${TYPES[i].th} ลงถัง ${TYPES[i].th}`)),tRev(i,'dump',.6),S({shut:1},.3),dropTube(i,binTarget(b)),wait(.3),S({shut:0},.3)]; }) ]; }
 function toBins(label){ return [ call(()=>setPhase(label)), waitBg(), bgTask(S({h:H_TRAVEL},1.4)),
-  ...go(88,80), tTurnTo(WEST), tDrive(68,85), tDrive(-68,85,30), tDrive(-150,82), tTurnTo(NORTH), ...go(-165.5,62), tTurnTo(NORTH),
+  tGoTo(88,80,WEST), tDrive(68,85), tDrive(-68,85,V_BRIDGE), tGoTo(-150,82,NORTH), tGoTo(-165.5,62,NORTH),
   call(()=>setPhase('เลื่อนลิ้นชักออก 14 ซม. ให้รูเทอยู่เหนือถัง')), S({slide:SLIDE_MAX},1.0),
   dyn(()=>binsA.slice().sort((a,b)=>b.z-a.z).filter(b=>true).map(dumpAt)), S({slide:0},1.0) ]; }
-const RETURN_EST=30;
+const RETURN_EST=26;
+let tMark={};
 function riverPhase(){
   if(simTime>180-RETURN_EST-10) return [call(()=>setPhase('เวลาไม่พอสำหรับแม่น้ำ · จบรอบ'))];
-  const near=itemsR.filter(it=>it.position.x>0&&it.userData.state==='field').sort((a,b)=>b.position.z-a.position.z);
-  const arr=[ call(()=>setPhase('ปลดล็อกแม่น้ำ · กลับไปตลิ่งฝั่ง A')), ...go(-150,82), tTurnTo(EAST), tDrive(-68,85), tDrive(68,85,30), tDrive(88,80) ];
-  near.forEach((it,n)=>arr.push(dyn(()=>{
+  // both rows from bank A: the near row with the arm retracted, the far row (43 cm past the wall) with the slides out
+  const left=itemsR.filter(it=>it.userData.state==='field');
+  const near=left.filter(it=>it.position.x>0).sort((a,b)=>b.position.z-a.position.z), far=left.filter(it=>it.position.x<0).sort((a,b)=>a.position.z-b.position.z);
+  const arr=[ call(()=>setPhase('ปลดล็อกแม่น้ำ · กลับไปตลิ่งฝั่ง A')), tGoTo(-150,82,EAST), tDrive(-68,85), tDrive(68,85,V_BRIDGE), tGoTo(88,80,WEST), call(()=>{ tMark.riverAt=simTime; }) ];
+  near.concat(far).forEach((it,n)=>arr.push(dyn(()=>{
     if(simTime+9+RETURN_EST>178) return [call(()=>setPhase('ตัวจัดการเวลา: หยุดเก็บ รีบกลับไปเท'))];
-    const p=clawPose(it.position,WEST);
-    return [call(()=>setPhase(`แม่น้ำแถวใกล้ ${n+1}/${near.length} · ยื่นแขนข้ามกำแพง`)), ...(pose.x>60?go(88,p.z):[]), ...go(p.x,p.z), tTurnTo(WEST), ...pickSeq(it), bgTask(S({yaw:0},.7))];
+    const ext=Math.max(0,Math.min(EXT_MAX,XBANK-it.position.x-CLAW.z)), rx=it.position.x+CLAW.z+ext, rz=it.position.z-CLAW.x, isFar=it.position.x<0;
+    return [call(()=>setPhase(`แม่น้ำแถว${isFar?'ไกล':'ใกล้'} · ${n+1}/${near.length+far.length} · ${isFar?`ยืดแขน ${ext.toFixed(0)} ซม. ข้ามกำแพง`:'ยื่นแขนข้ามกำแพง'} · สไลด์ข้างเลียบตลิ่ง`)),
+      tGoTo(rx,rz,WEST), ...pickSeq(it,ext), bgTask(S({yaw:0},.7))];
   })));
-  arr.push(dyn(()=> tubeG.some(g=>g.userData.items.length) ? [...go(88,pose.z), ...toBins('กลับไปเทขยะจากแม่น้ำ')] : []));
+  arr.push(call(()=>{ tMark.riverDone=simTime; }));
+  arr.push(dyn(()=> tubeG.some(g=>g.userData.items.length) ? [tGoTo(88,pose.z,WEST), ...toBins('กลับไปเทขยะจากแม่น้ำ')] : []));
   return arr;
 }
 function mission(){
   const order=snake(itemsA);
   return [
     call(()=>{ missionOn=true; setPhase('ออกจาก Start · กล้องบนถ่ายภาพโซน A'); }),
-    S({yaw:0},.7), ...go(150,78),
+    S({yaw:0},.7), tGoTo(150,78,WEST),
     wait(.8), call(markDetected),
     ...order.map((it,n)=>[call(()=>setPhase(`เก็บขยะพื้น ${n+1}/9 · ใส่ช่อง ${TYPES[it.userData.type].th}`)), pickAt(it)]),
+    call(()=>{ tMark={picked:simTime}; }),
     dyn(()=>toBins('ครบ 9 ชิ้น · ข้ามสะพานฝั่ง A ไปถังฝั่ง B')),
+    call(()=>{ tMark.floorDone=simTime; }),
     dyn(riverPhase),
     call(()=>{ missionOn=false; setPhase(`จบเดโม · ${score} คะแนน ใน ${fmt(simTime)}`); $('#bPlay').textContent='▶ เล่นใหม่'; })
   ];
@@ -1925,7 +1947,7 @@ try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyT
 new MutationObserver(applyTheme).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
 /* ---------- time budget (static estimate) ---------- */
-const BUD=[['เก็บขยะพื้น 9 ชิ้น',73,'#E8590C'],['ข้ามสะพานไปถัง',15,'#8C6A4F'],['อ่าน QR + เท 3 ถัง',14,'#1F9D61'],['กลับไปตลิ่ง',12,'#8C6A4F'],['แม่น้ำแถวใกล้ 4 ชิ้น',32,'#2C7BE5'],['กลับไปถัง',16,'#8C6A4F'],['เทรอบแม่น้ำ',14,'#1F9D61']];
+const BUD=[['เก็บขยะพื้น 9 ชิ้น',49,'#E8590C'],['ข้ามสะพาน + เท 3 ถัง',22,'#1F9D61'],['กลับไปตลิ่ง',8,'#8C6A4F'],['แม่น้ำ 2 แถว 8 ชิ้น',40,'#2C7BE5'],['กลับไปถัง + เท',22,'#1F9D61']];
 const tot=BUD.reduce((a,b)=>a+b[1],0);
 $('#budget').innerHTML=BUD.map(b=>`<div style="width:${b[1]/180*100}%;background:${b[2]}" title="${b[0]} ≈ ${b[1]} s">${b[1]}</div>`).join('')+`<div style="flex:1;background:transparent;color:var(--muted)">${180-tot}</div>`;
 $('#bkey').innerHTML=BUD.map(b=>`<span><i class="sw" style="background:${b[2]}"></i>${b[0]}<b>≈ ${b[1]} s</b></span>`).join('')+`<span><i class="sw" style="background:var(--soft);border:1px solid var(--line)"></i>เวลาเผื่อ<b>≈ ${180-tot} s</b></span>`;
@@ -1935,6 +1957,10 @@ function resize(){ const w=stage.clientWidth,h=stage.clientHeight; renderer.setS
 new ResizeObserver(resize).observe(stage); resize();
 const clock=new T.Clock();
 setMode('robot');
+if(location.hash.startsWith('#bench')){ setMode('field'); const N=+location.hash.slice(6)||20, out=[];
+  for(let k=0;k<N;k++){ seed=(20270930+k*7919)>>>0; stopAll(); layoutField(); play(mission()); let g=0; while(runner&&g++<400000) tick(.05);
+    const rv=itemsR.filter(i=>i.userData.state==='binned').length; out.push([score,+simTime.toFixed(1),rv,+(tMark.picked||0).toFixed(1),+(tMark.floorDone||0).toFixed(1),+(tMark.riverAt||0).toFixed(1),+(tMark.riverDone||0).toFixed(1)]); }
+  document.title='BENCH '+JSON.stringify(out); }
 function frame(){
   const dt=Math.min(clock.getDelta(),.1);
   tick(dt); applyRobot();
